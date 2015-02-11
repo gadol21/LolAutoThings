@@ -70,7 +70,7 @@ namespace LolThingies
                             LoLReader.FloatingText(u, "real one", MessageType.red);
                     }
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(400);
             }
         }
     }
