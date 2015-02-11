@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace LolThingies
 {
-    class WardRevieler : Module
+    class WardRevealer : Module
     {
         private Thread thread;
-        public WardRevieler(Keys key, int x, int y)
+        public WardRevealer(Keys key, int x, int y)
             : base(key, x, y)
         {
 
@@ -28,7 +28,7 @@ namespace LolThingies
         {
             if (on)
             {
-                thread = new Thread(WardRevielerFunc);
+                thread = new Thread(WardRevealerFunc);
                 thread.Start();
             }
             else
@@ -36,7 +36,7 @@ namespace LolThingies
                 thread.Abort();
             }
 
-            Console.WriteLine("ward revieler state changed " + on);
+            Console.WriteLine("ward revealer state changed " + on);
         }
         public override void Stop()
         {
@@ -49,7 +49,7 @@ namespace LolThingies
                 Communicator.GetInstance().RemoveText(w.type + " ward here");
         }
 
-        public void WardRevielerFunc()
+        public void WardRevealerFunc()
         {
             while (true)
             {

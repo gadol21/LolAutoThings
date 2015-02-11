@@ -72,7 +72,7 @@
     <Compile Include="Module.cs" />
     <Compile Include="Modules\CloneDetector.cs" />
     <Compile Include="Modules\IgniteIndicator.cs" />
-    <Compile Include="Modules\WardRevieler.cs" />
+    <Compile Include="Modules\WardRevealer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Win32.cs" />

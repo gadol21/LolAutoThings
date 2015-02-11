@@ -57,7 +57,7 @@
     <Compile Include="LoLReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\Minion.cs" />
-    <Compile Include="Units\Player.cs" />
+    <Compile Include="Units\Champion.cs" />
     <Compile Include="Units\Turret.cs" />
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Units\Ward.cs" />
