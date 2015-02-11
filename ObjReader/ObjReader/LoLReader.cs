@@ -192,7 +192,7 @@ namespace ObjectReader
             if (CanCastOffset == 0)
                 return false;
             canCast = Memory.ReadByte(processHandle, add + CanCastOffset, buffer);
-            return canCast == 0; //0=not cd
+            return canCast == 0; //0=not on cd
         }
         public static Camera GetCamera()
         {
