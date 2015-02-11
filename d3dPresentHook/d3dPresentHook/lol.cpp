@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "lol.h"
+#include <stdio.h>
 
 DWORD base = 0;
 void FloatingText(DWORD unitBase,char *string, DWORD messageType){

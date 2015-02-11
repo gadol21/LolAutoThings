@@ -7,6 +7,7 @@ namespace ObjectReader
 {
     public class Player : Unit
     {
+        public bool isAI { get; private set; }
         internal Player(int id)
             : base(id)
         {

@@ -69,41 +69,42 @@ namespace LolThingies
             Dictionary<int, DateTime> lastWriteTime = new Dictionary<int, DateTime>();
             while (true)
             {
-                List<Unit> objs = LoLReader.GetAllObjects();
-                foreach (Unit unit in objs)
+                foreach (Minion minion in LoLReader.GetAll<Minion>())
                 {
-                    Console.WriteLine(unit.name);
-                    if (unit.name.StartsWith("SRU") && !unit.name.Contains("Mini")) //temporary workaround for the new summoners rift
+                    //Console.WriteLine(unit.name);
+                    if (minion.name.StartsWith("SRU") && !minion.name.Contains("Mini") && !minion.name.Contains("Wall")) //temporary workaround for the new summoners rift
                     {
-                        if(LoLReader.IsVisible(unit))
+                        if(LoLReader.IsVisible(minion))
                         {
-                            if (unit.hp > 0)
+                            if (minion.hp > 0)
                             {
                                 Unit myHero = LoLReader.GetMyHero();
-                                if (unit.hp < unit.maxhp && LoLReader.Distance(unit, myHero) < SMITE_RANGE && LoLReader.CanCastSpell(key))
+                                if (myHero == null)
+                                    break;
+                                if (minion.hp < minion.maxhp && LoLReader.Distance(minion, myHero) < SMITE_RANGE && LoLReader.CanCastSpell(key))
                                 { //floating text
-                                    if (!lastWriteTime.ContainsKey(unit.GetId()))
-                                        lastWriteTime.Add(unit.GetId(), DateTime.Now);
-                                    if ((DateTime.Now - lastWriteTime[unit.GetId()]).Milliseconds > 600)//make a delay between calls
+                                    if (!lastWriteTime.ContainsKey(minion.GetId()))
+                                        lastWriteTime.Add(minion.GetId(), DateTime.Now);
+                                    if ((DateTime.Now - lastWriteTime[minion.GetId()]).Milliseconds > 600)//make a delay between calls
                                     {
-                                        LoLReader.FloatingText(unit, "Ready To Smite", MessageType.red);
-                                        lastWriteTime[unit.GetId()] = DateTime.Now;
+                                        LoLReader.FloatingText(minion, "Ready To Smite", MessageType.red);
+                                        lastWriteTime[minion.GetId()] = DateTime.Now;
                                     }
                                 }
                                 int myLevel = LoLReader.GetMyLevel();
                                 if (myLevel < 1 || myLevel > 18) // happens sometimes when the game ends
                                     break;
-                                if (unit.hp <= smiteDmg[myLevel - 1])
+                                if (minion.hp <= smiteDmg[myLevel - 1])
                                 {
                                     //check distance
-                                    if (LoLReader.Distance(unit, myHero) < SMITE_RANGE)
+                                    if (LoLReader.Distance(minion, myHero) < SMITE_RANGE)
                                     {
                                         if (LoLReader.CanCastSpell(key))
                                         {
                                             //maybe install a mouse hook to disable mouse movement while moving mouse and smiting
-                                            Console.WriteLine("smiting " + unit.name + DateTime.Now);
+                                            Console.WriteLine("smiting " + minion.name + DateTime.Now);
                                             //move camera
-                                            LoLReader.LookAtTarget(unit);
+                                            LoLReader.LookAtTarget(minion);
                                             //press smite button
 
                                             //unit.z += 60;

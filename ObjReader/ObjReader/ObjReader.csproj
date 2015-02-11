@@ -60,6 +60,7 @@
     <Compile Include="Units\Player.cs" />
     <Compile Include="Units\Turret.cs" />
     <Compile Include="Units\Unit.cs" />
+    <Compile Include="Units\Ward.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>

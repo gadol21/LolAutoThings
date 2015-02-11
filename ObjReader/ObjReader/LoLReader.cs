@@ -96,6 +96,11 @@ namespace ObjectReader
             Communicator.GetInstance().LoLFloatingText(target.baseAddr, message, (uint)messageType);
         }
 
+        public static List<T> GetAll<T>()
+        {
+            return GetAllObjects().OfType<T>().ToList();
+        }
+
         public static List<Unit> GetAllObjects()
         {
             lock (units)
@@ -103,31 +108,15 @@ namespace ObjectReader
                 return new List<Unit>(units);
             }
         }
-        public static List<Player> GetAllChampions()
-        {
-            return GetAllObjects().OfType<Player>().ToList();
-        }
-        public static List<Minion> GetAllMinions()
-        {
-            return GetAllObjects().OfType<Minion>().ToList();
-        }
-        public static List<Turret> GetAllTurrets()
-        {
-            return GetAllObjects().OfType<Turret>().ToList();
-        }
-        public static Unit GetMyHero()
+
+        public static Player GetMyHero()
         {
             if (processHandle == null || moduleHandle == null)
                 throw new Exception("not inited?");
             byte[] buffer = new byte[4];
             int heroObject = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.ObjectList.OurHero, buffer);
-            string ourName = Memory.ReadString(processHandle, heroObject + 0x24, buffer);
-            foreach (Unit u in GetAllObjects())
-            {
-                if (u.name == ourName)
-                    return u;
-            }
-            return null;
+            string ourName = Memory.ReadString(processHandle, heroObject + Offsets.Unit.name, buffer);
+            return GetAll<Player>().Where(u => u.name == ourName).FirstOrDefault();
         }
         public static int GetMyLevel()
         {
@@ -274,7 +263,7 @@ namespace ObjectReader
         public static Point WorldToScreen(Unit unit)
         {
             Camera c = GetCamera();
-            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle, c.CameraFovY);
+            return WorldToScreen(c.CameraX, c.CameraY, 900, unit.x, unit.y, unit.z + 60, c.CameraAngle, 100); //c.Z and c.CameraFovY are not updated for latest patch, so i used temporary values
         }
         public static bool IsOnLoadingScreen()
         {

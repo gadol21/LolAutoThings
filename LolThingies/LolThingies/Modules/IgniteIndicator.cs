@@ -30,7 +30,7 @@ namespace LolThingies
             while (true)
             {
                 Unit me = LoLReader.GetMyHero();
-                foreach (Unit u in LoLReader.GetAllChampions())
+                foreach (Unit u in LoLReader.GetAll<Player>())
                 {
                     if (me == null)
                         break;

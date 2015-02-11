@@ -87,11 +87,11 @@ namespace LolThingies
             }
 
             modules = new List<Module>();
-            modules.Add(new AutoLaugh(Keys.F8, 5, 5));
-            modules.Add(new AutoSmite(Keys.F7, 5, 25,rdbSmiteF.Checked ? "F" : "D"));
-            //modules.Add(new WriteOnMonster(Keys.F6, 5, 45));
-            modules.Add(new IgniteIndicator(Keys.F6, 5, 45));
-            //modules.Add(new Divisions(Keys.F4, 5, 85));
+            modules.Add(new AutoLaugh(Keys.F9, 5, 5));
+            modules.Add(new AutoSmite(Keys.F8, 5, 25,rdbSmiteF.Checked ? "F" : "D"));
+            modules.Add(new IgniteIndicator(Keys.F7, 5, 45));
+            modules.Add(new WardRevieler(Keys.F6, 5, 65));
+            modules.Add(new CloneDetector(Keys.F5, 5, 65));
 
             hookPtr = SetWindowsHookEx(13, myDelegate, IntPtr.Zero, 0); //WH_KEYBOARD_LL=13
             if (hookPtr == IntPtr.Zero)

@@ -73,8 +73,20 @@ namespace ObjectReader
             return id;
         }
 
+        protected static string GetName(IntPtr process, int unitBaseAddr, byte[] buffer)
+        {
+            string Object = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.objectOffset, buffer, 6);
+            if (Object == "Object")
+            {
+                int nameBaseAddr = Memory.ReadInt(process, unitBaseAddr + Offsets.Unit.name, buffer);
+                return Memory.ReadString(process, nameBaseAddr, buffer);
+            }
+            else
+                return Memory.ReadString(process, unitBaseAddr + Offsets.Unit.name, buffer);
+        }
+
         public static Unit GetUnit(IntPtr process, int listBaseAddress, int idInList)
-        { 
+        {
             byte[] buffer = new byte[4]; //temporary buffer for reading values
             int unitBaseAddr = Memory.ReadInt(process, listBaseAddress + 4 * idInList, buffer);
             if (unitBaseAddr == 0) //no unit was found there
@@ -82,30 +94,29 @@ namespace ObjectReader
             int objClass = Memory.ReadInt(process, unitBaseAddr + 4, buffer);
             string objClassName = Memory.ReadString(process, objClass + 4, buffer);
 
+            string name = GetName(process, unitBaseAddr, buffer);
+
             Unit unit;
             switch (objClassName)
             {
                 case "obj_AI_Minion":
-                    unit = new Minion(idInList);
+                    if (name == "SightWard" || name == "VisionWard")
+                        unit = new Ward(idInList, (name == "SightWard" ? WardType.Regular : WardType.Pink));
+                    else
+                        unit = new Minion(idInList);
                     break;
                 case "obj_AI_Turret":
                     unit = new Turret(idInList);
                     break;
                 case "AIHeroClient":
-                    unit = new Turret(idInList);
+                    unit = new Player(idInList);
                     break;
                 default:
                     return null;
             }
-            string Object = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.objectOffset, buffer, 6);
-            if (Object == "Object")
-            {
-                int nameBaseAddr = Memory.ReadInt(process, unitBaseAddr + Offsets.Unit.name, buffer);
-                unit.name = Memory.ReadString(process, nameBaseAddr, buffer);
-            }
-            else
-                unit.name = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.name, buffer);
 
+            unit.baseAddr = (uint)unitBaseAddr;
+            unit.name = name;
             unit.className = objClassName;
             unit.x = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.x, buffer);
             unit.y = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.y, buffer);

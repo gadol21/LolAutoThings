@@ -50,6 +50,8 @@ namespace LolThingies
             Communicator.GetInstance().SendTextUnlimitedTime(displayText, fontSize, x, y, color);
 
             KeyPress();
+            if (!on)
+                Stop();
         }
 
         public abstract void Init();
