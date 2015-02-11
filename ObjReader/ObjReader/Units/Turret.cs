@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectReader
 {
-    class Turret : Unit
+    public class Turret : Unit
     {
         internal Turret(int id)
             : base(id)

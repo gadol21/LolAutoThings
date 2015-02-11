@@ -56,7 +56,10 @@
     <Compile Include="Offsets.cs" />
     <Compile Include="LoLReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit.cs" />
+    <Compile Include="Units\Minion.cs" />
+    <Compile Include="Units\Player.cs" />
+    <Compile Include="Units\Turret.cs" />
+    <Compile Include="Units\Unit.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +68,7 @@
       <Name>lolcomjector</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,7 +22,6 @@ namespace LolThingies
 
         public override void Init()
         {
-            base.Init();
             Console.WriteLine("Started Ignite Indicator");
         }
         public void IgniteLoop()
@@ -79,7 +78,6 @@ namespace LolThingies
         }
         public override void KeyPress()
         {
-            base.KeyPress();
             if (on)
             {
                 thread = new Thread(IgniteLoop);
@@ -97,7 +95,6 @@ namespace LolThingies
         }
         public override void Stop()
         {
-            base.Stop();
             if (thread != null && thread.IsAlive)
             {
                 thread.Abort();

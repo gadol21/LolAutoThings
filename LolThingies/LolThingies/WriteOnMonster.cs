@@ -24,7 +24,6 @@ namespace LolThingies
         }
         public override void Init()
         {
-            base.Init();
             Console.WriteLine("Started writing thing");
             Camera c = LoLReader.GetCamera();
             Point p = LoLReader.WorldToScreen(c.CameraX, c.CameraY,0);
@@ -35,7 +34,6 @@ namespace LolThingies
         }
         public override void KeyPress()
         {
-            base.KeyPress();
             if (on)
             {
                 thread = new Thread(WritingFunc);

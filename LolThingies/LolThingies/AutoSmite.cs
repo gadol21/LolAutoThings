@@ -24,7 +24,6 @@ namespace LolThingies
         }
         public override void Init()
         {
-            base.Init();
             Console.WriteLine("Started auto smite");
             targets = new Dictionary<string, int>();
             targets.Add("dragon", 0);
@@ -37,7 +36,6 @@ namespace LolThingies
         }
         public override void KeyPress()
         {
-            base.KeyPress();
             if (on)
             {
                 thread = new Thread(AutoSmiteFunc);
@@ -52,7 +50,6 @@ namespace LolThingies
         }
         public override void Stop()
         {
-            base.Stop();
             bool statment = thread != null && thread.IsAlive;
             if (statment)
             {
@@ -108,7 +105,9 @@ namespace LolThingies
                                             //move camera
                                             LoLReader.LookAtTarget(unit);
                                             //press smite button
-                                            unit.z += 60;
+
+                                            //unit.z += 60;
+
                                             //Point p = LoLReader.WorldToScreen(unit);
                                             //Win32.RECT rect;
                                             /*Win32.GetWindowRect(Win32.FindWindow(null, "League of Legends (TM) Client"), out rect);

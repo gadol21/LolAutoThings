@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectReader
 {
-    class Player : Unit
+    public class Player : Unit
     {
         internal Player(int id)
             : base(id)

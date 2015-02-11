@@ -20,12 +20,10 @@ namespace LolThingies
         }
         public override void Init()
         {
-            base.Init();
             Console.WriteLine("Started auto laugh");
         }
         public override void KeyPress()
         {
-            base.KeyPress();
             if (on)
             {
                 thread = new Thread(AutoLaughFunc);

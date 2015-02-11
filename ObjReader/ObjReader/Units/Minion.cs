@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectReader
 {
-    class Minion : Unit
+    public class Minion : Unit
     {
         internal Minion(int id)
             : base(id)

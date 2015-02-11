@@ -33,8 +33,6 @@ Communicator - Allows you to communicate with the d3d hook dll (sending it text 
 Injector - Allows you to easily inject any dll into any process
 
 
-Note: there are 2 files in this project that are patch dependent - 
-
-\ObjReader\ObjReader\Offsets.cs - all the offsets used by ObjReader
-
+**Note: there are 2 files in this project that are patch dependent -**   
+\ObjReader\ObjReader\Offsets.cs - all the offsets used by ObjReader  
 \d3dPresentHook\d3dPresentHook\lol.cpp - The offset of League's FloatingText function

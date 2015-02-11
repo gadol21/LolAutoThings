@@ -34,14 +34,12 @@ namespace LolThingies
 
         public override void Init()
         {
-            base.Init();
             Console.WriteLine("Started "+name);
             thread = new Thread(GetDivisions);
             thread.Start();
         }
         public override void KeyPress()
         {
-            base.KeyPress();
             if (on)
             {
                 Communicator.GetInstance().SendTextUnlimitedTime(text, 20, Win32.GetSystemMetrics(0)/2, 5,TextFormat.Center);
@@ -53,7 +51,6 @@ namespace LolThingies
         }
         public override void Stop()
         {
-            base.Stop();
             if (thread != null && thread.IsAlive)
             {
                 thread.Abort();

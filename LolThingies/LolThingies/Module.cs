@@ -35,20 +35,26 @@ namespace LolThingies
             color = new Argb(255, 0, 255, 255);
             this.Key = key;
         }
-        public virtual void Init()
+        internal void OnInit()
         {
             Communicator.GetInstance().SendTextUnlimitedTime(displayText, fontSize, x, y, color);
+
+            Init();
         }
-        public virtual void KeyPress()
+
+        internal void OnKeyPress()
         {
             on = !on;
             Communicator.GetInstance().RemoveText(displayText);
             displayText = name + "(" + Enum.GetName(typeof(Keys), Key) + "): " + ((on) ? "On" : "Off");
             Communicator.GetInstance().SendTextUnlimitedTime(displayText, fontSize, x, y, color);
-        }
-        public virtual void Stop()
-        {
 
+            KeyPress();
         }
+
+        public abstract void Init();
+        public abstract void KeyPress();
+        public abstract void Stop();
+
     }
 }

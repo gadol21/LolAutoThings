@@ -72,13 +72,11 @@ namespace LolThingies
             rdbInjectManually.Checked = false;
             btnInject.Enabled = false;
 
-            uint pid = 0;
             foreach (Process p in Process.GetProcesses())
             {
                 if (p.ProcessName == "League of Legends")
                 {
-                    pid = (uint)p.Id;
-                    if (Injector.GetInstnace().AlreadyInjected(p, Directory.GetCurrentDirectory() + "\\" + dllName))
+                    if (Injector.AlreadyInjected(p, Directory.GetCurrentDirectory() + "\\" + dllName))
                             new Thread(delegate()
                             {
                                 Thread.Sleep(100);
@@ -91,19 +89,17 @@ namespace LolThingies
             modules = new List<Module>();
             modules.Add(new AutoLaugh(Keys.F8, 5, 5));
             modules.Add(new AutoSmite(Keys.F7, 5, 25,rdbSmiteF.Checked ? "F" : "D"));
-            //functions.Add(new WriteOnMonster(Keys.F6, 5, 45));
+            //modules.Add(new WriteOnMonster(Keys.F6, 5, 45));
             modules.Add(new IgniteIndicator(Keys.F6, 5, 45));
-            //functions.Add(new Divisions(Keys.F4, 5, 85));
+            //modules.Add(new Divisions(Keys.F4, 5, 85));
 
-            IntPtr hInstance = LoadLibrary("User32");
-            //hookPtr = SetWindowsHookEx(13, hookFunction, hInstance, 0); //WH_KEYBOARD_LL=13
-            hookPtr = SetWindowsHookEx(13, myDelegate, hInstance, 0); //WH_KEYBOARD_LL=13
+            hookPtr = SetWindowsHookEx(13, myDelegate, IntPtr.Zero, 0); //WH_KEYBOARD_LL=13
             if (hookPtr == IntPtr.Zero)
             {
                 MessageBox.Show("Failed to hook");
                 Close();
             }
-            Console.WriteLine("Hooked"); //im a hooker yo
+            Console.WriteLine("keyboard hook installed"); //im a hooker yo
 
         }
 
@@ -138,7 +134,7 @@ namespace LolThingies
         {
             try
             {
-                Injector.GetInstnace().Inject("League of Legends", Directory.GetCurrentDirectory() + "\\" + dllName);
+                Injector.Inject("League of Legends", Directory.GetCurrentDirectory() + "\\" + dllName);
                 System.Threading.Thread.Sleep(2000);
             }
             catch (Exception ex)
@@ -167,7 +163,7 @@ namespace LolThingies
             LoLReader.Init();
             foreach (Module f in modules)
             {
-                f.Init();
+                f.OnInit();
             }
             this.Invoke(new Action(() => SetInjectedGui()));
             waitingForGameToEndThread = new Thread(WaitingForGameToEndFunc);
@@ -182,7 +178,7 @@ namespace LolThingies
                 {
                     if (lParam.vkCode == (int)f.Key)
                     {
-                        f.KeyPress();
+                        f.OnKeyPress();
                         break;
                     }
                 }
@@ -254,7 +250,7 @@ namespace LolThingies
             rdbInjectManually.Show();
             btnInject.Show();
             btnStart.Show();
-            this.Invoke(new Action(() => lblStatus.Text = "Status: Injected"));
+            //this.Invoke(new Action(() => lblStatus.Text = "Status: Injected")); why is this here?
             lblStatus.Text = "Status: Not Injected";
             rdbInjcetAuto_CheckedChanged(null, null);
             rdbInjectManually_CheckedChanged(null, null);

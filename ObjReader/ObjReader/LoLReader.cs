@@ -28,19 +28,15 @@ namespace ObjectReader
             processHandle = Win32.OpenProcess((int)Win32.ProcessAccessFlags.All, false, p.Id);
             IntPtr ptr = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Module, Convert.ToUInt32(p.Id));
             Win32.MODULEENTRY32 module = new Win32.MODULEENTRY32();
-            unsafe
-            {
-                module.dwSize = Convert.ToUInt32(Marshal.SizeOf(module));
-            }
+            module.dwSize = Convert.ToUInt32(Marshal.SizeOf(module));
             Win32.Module32First(ptr, ref module);
             while (module.szModule != "League of Legends.exe")
             {
                 Win32.Module32Next(ptr, ref module);
             }
             moduleHandle = module.modBaseAddr;
-            int objsNum = 0x9C00 / 4;
+            int objsNum = 0x9C00 / 4; //size of the obj list. not accurate, TODO: find the actual size in lol memory
             byte[] buff = new byte[4];
-            //ReadProcessMemory((int)processHandle, (int)moduleHandle + 0x02980638, buffer, 4, ref bytesRead);
             int listStart = 0;
             while (listStart == 0)
             {
@@ -52,21 +48,9 @@ namespace ObjectReader
                 List<Unit> localUnits = new List<Unit>();
                 for (int i = 0; i < objsNum; i++)
                 {
-                    //ReadProcessMemory((int)processHandle, listStart + 4 * i, buffer, 4, ref bytesRead);
-                    int objStart = Memory.ReadInt(processHandle, listStart + 4 * i, buffer);
-                    if (objStart == 0)
-                        continue;
-                    int objClass = Memory.ReadInt(processHandle, objStart + 4, buffer);
-                    string objClassName = Memory.ReadString(processHandle, objClass + 4, buffer);
-
-                    if (objClassName != "obj_Levelsizer" &&
-                        //objClassName != "obj_Turret" && duplicate of obj_ai_turret, but this one doesnt have valid armor,ad and other stats.
-                        objClassName != "obj_AI_Turret" &&
-                        objClassName != "AIHeroClient" &&
-                        objClassName != "obj_AI_Minion")
-                        continue;
                     Unit unit = Unit.GetUnit(processHandle, listStart, i);
-                    localUnits.Add(unit);
+                    if (unit != null)
+                        localUnits.Add(unit);
                 }
                 lock (units)
                     units = localUnits; //everytime we get the new list, replace with original.
@@ -109,26 +93,22 @@ namespace ObjectReader
 
         public static List<Unit> GetAllObjects()
         {
-            if (units == null)
-                throw new Exception("error - unit list not initialized - have you called Init?");
             lock (units)
             {
                 return new List<Unit>(units);
             }
         }
-        public static List<Unit> GetAllChampions()
+        public static List<Player> GetAllChampions()
         {
-            lock (units)
-            {
-                return units.Where(u => u is Player).ToList();
-            }
+            return GetAllObjects().OfType<Player>().ToList();
         }
         public static List<Minion> GetAllMinions()
         {
-            lock (units)
-            {
-                return units.Where(u => u is Minion).Cast<Minion>().ToList();
-            }
+            return GetAllObjects().OfType<Minion>().ToList();
+        }
+        public static List<Turret> GetAllTurrets()
+        {
+            return GetAllObjects().OfType<Turret>().ToList();
         }
         public static Unit GetMyHero()
         {
@@ -188,7 +168,8 @@ namespace ObjectReader
             byte canCast = 255;
             int CanCastOffset = 0;
             spellLetter = spellLetter.ToLower();
-            switch(spellLetter){
+            switch (spellLetter)
+            {
                 case "d":
                     CanCastOffset = Offsets.Level.summonerSpell1OnCd;
                     break;
@@ -218,11 +199,13 @@ namespace ObjectReader
             byte[] buffer = new byte[4];
             int cameraBase = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.Camera.baseAdress, buffer);
             int cameraStruct = Memory.ReadInt(processHandle, cameraBase + Offsets.Camera.Offset0, buffer);
-            return new Camera(){CameraX = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.X, buffer),
-                                CameraY = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.Y, buffer),
-                                CameraZ = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.Z, buffer),
-                                CameraAngle = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.AngleLook, buffer),
-                                CameraFovY = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.FovY, buffer),
+            return new Camera()
+            {
+                CameraX = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.X, buffer),
+                CameraY = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.Y, buffer),
+                CameraZ = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.Z, buffer),
+                CameraAngle = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.AngleLook, buffer),
+                CameraFovY = Memory.ReadFloat(processHandle, cameraStruct + Offsets.Camera.FovY, buffer),
             };
         }
         /// <summary>
