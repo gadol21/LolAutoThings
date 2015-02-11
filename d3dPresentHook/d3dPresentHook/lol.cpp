@@ -7,8 +7,8 @@ void FloatingText(DWORD unitBase,char *string, DWORD messageType){
 		base = (DWORD)GetModuleHandleA("League of Legends.exe");
 	if(!base) //make sure we got it
 		return;
-	DWORD magic = *(DWORD *)(base+0x1504D2C);
-	DWORD  funcaddr = base + 0x6A4770;
+	DWORD magic = *(DWORD *)(base + 0x1DF821C);
+	DWORD  funcaddr = base + 0x8CAD00;
 	__asm{
 		push esi //for some reason this func changes esi, and this causes problems
 		push string

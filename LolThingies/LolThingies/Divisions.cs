@@ -68,7 +68,7 @@ namespace LolThingies
             {
                 Thread.Sleep(500);
             }
-            List<Unit> players = LoLReader.GetAllChampions();
+            List<Player> players = LoLReader.GetAllChampions();
             List<string> names = new List<string>();
             foreach (Unit u in players)
             {
@@ -145,7 +145,7 @@ namespace LolThingies
                 }
                 string team1 = "";
                 string team2 = "";
-                List<Unit> players = LoLReader.GetAllChampions();
+                List<Player> players = LoLReader.GetAllChampions();
                 foreach (Unit player in players)
                 {
                     if (player.team == Team.Team1)

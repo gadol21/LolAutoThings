@@ -86,7 +86,7 @@ namespace LolThingies
                                         lastWriteTime.Add(unit.GetId(), DateTime.Now);
                                     if ((DateTime.Now - lastWriteTime[unit.GetId()]).Milliseconds > 600)//make a delay between calls
                                     {
-                                        LoLReader.FloatingText(unit, "Ready To Smite", 0x6);
+                                        LoLReader.FloatingText(unit, "Ready To Smite", MessageType.red);
                                         lastWriteTime[unit.GetId()] = DateTime.Now;
                                     }
                                 }

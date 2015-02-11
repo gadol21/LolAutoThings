@@ -10,6 +10,11 @@ using lolcomjector;
 
 namespace ObjectReader
 {
+    public enum MessageType : uint
+    {
+        blue_levelup = 0xB,
+        red = 0x6
+    }
     public static class LoLReader
     {
         private static List<Unit> units = new List<Unit>();
@@ -86,9 +91,9 @@ namespace ObjectReader
         /// <param name="target"></param>
         /// <param name="message"></param>
         /// <param name="messageType"></param>
-        public static void FloatingText(Unit target, string message, uint messageType)
+        public static void FloatingText(Unit target, string message, MessageType messageType)
         {
-            Communicator.GetInstance().LoLFloatingText(target.baseAddr, message, messageType);
+            Communicator.GetInstance().LoLFloatingText(target.baseAddr, message, (uint)messageType);
         }
 
         public static List<Unit> GetAllObjects()

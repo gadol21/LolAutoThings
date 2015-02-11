@@ -67,7 +67,7 @@ namespace LolThingies
                             if (firstTime || (DateTime.Now - lastWriteTime[u.GetId()]).Milliseconds > 400) //floating text every 400 sec?
                             {
                                 Console.WriteLine("ignite will kill " + u.name);
-                                LoLReader.FloatingText(u, "ignite! ", 0x6);
+                                LoLReader.FloatingText(u, "ignite! ", MessageType.red);
                                 lastWriteTime[u.GetId()] = DateTime.Now;
                             }
                         }

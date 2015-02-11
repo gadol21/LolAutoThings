@@ -97,14 +97,14 @@ namespace ObjectReader
                 default:
                     return null;
             }
-            string Object = Memory.ReadString(process, unitBaseAddr + 0x28, buffer, 6);
+            string Object = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.objectOffset, buffer, 6);
             if (Object == "Object")
             {
-                int nameBaseAddr = Memory.ReadInt(process, unitBaseAddr + 0x24, buffer);
+                int nameBaseAddr = Memory.ReadInt(process, unitBaseAddr + Offsets.Unit.name, buffer);
                 unit.name = Memory.ReadString(process, nameBaseAddr, buffer);
             }
             else
-                unit.name = Memory.ReadString(process, unitBaseAddr + 0x24, buffer);
+                unit.name = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.name, buffer);
 
             unit.className = objClassName;
             unit.x = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.x, buffer);
