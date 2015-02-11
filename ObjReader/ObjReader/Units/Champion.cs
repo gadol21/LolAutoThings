@@ -5,10 +5,10 @@ using System.Text;
 
 namespace ObjectReader
 {
-    public class Player : Unit
+    public class Champion : Unit
     {
-        public bool isAI { get; private set; }
-        internal Player(int id)
+        public bool isAI { get { return name.EndsWith(" bot"); } } //probably not a good idea
+        internal Champion(int id)
             : base(id)
         {
 

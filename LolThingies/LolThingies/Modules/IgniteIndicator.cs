@@ -30,13 +30,13 @@ namespace LolThingies
             while (true)
             {
                 Unit me = LoLReader.GetMyHero();
-                foreach (Unit u in LoLReader.GetAll<Player>())
+                foreach (Unit u in LoLReader.GetAll<Champion>())
                 {
                     if (me == null)
                         break;
                     if (u.team == me.team)
                         continue;
-                    if (u.hp <= 0 || !LoLReader.IsVisible(u))
+                    if (u.hp <= 0 || u.isDead || !LoLReader.IsVisible(u))
                         continue;
                     int myLevel = LoLReader.GetMyLevel();
                     if (myLevel <= 0) //happens when the game ends?

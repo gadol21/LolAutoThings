@@ -32,9 +32,10 @@ namespace lolcomjector
 
     public class Communicator
     {
-        static Communicator instance = null;
-        Socket sock;
-        IPEndPoint ep;
+        private const int WAIT_INFINITE = -10000;
+        private static Communicator instance = null;
+        private Socket sock;
+        private IPEndPoint ep;
         private Communicator()
         {
 
@@ -101,7 +102,7 @@ namespace lolcomjector
         }
         public void SendTextUnlimitedTime(string text, int fontSize, int x, int y, Argb color, TextFormat format = TextFormat.Left)
         {
-            SendText(text, -1, fontSize, x, y, color,format);
+            SendText(text, WAIT_INFINITE, fontSize, x, y, color,format);
         }
         public void RemoveText(string text)
         {

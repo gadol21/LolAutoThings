@@ -54,7 +54,7 @@ namespace LolThingies
                 Dictionary<string, int> champions = new Dictionary<string, int>();
                 foreach (Unit u in LoLReader.GetAllObjects())
                 {
-                    if (u is Minion || u is Player)
+                    if (u is Minion || u is Champion)
                     {
                         if (!champions.ContainsKey(u.name))
                             champions.Add(u.name, 1);
@@ -66,7 +66,7 @@ namespace LolThingies
                 {
                     foreach (Unit u in LoLReader.GetAllObjects().Where(u => u.name == pair.Key))
                     {
-                        if (u is Player)
+                        if (u is Champion)
                             LoLReader.FloatingText(u, "real one", MessageType.red);
                     }
                 }

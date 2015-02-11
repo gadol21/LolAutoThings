@@ -31,6 +31,8 @@ typedef struct{
 	char alpha,red,green,blue;
 }color;
 
+#define WAIT_INFINITE -10000
+
 typedef struct{
 	int fontSize;
 	int timeleft;
@@ -87,10 +89,11 @@ void myPaint(IDirect3DDevice9 *dev){
 				(*it).rect = rect;
 			}
 			unsigned int val = font->DrawTextA(NULL,(*it).text,-1,&(*it).rect,(*it).format, D3DCOLOR_ARGB((*it).clr.alpha ,(*it).clr.red ,(*it).clr.green ,(*it).clr.blue));
-			if((*it).timeleft!=-1)
-				(*it).timeleft -= current-lastTime;
-			if((*it).timeleft < 0 && (*it).timeleft!=-1)
-				toRemove.push_back(it);
+			if ((*it).timeleft != WAIT_INFINITE){
+				(*it).timeleft -= current - lastTime;
+				if ((*it).timeleft < 0)
+					toRemove.push_back(it);
+			}
 		}
 	}
 	//now remove what need to be deleted

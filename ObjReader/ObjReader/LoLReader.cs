@@ -109,14 +109,14 @@ namespace ObjectReader
             }
         }
 
-        public static Player GetMyHero()
+        public static Champion GetMyHero()
         {
             if (processHandle == null || moduleHandle == null)
                 throw new Exception("not inited?");
             byte[] buffer = new byte[4];
             int heroObject = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.ObjectList.OurHero, buffer);
             string ourName = Memory.ReadString(processHandle, heroObject + Offsets.Unit.name, buffer);
-            return GetAll<Player>().Where(u => u.name == ourName).FirstOrDefault();
+            return GetAll<Champion>().Where(u => u.name == ourName).FirstOrDefault();
         }
         public static int GetMyLevel()
         {
@@ -151,7 +151,7 @@ namespace ObjectReader
                 loopThread.Abort();
                 loopThread = null;
             }
-            units = null;
+            units = new List<Unit>();
         }
 
         public static bool CanCastSpell(string spellLetter)

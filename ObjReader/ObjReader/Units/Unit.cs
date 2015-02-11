@@ -109,7 +109,7 @@ namespace ObjectReader
                     unit = new Turret(idInList);
                     break;
                 case "AIHeroClient":
-                    unit = new Player(idInList);
+                    unit = new Champion(idInList);
                     break;
                 default:
                     return null;

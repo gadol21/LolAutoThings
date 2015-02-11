@@ -46,19 +46,22 @@ namespace LolThingies
                 thread.Abort();
             }
             foreach (Ward w in LoLReader.GetAll<Ward>())
-                Communicator.GetInstance().RemoveText("ward here");
+                Communicator.GetInstance().RemoveText(w.type + " ward here");
         }
 
         public void WardRevielerFunc()
         {
             while (true)
             {
-                Player myPlayer = LoLReader.GetMyHero();
+                Champion myPlayer = LoLReader.GetMyHero();
+                foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team))
+                    Communicator.GetInstance().RemoveText(ward.type + " ward here");
                 foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team
                 {
-                    Communicator.GetInstance().RemoveText("ward here");
+                    if (ward.isDead)
+                        continue;
                     Point p = LoLReader.WorldToScreen(ward);
-                    Communicator.GetInstance().SendTextUnlimitedTime("ward here", 20, p.X, p.Y);
+                    Communicator.GetInstance().SendText(ward.type+" ward here",100 , 20, p.X, p.Y,TextFormat.Center);
                 }
                 Thread.Sleep(20);
             }

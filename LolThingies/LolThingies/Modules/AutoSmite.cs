@@ -76,7 +76,7 @@ namespace LolThingies
                     {
                         if(LoLReader.IsVisible(minion))
                         {
-                            if (minion.hp > 0)
+                            if (minion.hp > 0 && !minion.isDead)
                             {
                                 Unit myHero = LoLReader.GetMyHero();
                                 if (myHero == null)
