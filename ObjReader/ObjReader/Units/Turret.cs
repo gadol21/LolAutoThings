@@ -7,8 +7,8 @@ namespace ObjectReader
 {
     public class Turret : Unit
     {
-        internal Turret(int id)
-            : base(id)
+        internal Turret(int id, int baseAddr)
+            : base(id, baseAddr)
         {
 
         }

@@ -55,7 +55,7 @@ namespace LolThingies
                 //clones apear with the same name of the real champions, but as minions.
                 //just check how many names apear twice, and than write on the player that he is the real one
                 Dictionary<string, int> champions = new Dictionary<string, int>();
-                foreach (Unit u in LoLReader.GetAllObjects())
+                foreach (Unit u in Engine.GetAllObjects())
                 {
                     if (u is Minion || u is Champion)
                     {
@@ -67,10 +67,10 @@ namespace LolThingies
                 }
                 foreach (var pair in champions.Where(pair => pair.Value == 2)) //find all champions who apear twice
                 {
-                    foreach (Unit u in LoLReader.GetAllObjects().Where(u => u.name == pair.Key))
+                    foreach (Unit u in Engine.GetAllObjects().Where(u => u.name == pair.Key))
                     {
                         if (u is Champion)
-                            LoLReader.FloatingText(u, "real one", MessageType.red);
+                            Engine.FloatingText(u, "real one", MessageType.red);
                     }
                 }
                 Thread.Sleep(400);

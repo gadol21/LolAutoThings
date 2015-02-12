@@ -28,16 +28,16 @@ namespace LolThingies
         {
             while (true)
             {
-                Unit me = LoLReader.GetMyHero();
-                foreach (Unit u in LoLReader.GetAll<Champion>())
+                Unit me = Engine.GetMyHero();
+                foreach (Unit u in Engine.GetAll<Champion>())
                 {
                     if (me == null)
                         break;
                     if (u.team == me.team)
                         continue;
-                    if (u.hp <= 0 || u.isDead || !LoLReader.IsVisible(u))
+                    if (u.hp <= 0 || u.isDead || !Engine.IsVisible(u))
                         continue;
-                    int myLevel = LoLReader.GetMyLevel();
+                    int myLevel = Engine.GetMyLevel();
                     if (myLevel <= 0) //happens when the game ends?
                         continue;
                     if (u.hp < igniteDps[myLevel - 1]*5) 
@@ -57,7 +57,7 @@ namespace LolThingies
                         if (kill) //ignite will kill
                         {
                             Console.WriteLine("ignite will kill " + u.name);
-                            LoLReader.FloatingText(u, "ignite! ", MessageType.red);
+                            Engine.FloatingText(u, "ignite! ", MessageType.red);
                         }
                     }
                 }

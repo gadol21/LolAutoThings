@@ -15,15 +15,19 @@ namespace ObjectReader
         blue_levelup = 0xB,
         red = 0x6
     }
-    public static class LoLReader
+    public static class Engine
     {
         private static List<Unit> units = new List<Unit>();
-        private static IntPtr processHandle, moduleHandle;
+        public static IntPtr processHandle { get; private set; }
+        public static IntPtr moduleHandle { get; private set; }
+
+        public static bool IsLolRunning { get { return Win32.FindWindow(null, "League of Legends (TM) Client") != IntPtr.Zero; } }
+
         private static void Loop()
         {
             byte[] buffer = new byte[4];
 
-            while (Win32.FindWindow(null, "League of Legends (TM) Client") == IntPtr.Zero)
+            while (!IsLolRunning)
             {
                 Console.WriteLine("No league" + "," + DateTime.Now);
                 System.Threading.Thread.Sleep(1000);
@@ -48,7 +52,7 @@ namespace ObjectReader
                 listStart = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.ObjectList.ListBegin, buffer);
                 Thread.Sleep(100);
             }
-            while (true)
+            while (IsLolRunning)
             {
                 List<Unit> localUnits = new List<Unit>();
                 for (int i = 0; i < objsNum; i++)
@@ -159,6 +163,8 @@ namespace ObjectReader
             loopThread = new Thread(Loop);
             loopThread.Start();
             units = new List<Unit>();
+            processHandle = IntPtr.Zero;
+            moduleHandle = IntPtr.Zero;
             Thread.Sleep(50);
         }
         public static void Stop()
@@ -287,7 +293,7 @@ namespace ObjectReader
             List<Unit> units = GetAllObjects();
             foreach (Unit u in units)
             {
-                if (u.className == "obj_Levelsizer")
+                if (u.className == "obj_Levelsizer") //this object apears on loading screen
                     return true;
             }
             return false;

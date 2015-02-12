@@ -45,7 +45,7 @@ namespace LolThingies
             {
                 thread.Abort();
             }
-            foreach (Ward w in LoLReader.GetAll<Ward>())
+            foreach (Ward w in Engine.GetAll<Ward>())
                 Communicator.GetInstance().RemoveText(w.type + " ward here");
         }
 
@@ -53,14 +53,14 @@ namespace LolThingies
         {
             while (true)
             {
-                Champion myPlayer = LoLReader.GetMyHero();
-                foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //remove the texts from their old location
+                Champion myPlayer = Engine.GetMyHero();
+                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //remove the texts from their old location
                     Communicator.GetInstance().RemoveText(ward.type + " ward here");
-                foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team
+                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team
                 {
                     if (ward.isDead)
                         continue;
-                    Point p = LoLReader.WorldToScreen(ward);
+                    Point p = Engine.WorldToScreen(ward);
                     Communicator.GetInstance().SendText(ward.type+" ward here",100 , 20, p.X, p.Y,TextFormat.Center);
                 }
                 Thread.Sleep(20);

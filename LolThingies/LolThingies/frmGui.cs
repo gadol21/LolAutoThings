@@ -120,7 +120,7 @@ namespace LolThingies
             }
             UnhookWindowsHookEx(hookPtr);
             Communicator.GetInstance().Clear();
-            LoLReader.Stop();
+            Engine.Stop();
             base.OnClosing(e);
             Environment.Exit(0);
         }
@@ -160,7 +160,7 @@ namespace LolThingies
         {
             Communicator.GetInstance().Clear();
             Communicator.GetInstance().SendText("Injected Successfuly", 3000, 20, 50, 100);
-            LoLReader.Init();
+            Engine.Init();
             foreach (Module f in modules)
             {
                 f.OnInit();
@@ -224,7 +224,7 @@ namespace LolThingies
 
         private void injectionWaitingFunction()
         {
-            while (Win32.FindWindow(null, "League of Legends (TM) Client") == IntPtr.Zero)
+            while (!Engine.IsLolRunning)
             {
                 Thread.Sleep(250);
             }
@@ -233,7 +233,7 @@ namespace LolThingies
         }
         private void WaitingForGameToEndFunc()
         {
-            while (Win32.FindWindow(null, "League of Legends (TM) Client") != IntPtr.Zero)
+            while (Engine.IsLolRunning)
             {
                 Thread.Sleep(1000);
             }
@@ -241,7 +241,7 @@ namespace LolThingies
             {
                 f.Stop();
             }
-            LoLReader.Stop();
+            Engine.Stop();
             this.Invoke(new Action(()=>SetRegularGui()));
         }
         private void SetRegularGui()

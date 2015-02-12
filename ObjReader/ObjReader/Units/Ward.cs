@@ -11,8 +11,8 @@ namespace ObjectReader
     public class Ward : Unit
     {
         public WardType type { get; private set; }
-        internal Ward(int id, WardType type)
-            : base(id)
+        internal Ward(int id, int baseAddr, WardType type)
+            : base(id, baseAddr)
         {
             this.type = type;
         }

@@ -60,34 +60,34 @@ namespace LolThingies
         {
             while (true)
             {
-                foreach (Minion minion in LoLReader.GetAll<Minion>())
+                foreach (Minion minion in Engine.GetAll<Minion>())
                 {
                     //Console.WriteLine(unit.name);
                     if (minion.name.StartsWith("SRU") && !minion.name.Contains("Mini") && !minion.name.Contains("Wall")) //temporary workaround for the new summoners rift
                     {
-                        if(LoLReader.IsVisible(minion))
+                        if(Engine.IsVisible(minion))
                         {
                             if (minion.hp > 0 && !minion.isDead)
                             {
-                                Unit myHero = LoLReader.GetMyHero();
+                                Unit myHero = Engine.GetMyHero();
                                 if (myHero == null)
                                     break;
-                                if (minion.hp < minion.maxhp && LoLReader.Distance(minion, myHero) < SMITE_RANGE && LoLReader.CanCastSpell(key))
-                                        LoLReader.FloatingText(minion, "Ready To Smite", MessageType.red);
-                                int myLevel = LoLReader.GetMyLevel();
+                                if (minion.hp < minion.maxhp && Engine.Distance(minion, myHero) < SMITE_RANGE && Engine.CanCastSpell(key))
+                                        Engine.FloatingText(minion, "Ready To Smite", MessageType.red);
+                                int myLevel = Engine.GetMyLevel();
                                 if (myLevel < 1 || myLevel > 18) // happens sometimes when the game ends
                                     break;
                                 if (minion.hp <= smiteDmg[myLevel - 1])
                                 {
                                     //check distance
-                                    if (LoLReader.Distance(minion, myHero) < SMITE_RANGE)
+                                    if (Engine.Distance(minion, myHero) < SMITE_RANGE)
                                     {
-                                        if (LoLReader.CanCastSpell(key))
+                                        if (Engine.CanCastSpell(key))
                                         {
                                             //maybe install a mouse hook to disable mouse movement while moving mouse and smiting
                                             Console.WriteLine("smiting " + minion.name + DateTime.Now);
                                             //move camera
-                                            LoLReader.LookAtTarget(minion);
+                                            Engine.LookAtTarget(minion);
                                             AutoItX3Declarations.AU3_MouseMove(Win32.GetSystemMetrics(0) / 2, Win32.GetSystemMetrics(1) / 2, 0);
                                             AutoItX3Declarations.AU3_Send(key, 0);
                                         }

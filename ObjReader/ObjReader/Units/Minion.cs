@@ -7,8 +7,8 @@ namespace ObjectReader
 {
     public class Minion : Unit
     {
-        internal Minion(int id)
-            : base(id)
+        internal Minion(int id, int baseAddr)
+            : base(id, baseAddr)
         {
 
         }

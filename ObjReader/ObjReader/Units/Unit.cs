@@ -13,45 +13,82 @@ namespace ObjectReader
     }
     public class Unit
     {
-        internal uint baseAddr { get; private set; }
-        private int id;
-        public bool isDead { get; private set; }
-        public string name { get; private set; }
-        public string className { get; private set; }
+        internal readonly uint baseAddr;
+        private readonly int id;
+        public readonly bool isDead;
+        public readonly string name;
+        public readonly string className;
 
-        public float x { get; private set; }
-        public float y { get; private set; }
-        public float z { get; private set; }
+        public readonly float x;
+        public readonly float y;
+        public readonly float z ;
 
-        public float hp { get; private set; }
-        public float maxhp { get; private set; }
-        public float shield { get; private set; }
-        public float mana { get; private set; }
-        public float maxmana { get; private set; }
-        public float baseAd { get; private set; }
-        public float bonusAd { get; private set; }
-        public float ap { get; private set; }
-        public float lifeSteal { get; private set; }
-        public float spellVemp { get; private set; }
-        public float AttSpeedMultiplier { get; private set; }
-        public float critchance { get; private set; }
-        public float armor { get; private set; }
-        public float MR { get; private set; }
-        public float tenacity { get; private set; }
-        public float hpRegenPerSec { get; private set; }
-        public float manaRegenPerSec { get; private set; }
-        public float MovementSpeed { get; private set; }
-        public float attackRange { get; private set; }
-        public float armorPen { get; private set; }
-        public float magicPen { get; private set; }
-        public float armorPenPercent { get; private set; }
-        public float magicPenPercent { get; private set; }
-        public float cdr { get; private set; }
-        public Team team { get; private set; }
+        public readonly float hp;
+        public readonly float maxhp;
+        public readonly float shield;
+        public readonly float mana;
+        public readonly float maxmana;
+        public readonly float baseAd;
+        public readonly float bonusAd;
+        public readonly float ap;
+        public readonly float lifeSteal;
+        public readonly float spellVemp;
+        public readonly float AttSpeedMultiplier;
+        public readonly float critchance;
+        public readonly float armor;
+        public readonly float MR;
+        public readonly float tenacity;
+        public readonly float hpRegenPerSec;
+        public readonly float manaRegenPerSec;
+        public readonly float MovementSpeed;
+        public readonly float attackRange;
+        public readonly float armorPen;
+        public readonly float magicPen;
+        public readonly float armorPenPercent;
+        public readonly float magicPenPercent;
+        public readonly float cdr;
+        public readonly Team team;
 
-        public Unit(int id)
+        internal Unit(int id, int baseAddr)
         {
             this.id = id;
+            this.baseAddr = (uint)baseAddr;
+            byte[] buffer = new byte[4];
+            IntPtr process = Engine.processHandle;
+
+            this.name = GetName(process, baseAddr, buffer);
+            this.className = GetClassName(process, baseAddr, buffer);
+            this.x = Memory.ReadFloat(process, baseAddr + Offsets.Unit.x, buffer);
+            this.y = Memory.ReadFloat(process, baseAddr + Offsets.Unit.y, buffer);
+            this.z = Memory.ReadFloat(process, baseAddr + Offsets.Unit.z, buffer);
+
+            this.isDead = Memory.ReadByte(process, baseAddr + Offsets.Unit.isDead, buffer) == 1;
+            this.hp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.hp, buffer);
+            this.maxhp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.maxHp, buffer);
+            this.mana = Memory.ReadFloat(process, baseAddr + Offsets.Unit.mana, buffer);
+            this.maxmana = Memory.ReadFloat(process, baseAddr + Offsets.Unit.maxMana, buffer);
+            this.shield = Memory.ReadFloat(process, baseAddr + Offsets.Unit.shield, buffer);
+            this.bonusAd = Memory.ReadFloat(process, baseAddr + Offsets.Unit.bonusAd, buffer);
+            this.ap = Memory.ReadFloat(process, baseAddr + Offsets.Unit.ap, buffer);
+            this.lifeSteal = Memory.ReadFloat(process, baseAddr + Offsets.Unit.lifeSteal, buffer);
+            this.spellVemp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.spellVemp, buffer);
+            this.AttSpeedMultiplier = Memory.ReadFloat(process, baseAddr + Offsets.Unit.AttSpeedMultiplier, buffer);
+            this.baseAd = Memory.ReadFloat(process, baseAddr + Offsets.Unit.baseAd, buffer);
+            this.critchance = Memory.ReadFloat(process, baseAddr + Offsets.Unit.critChance, buffer);
+            this.armor = Memory.ReadFloat(process, baseAddr + Offsets.Unit.armor, buffer);
+            this.MR = Memory.ReadFloat(process, baseAddr + Offsets.Unit.MR, buffer);
+            this.hpRegenPerSec = Memory.ReadFloat(process, baseAddr + Offsets.Unit.hpRegenPerSec, buffer);
+            this.manaRegenPerSec = Memory.ReadFloat(process, baseAddr + Offsets.Unit.ManaRegenPerSec, buffer);
+            this.MovementSpeed = Memory.ReadFloat(process, baseAddr + Offsets.Unit.MovementSpeed, buffer);
+            this.attackRange = Memory.ReadFloat(process, baseAddr + Offsets.Unit.attackRange, buffer);
+            this.team = (Team)Memory.ReadInt(process, baseAddr + Offsets.Unit.team, buffer);
+            this.tenacity = Memory.ReadFloat(process, baseAddr + Offsets.Unit.tenacity, buffer);
+            this.cdr = Memory.ReadFloat(process, baseAddr + Offsets.Unit.cdr, buffer);
+            this.armorPen = Memory.ReadFloat(process, baseAddr + Offsets.Unit.armorPen, buffer);
+            this.magicPen = Memory.ReadFloat(process, baseAddr + Offsets.Unit.magicPen, buffer);
+            this.armorPenPercent = Memory.ReadFloat(process, baseAddr + Offsets.Unit.armorPenPercent, buffer);
+            this.magicPenPercent = Memory.ReadFloat(process, baseAddr + Offsets.Unit.magicPenPercent, buffer);
+
         }
         public int GetId()
         {
@@ -73,7 +110,7 @@ namespace ObjectReader
             return id;
         }
 
-        protected static string GetName(IntPtr process, int unitBaseAddr, byte[] buffer)
+        private static string GetName(IntPtr process, int unitBaseAddr, byte[] buffer)
         {
             string Object = Memory.ReadString(process, unitBaseAddr + Offsets.Unit.objectOffset, buffer, 6);
             if (Object == "Object")
@@ -85,14 +122,19 @@ namespace ObjectReader
                 return Memory.ReadString(process, unitBaseAddr + Offsets.Unit.name, buffer);
         }
 
+        private static string GetClassName(IntPtr process, int unitBaseAddr, byte[] buffer)
+        {
+            int objClass = Memory.ReadInt(process, unitBaseAddr + 4, buffer);
+            return Memory.ReadString(process, objClass + 4, buffer);
+        }
+
         public static Unit GetUnit(IntPtr process, int listBaseAddress, int idInList)
         {
             byte[] buffer = new byte[4]; //temporary buffer for reading values
             int unitBaseAddr = Memory.ReadInt(process, listBaseAddress + 4 * idInList, buffer);
             if (unitBaseAddr == 0) //no unit was found there
                 return null;
-            int objClass = Memory.ReadInt(process, unitBaseAddr + 4, buffer);
-            string objClassName = Memory.ReadString(process, objClass + 4, buffer);
+            string objClassName = GetClassName(process, unitBaseAddr, buffer);
 
             string name = GetName(process, unitBaseAddr, buffer);
 
@@ -101,53 +143,19 @@ namespace ObjectReader
             {
                 case "obj_AI_Minion":
                     if (name == "SightWard" || name == "VisionWard")
-                        unit = new Ward(idInList, (name == "SightWard" ? WardType.Regular : WardType.Pink));
+                        unit = new Ward(idInList, unitBaseAddr, (name == "SightWard" ? WardType.Regular : WardType.Pink));
                     else
-                        unit = new Minion(idInList);
+                        unit = new Minion(idInList, unitBaseAddr);
                     break;
                 case "obj_AI_Turret":
-                    unit = new Turret(idInList);
+                    unit = new Turret(idInList, unitBaseAddr);
                     break;
                 case "AIHeroClient":
-                    unit = new Champion(idInList);
+                    unit = new Champion(idInList, unitBaseAddr);
                     break;
                 default:
                     return null;
             }
-
-            unit.baseAddr = (uint)unitBaseAddr;
-            unit.name = name;
-            unit.className = objClassName;
-            unit.x = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.x, buffer);
-            unit.y = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.y, buffer);
-            unit.z = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.z, buffer);
-            unit.isDead = Memory.ReadByte(process, unitBaseAddr + Offsets.Unit.isDead, buffer) == 1;
-            unit.hp = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.hp, buffer);
-            unit.maxhp = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.maxHp, buffer);
-            unit.mana = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.mana, buffer);
-            unit.maxmana = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.maxMana, buffer);
-            unit.shield = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.shield, buffer);
-            unit.bonusAd = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.bonusAd, buffer);
-            unit.ap = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.ap, buffer);
-            unit.lifeSteal = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.lifeSteal, buffer);
-            unit.spellVemp = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.spellVemp, buffer);
-            unit.AttSpeedMultiplier = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.AttSpeedMultiplier, buffer);
-            unit.baseAd = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.baseAd, buffer);
-            unit.critchance = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.critChance, buffer);
-            unit.armor = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.armor, buffer);
-            unit.MR = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.MR, buffer);
-            unit.hpRegenPerSec = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.hpRegenPerSec, buffer);
-            unit.manaRegenPerSec = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.ManaRegenPerSec, buffer);
-            unit.MovementSpeed = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.MovementSpeed, buffer);
-            unit.attackRange = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.attackRange, buffer);
-            unit.team = (Team)Memory.ReadInt(process, unitBaseAddr + Offsets.Unit.team, buffer);
-            unit.tenacity = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.tenacity, buffer);
-            unit.cdr = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.cdr, buffer);
-            unit.armorPen = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.armorPen, buffer);
-            unit.magicPen = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.magicPen, buffer);
-            unit.armorPenPercent = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.armorPenPercent, buffer);
-            unit.magicPenPercent = Memory.ReadFloat(process, unitBaseAddr + Offsets.Unit.magicPenPercent, buffer);
-
             return unit;
         }
     }
