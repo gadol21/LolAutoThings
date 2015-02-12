@@ -82,18 +82,35 @@ namespace ObjectReader
         {
             LookXY(target.x, target.y);
         }
+
+        private static Dictionary<int, DateTime> lastWriteTime = new Dictionary<int, DateTime>();
+        private const int WRITE_DELAY = 500;
         /// <summary>
         /// sends a floating text over a target unit.
         /// please note that not all message types works on all objects,
         /// for instance on minions and jungle the messageTypes i found to work are 6,7,8 
         /// (didn't search beyond 10, so there might be more)
+        /// 
+        /// has a defence mechanism, not allowing text to be written on the same unit in a short delay
+        /// (minimum time between calls 500 ms)
         /// </summary>
         /// <param name="target"></param>
         /// <param name="message"></param>
         /// <param name="messageType"></param>
-        public static void FloatingText(Unit target, string message, MessageType messageType)
+        /// <returns>returns true if a floating text was sent.</returns>
+        public static bool FloatingText(Unit target, string message, MessageType messageType)
         {
+            if (!lastWriteTime.ContainsKey(target.GetId()))
+                lastWriteTime.Add(target.GetId(), DateTime.Now);
+            else
+            {
+                if ((DateTime.Now - lastWriteTime[target.GetId()]).Milliseconds > WRITE_DELAY)
+                    lastWriteTime[target.GetId()] = DateTime.Now;
+                else
+                    return false; //return false if not enough time has passed
+            }
             Communicator.GetInstance().LoLFloatingText(target.baseAddr, message, (uint)messageType);
+            return true;
         }
 
         public static List<T> GetAll<T>()

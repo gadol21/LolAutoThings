@@ -51,6 +51,9 @@ namespace LolThingies
         {
             while (true)
             {
+                //dictionary of champion names, and how many times they apear.
+                //clones apear with the same name of the real champions, but as minions.
+                //just check how many names apear twice, and than write on the player that he is the real one
                 Dictionary<string, int> champions = new Dictionary<string, int>();
                 foreach (Unit u in LoLReader.GetAllObjects())
                 {

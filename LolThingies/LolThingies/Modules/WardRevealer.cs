@@ -54,7 +54,7 @@ namespace LolThingies
             while (true)
             {
                 Champion myPlayer = LoLReader.GetMyHero();
-                foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team))
+                foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //remove the texts from their old location
                     Communicator.GetInstance().RemoveText(ward.type + " ward here");
                 foreach (Ward ward in LoLReader.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team
                 {

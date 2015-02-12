@@ -26,7 +26,6 @@ namespace LolThingies
         }
         public void IgniteLoop()
         {
-            Dictionary<int, DateTime> lastWriteTime = new Dictionary<int, DateTime>();
             while (true)
             {
                 Unit me = LoLReader.GetMyHero();
@@ -57,19 +56,8 @@ namespace LolThingies
                         }
                         if (kill) //ignite will kill
                         {
-                            //Point p = LoLReader.WorldToScreen(u);
-                            bool firstTime = false;
-                            if (!lastWriteTime.ContainsKey(u.GetId()))
-                            {
-                                lastWriteTime.Add(u.GetId(), DateTime.Now);
-                                firstTime = true;
-                            }
-                            if (firstTime || (DateTime.Now - lastWriteTime[u.GetId()]).Milliseconds > 400) //floating text every 400 sec?
-                            {
-                                Console.WriteLine("ignite will kill " + u.name);
-                                LoLReader.FloatingText(u, "ignite! ", MessageType.red);
-                                lastWriteTime[u.GetId()] = DateTime.Now;
-                            }
+                            Console.WriteLine("ignite will kill " + u.name);
+                            LoLReader.FloatingText(u, "ignite! ", MessageType.red);
                         }
                     }
                 }
