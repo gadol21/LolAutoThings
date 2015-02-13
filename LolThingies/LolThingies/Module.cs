@@ -11,7 +11,7 @@ namespace LolThingies
     {
         private int x, y;
         public Keys Key { get; set; }
-        protected bool on = false;
+        private bool on = false;
         private int fontSize = 20;
         private Argb color;
         private string displayText = "";
@@ -48,14 +48,14 @@ namespace LolThingies
             Communicator.GetInstance().RemoveText(displayText);
             displayText = name + "(" + Enum.GetName(typeof(Keys), Key) + "): " + ((on) ? "On" : "Off");
             Communicator.GetInstance().SendTextUnlimitedTime(displayText, fontSize, x, y, color);
-
-            KeyPress();
+            if(on)
+                Start();
             if (!on)
                 Stop();
         }
 
         public abstract void Init();
-        public abstract void KeyPress();
+        public abstract void Start();
         public abstract void Stop();
 
     }

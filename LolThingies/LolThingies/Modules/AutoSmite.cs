@@ -26,27 +26,20 @@ namespace LolThingies
             Console.WriteLine("Started auto smite");
             
         }
-        public override void KeyPress()
+        public override void Start()
         {
-            if (on)
-            {
-                thread = new Thread(AutoSmiteFunc);
-                thread.Start();
-            }
-            else
-            {
-                thread.Abort();
-            }
+            thread = new Thread(AutoSmiteFunc);
+            thread.Start();
 
-            Console.WriteLine("Auto smite state changed " + on);
+            Console.WriteLine("Auto smite state changed on");
         }
         public override void Stop()
         {
-            bool statment = thread != null && thread.IsAlive;
-            if (statment)
+            if (thread != null && thread.IsAlive)
             {
                 thread.Abort();
             }
+            Console.WriteLine("Auto smite state changed off");
         }
 
         public void SetSmiteKey(string key)
@@ -73,7 +66,7 @@ namespace LolThingies
                                 if (myHero == null)
                                     break;
                                 if (minion.hp < minion.maxhp && Engine.Distance(minion, myHero) < SMITE_RANGE && Engine.CanCastSpell(key))
-                                        Engine.FloatingText(minion, "Ready To Smite", MessageType.red);
+                                        Engine.FloatingText(minion, "Ready To Smite", MessageType.Red);
                                 int myLevel = Engine.GetMyLevel();
                                 if (myLevel < 1 || myLevel > 18) // happens sometimes when the game ends
                                     break;

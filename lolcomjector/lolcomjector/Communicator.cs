@@ -30,6 +30,26 @@ namespace lolcomjector
         Right = 2
     }
 
+    public struct Position{
+        public float x;
+        public float z;
+        public float y;
+
+        public Position(float x, float z, float y){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+    }
+
+    public enum MoveType : int
+    {
+        Move = 2,
+        Attack = 3,
+        AttackMove = 0,
+        Stop = 0xA
+    }
+
     public class Communicator
     {
         private const int WAIT_INFINITE = -10000;
@@ -114,7 +134,7 @@ namespace lolcomjector
             sock.SendTo(buffer, ep);
         }
 #if LEAGUEOFLEGENDS
-        internal void LoLFloatingText(uint unitBase, string message, uint messageType)
+        internal void LolFloatingText(uint unitBase, string message, uint messageType)
         {
             Byte[] buffer = new Byte[16 + message.Length + 1];
             string command = "floating";
@@ -130,6 +150,22 @@ namespace lolcomjector
             for (int i = 0; i < message.Length; i++)
                 buffer[16 + i] = (byte)message[i];
             buffer[buffer.Length - 1] = 0; //null terminate the string
+            sock.SendTo(buffer, ep);
+        }
+
+        internal void LolMoveTo(float x, float z, float y, MoveType moveType, uint myChamp, uint targetUnit)
+        {
+            byte[] buffer = new byte[30];
+            Encoding.ASCII.GetBytes("moveto").CopyTo(buffer, 0); //make it look like this everywhere in this file
+
+            BitConverter.GetBytes(x).CopyTo(buffer, 6);
+            BitConverter.GetBytes(y).CopyTo(buffer, 10);
+            BitConverter.GetBytes(z).CopyTo(buffer, 14);
+
+            BitConverter.GetBytes((int)moveType).CopyTo(buffer, 18);
+            BitConverter.GetBytes(myChamp).CopyTo(buffer, 22);
+            BitConverter.GetBytes(targetUnit).CopyTo(buffer, 26);
+
             sock.SendTo(buffer, ep);
         }
 #endif

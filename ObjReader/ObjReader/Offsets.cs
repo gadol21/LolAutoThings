@@ -54,9 +54,8 @@ namespace ObjectReader
             internal const int Y = 0x118;
             internal const int AngleLook = 0x12C;
             internal const int AngleRotation = 0x130;
-            internal const int FovY = 0x130; //not found
-            internal const int Z = 0x1B8; //not found
-            internal const int zoom = 0x234;
+            internal const int FovY = 0x13C;
+            internal const int Z = 0x234;
         }
         //Unit structure
         public abstract class Unit
@@ -76,6 +75,7 @@ namespace ObjectReader
             internal const int mana = 0x1B8;
             internal const int maxMana = 0x1C8;
             internal const int shield = 0x21C;
+            internal const int championName = 0x5cc;
             internal const int cdr = 0x6B4;
             internal const int tenacity = 0x704;
             internal const int armorPen = 0x730;

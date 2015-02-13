@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using AutoItX3Lib;
 using lolcomjector;
+using ObjectReader;
 
 namespace LolThingies
 {
@@ -22,33 +23,26 @@ namespace LolThingies
         {
             Console.WriteLine("Started auto laugh");
         }
-        public override void KeyPress()
+        public override void Start()
         {
-            if (on)
-            {
-                thread = new Thread(AutoLaughFunc);
-                thread.Start();
-            }
-            else
-            {
-                thread.Abort();
-                AutoItX3Declarations.AU3_Send("{4 UP}{CTRLUP}", 0);
-            }
+            thread = new Thread(AutoLaughFunc);
+            thread.Start();
             
-            Console.WriteLine("Auto laugh state changed "+on);
+            Console.WriteLine("Auto laugh state changed on");
         }
         public override void Stop()
         {
             if (thread!=null && thread.IsAlive)
                 thread.Abort();
             AutoItX3Declarations.AU3_Send("{4 UP}{CTRLUP}", 0);
+            Console.WriteLine("Auto laugh state changed off");
         }
         public void AutoLaughFunc()
         {
             while (true)
             {
                 IntPtr hWnd = Win32.FindWindow(null, "League of Legends (TM) Client");
-                if (hWnd != IntPtr.Zero)
+                if (Engine.IsLolRunning)
                 {
                     if (Win32.GetForegroundWindow() == hWnd)
                     {

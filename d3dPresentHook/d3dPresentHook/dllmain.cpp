@@ -54,8 +54,6 @@ std::ofstream logfile;
 typedef IDirect3D9* (_stdcall *D3DCREATE9)(UINT); //function ptr to Direct3DCreate9
 
 void myPaint(IDirect3DDevice9 *dev){
-	logfile << "myPaint begin" << std::endl;
-	logfile.flush();
 	clock_t current = clock();
 	if(!lastTime)
 		lastTime = current;
@@ -103,13 +101,10 @@ void myPaint(IDirect3DDevice9 *dev){
 	dev->EndScene();
 	lastTime = current;
 	ReleaseMutex(textsMutex); //finish using texts
-	logfile << "myPaint end" << std::endl;
-	logfile.flush();
 }
 
 HRESULT _stdcall HookedReset(IDirect3DDevice9 *self,D3DPRESENT_PARAMETERS *params){
 	logfile << "reset hook" << std::endl;
-	logfile.flush();
 	WaitForSingleObject(textsMutex,INFINITE);
 	//release the font we use with this device before resetting in, or it will fail (why?!)
 	Fonts::Reset();
@@ -123,8 +118,6 @@ HRESULT _stdcall HookedReset(IDirect3DDevice9 *self,D3DPRESENT_PARAMETERS *param
 
 //present belongs to IDirect3DDevice9, therefor its first parameter is this, but this is a reserved word so i will use self.
 HRESULT _stdcall HookedPresent9(IDirect3DDevice9 *self,const RECT *pSourceRect, const RECT *pDestRect, HWND hDestWindowOverride, const RGNDATA *pDirtyRegion){
-	logfile << "present hook" << std::endl;
-	logfile.flush();
 	//we need to call our draw, restore the first 5 bytes of present, call it, and hook it again.
 	myPaint(self);
 
@@ -232,10 +225,21 @@ DWORD _stdcall MakeDemHookz(LPVOID lpParam){
 			char message[128];
 			strcpy(message,buffer+16);
 			logfile << "calling FloatingText with params: " << unitBase<< "," << messageType << "," << message << std::endl;
-			logfile.flush();
 			FloatingText(unitBase,message,messageType);
 			logfile << "FloatingText returned" << std::endl;
-		logfile.flush();
+		}
+		else if (memcmp(buffer, "moveto", 6) == 0){
+			Position pos;
+			int moveType;
+			DWORD myChamp;
+			DWORD targetUnit;
+			memcpy(&pos, buffer + 6, 12);
+			memcpy(&moveType, buffer + 18, 4);
+			memcpy(&myChamp, buffer + 22, 4);
+			memcpy(&targetUnit, buffer + 26, 4);
+			logfile << "calling MoveTo" << std::endl;
+			MoveTo(&pos,moveType,myChamp,targetUnit);
+			logfile << "MoveTo returned" << std::endl;
 		}
 #endif
 	}
@@ -250,7 +254,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	case DLL_PROCESS_ATTACH:
 		logfile.open(LOGFILENAME,std::ios_base::out);
 		logfile << "attached" << std::endl;
-		logfile.flush();
 		textsMutex = CreateMutex(NULL,FALSE,NULL);
 		CreateThread(NULL,0,MakeDemHookz,NULL,0,NULL);
 		break;

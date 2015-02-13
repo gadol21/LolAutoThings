@@ -12,8 +12,13 @@ namespace ObjectReader
 {
     public enum MessageType : uint
     {
-        blue_levelup = 0xB,
-        red = 0x6
+        White = 0,
+        Yellow = 0x1,
+        Green = 0x2,
+        White_SlideLeft = 0x5,
+        Red = 0x6,
+        Purple = 0x7,
+        Blue_Levelup = 0xB
     }
     public static class Engine
     {
@@ -88,7 +93,7 @@ namespace ObjectReader
         }
 
         private static Dictionary<int, DateTime> lastWriteTime = new Dictionary<int, DateTime>();
-        private const int WRITE_DELAY = 500;
+        private const int WRITE_DELAY = 400; //TODO: make it so each module can write every WRITE_DELAY, instead of all of them can write every WRITE_DELAY
         /// <summary>
         /// sends a floating text over a target unit.
         /// please note that not all message types works on all objects,
@@ -96,7 +101,7 @@ namespace ObjectReader
         /// (didn't search beyond 10, so there might be more)
         /// 
         /// has a defence mechanism, not allowing text to be written on the same unit in a short delay
-        /// (minimum time between calls 500 ms)
+        /// (minimum time between calls 400 ms)
         /// </summary>
         /// <param name="target"></param>
         /// <param name="message"></param>
@@ -113,7 +118,7 @@ namespace ObjectReader
                 else
                     return false; //return false if not enough time has passed
             }
-            Communicator.GetInstance().LoLFloatingText(target.baseAddr, message, (uint)messageType);
+            Communicator.GetInstance().LolFloatingText(target.baseAddr, message, (uint)messageType);
             return true;
         }
 
@@ -175,6 +180,31 @@ namespace ObjectReader
                 loopThread = null;
             }
             units = new List<Unit>();
+        }
+
+        public static void MoveTo(float x, float z, float y)
+        {
+            Communicator.GetInstance().LolMoveTo(x, z, y, MoveType.Move, GetMyHero().baseAddr, 0);
+        }
+
+        public static void MoveTo(Unit u)
+        {
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Move, GetMyHero().baseAddr, u.baseAddr);
+        }
+
+        public static void Attack(Unit u)
+        {
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Attack, GetMyHero().baseAddr, u.baseAddr);
+        }
+
+        public static void AttackMoveTo(Unit u)
+        {
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.AttackMove, GetMyHero().baseAddr, u.baseAddr);
+        }
+
+        public static void AttackMoveTo(float x, float y, float z)
+        {
+            Communicator.GetInstance().LolMoveTo(x, y, z, MoveType.AttackMove, GetMyHero().baseAddr, 0);
         }
 
         public static bool CanCastSpell(string spellLetter)
@@ -270,7 +300,6 @@ namespace ObjectReader
             return new Point((int)screenX, (int)screenY);
         }
 
-        [Obsolete("should no longer be used")]
         public static Point WorldToScreen(float targetX, float targetY, float targetZ)
         {
             Camera c = GetCamera();
@@ -282,11 +311,10 @@ namespace ObjectReader
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        [Obsolete("should no longer be used")]
         public static Point WorldToScreen(Unit unit)
         {
             Camera c = GetCamera();
-            return WorldToScreen(c.CameraX, c.CameraY, 900, unit.x, unit.y, unit.z + 60, c.CameraAngle, 100); //c.Z and c.CameraFovY are not updated for latest patch, so i used temporary values
+            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle,c.CameraFovY*1.4); //c.Z and c.CameraFovY are not updated for latest patch, so i used temporary values
         }
         public static bool IsOnLoadingScreen()
         {

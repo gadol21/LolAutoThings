@@ -24,29 +24,22 @@ namespace LolThingies
             Console.WriteLine("Started ward revieler");
 
         }
-        public override void KeyPress()
+        public override void Start()
         {
-            if (on)
-            {
-                thread = new Thread(WardRevealerFunc);
-                thread.Start();
-            }
-            else
-            {
-                thread.Abort();
-            }
+            thread = new Thread(WardRevealerFunc);
+            thread.Start();
 
-            Console.WriteLine("ward revealer state changed " + on);
+            Console.WriteLine("ward revealer state changed on");
         }
         public override void Stop()
         {
-            bool statment = thread != null && thread.IsAlive;
-            if (statment)
+            if (thread != null && thread.IsAlive)
             {
                 thread.Abort();
             }
             foreach (Ward w in Engine.GetAll<Ward>())
                 Communicator.GetInstance().RemoveText(w.type + " ward here");
+            Console.WriteLine("ward revealer state changed off");
         }
 
         public void WardRevealerFunc()
@@ -54,9 +47,9 @@ namespace LolThingies
             while (true)
             {
                 Champion myPlayer = Engine.GetMyHero();
-                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //remove the texts from their old location
+                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team == myPlayer.team)) //remove the texts from their old location
                     Communicator.GetInstance().RemoveText(ward.type + " ward here");
-                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team
+                foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team == myPlayer.team)) //get all wards of the enemy team
                 {
                     if (ward.isDead)
                         continue;

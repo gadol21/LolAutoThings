@@ -57,37 +57,23 @@ namespace LolThingies
                         if (kill) //ignite will kill
                         {
                             Console.WriteLine("ignite will kill " + u.name);
-                            Engine.FloatingText(u, "ignite! ", MessageType.red);
+                            Engine.FloatingText(u, "ignite! ", MessageType.Red);
                         }
                     }
                 }
                 Thread.Sleep(10);
             }
         }
-        public override void KeyPress()
+        public override void Start()
         {
-            if (on)
-            {
                 thread = new Thread(IgniteLoop);
                 thread.Start();
-            }
-            else
-            {
-                if (thread != null && thread.IsAlive)
-                {
-                    thread.Abort();
-                   // for (int i = 0; i < 5; i++)
-                    //    Communicator.GetInstance().RemoveText("Ignite WILL KILL");
-                }
-            }
         }
         public override void Stop()
         {
             if (thread != null && thread.IsAlive)
             {
                 thread.Abort();
-                //for (int i = 0; i < 5; i++)
-                 //   Communicator.GetInstance().RemoveText("Ignite WILL KILL");
             }
         }
     }

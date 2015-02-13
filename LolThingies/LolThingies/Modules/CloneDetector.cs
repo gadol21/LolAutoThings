@@ -24,27 +24,20 @@ namespace LolThingies
             Console.WriteLine("Started clone detector");
 
         }
-        public override void KeyPress()
+        public override void Start()
         {
-            if (on)
-            {
-                thread = new Thread(CloneDetectorFunc);
-                thread.Start();
-            }
-            else
-            {
-                thread.Abort();
-            }
+            thread = new Thread(CloneDetectorFunc);
+            thread.Start();
 
-            Console.WriteLine("clone detector state changed " + on);
+            Console.WriteLine("clone detector state changed on");
         }
         public override void Stop()
         {
-            bool statment = thread != null && thread.IsAlive;
-            if (statment)
+            if (thread != null && thread.IsAlive)
             {
                 thread.Abort();
             }
+            Console.WriteLine("clone detector state changed off");
         }
 
         public void CloneDetectorFunc()
@@ -70,7 +63,7 @@ namespace LolThingies
                     foreach (Unit u in Engine.GetAllObjects().Where(u => u.name == pair.Key))
                     {
                         if (u is Champion)
-                            Engine.FloatingText(u, "real one", MessageType.red);
+                            Engine.FloatingText(u, "real one", MessageType.Red);
                     }
                 }
                 Thread.Sleep(400);

@@ -48,6 +48,7 @@ namespace ObjectReader
         public readonly float magicPenPercent;
         public readonly float cdr;
         public readonly Team team;
+        public readonly string championName;
 
         internal Unit(int id, int baseAddr)
         {
@@ -62,6 +63,7 @@ namespace ObjectReader
             this.y = Memory.ReadFloat(process, baseAddr + Offsets.Unit.y, buffer);
             this.z = Memory.ReadFloat(process, baseAddr + Offsets.Unit.z, buffer);
 
+            this.championName = Memory.ReadString(process, baseAddr + Offsets.Unit.championName, buffer);
             this.isDead = Memory.ReadByte(process, baseAddr + Offsets.Unit.isDead, buffer) == 1;
             this.hp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.hp, buffer);
             this.maxhp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.maxHp, buffer);

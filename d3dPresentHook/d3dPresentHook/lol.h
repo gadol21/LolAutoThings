@@ -7,6 +7,25 @@
 #ifndef LOL_H
 #define LOL_H
 
-void FloatingText(DWORD unitBase,char *string,DWORD messageType);
+const int MOVETYPE_STOP = 0xA;
+const int MOVETYPE_ATTACK = 3;
+const int MOVETYPE_MOVE = 2;
+const int MOVETYPE_ATTACKMOVE = 0;
+
+typedef struct{
+	float x;
+	float z;
+	float y;
+} Position, *LPPOSITION;
+
+void FloatingText(DWORD unitBase, char *string, DWORD messageType);
+void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit = NULL);
+
+//offsets here
+const DWORD FLOATING_TEXT = 0x8CAD00;
+const DWORD FLOATING_TEXT_MAGIC = 0x1DF821C;
+const DWORD MOVE_TO = 0xDEB890;
+
+const DWORD UNIT_POSITION = 0x5C; //where x,z,y are inside unit
 
 #endif
