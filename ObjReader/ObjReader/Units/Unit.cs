@@ -92,6 +92,23 @@ namespace ObjectReader
             this.magicPenPercent = Memory.ReadFloat(process, baseAddr + Offsets.Unit.magicPenPercent, buffer);
 
         }
+
+        public float DistanceFrom(Unit unit2)
+        {
+            return (float)Math.Sqrt(Math.Pow((this.x - unit2.x), 2) + Math.Pow((this.y - unit2.y), 2));
+        }
+
+        public bool IsVisible()
+        {
+            IntPtr process = Engine.processHandle;
+            byte[] buffer = new byte[4];
+            int listBase = Memory.ReadInt(process, (int)Engine.moduleHandle + Offsets.ObjectList.ListBegin, buffer);
+            int unitStruct = Memory.ReadInt(process, listBase + 4 * this.id, buffer);
+            int structVisible = Memory.ReadInt(process, unitStruct + Offsets.Unit.unitVisibleStruct, buffer);
+            byte visible = Memory.ReadByte(process, structVisible + Offsets.Unit.unitVisibleStruct_unitVisible, buffer);
+            return visible == 1;
+        }
+
         public int GetId()
         {
             return id;

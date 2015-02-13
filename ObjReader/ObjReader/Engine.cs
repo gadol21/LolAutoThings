@@ -73,11 +73,6 @@ namespace ObjectReader
         }
         private static Thread loopThread = null;
 
-        public static float Distance(Unit unit1, Unit unit2)
-        {
-            return (float)Math.Sqrt(Math.Pow((unit1.x - unit2.x), 2) + Math.Pow((unit1.y - unit2.y), 2));
-        }
-
         public static void LookXY(float x, float y)
         {
             byte[] buffer = new byte[4];
@@ -152,15 +147,7 @@ namespace ObjectReader
             int level = Memory.ReadInt(processHandle, add + Offsets.Level.level, buffer);
             return level;
         }
-        public static bool IsVisible(Unit u)
-        {
-            byte[] buffer = new byte[4];
-            int listBase = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.ObjectList.ListBegin, buffer);
-            int unitStruct = Memory.ReadInt(processHandle, listBase + 4 * u.GetId(), buffer);
-            int structVisible = Memory.ReadInt(processHandle, unitStruct + Offsets.Unit.unitVisibleStruct, buffer);
-            byte visible = Memory.ReadByte(processHandle, structVisible + Offsets.Unit.unitVisibleStruct_unitVisible, buffer);
-            return visible == 1;
-        }
+        
         public static void Init()
         {
             if (loopThread != null)
