@@ -163,7 +163,7 @@ namespace ObjectReader
             {
                 case "obj_AI_Minion":
                     if (name == "SightWard" || name == "VisionWard")
-                        return new Ward(idInList, unitBaseAddr, (name == "SightWard" ? WardType.Regular : WardType.Pink));
+                        return new Ward(idInList, unitBaseAddr, (name == "SightWard" ? WardType.Regular : WardType.Pink)); //TODO: something weird is happening with sightstone, need to check it
                     else
                         return new Minion(idInList, unitBaseAddr);
                 case "obj_AI_Turret":

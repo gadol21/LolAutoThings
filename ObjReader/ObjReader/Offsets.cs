@@ -100,6 +100,7 @@ namespace ObjectReader
 
         public abstract class LineMissile
         {
+            internal const int lineWidth = 0x79c; //this is not right
             internal const int originX = 0x16c;
             internal const int originZ = 0x170;
             internal const int originY= 0x174;

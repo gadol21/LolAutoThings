@@ -313,11 +313,13 @@ namespace ObjectReader
             Camera c = GetCamera();
             return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle, c.CameraFovY * 1.4);
         }
+        [Obsolete("this function must be optimized, currently not working",true)]
         public static bool IsOnLoadingScreen()
         {
             List<Unit> units = GetAllObjects();
             foreach (Unit u in units)
             {
+                //TODO: make a class for obj_Levelsizer
                 if (u.className == "obj_Levelsizer") //this object apears on loading screen
                     return true;
             }
