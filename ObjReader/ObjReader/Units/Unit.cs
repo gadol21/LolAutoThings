@@ -19,11 +19,13 @@ namespace ObjectReader
         public readonly string name;
         public readonly string className;
 
-        public readonly float x;
-        public readonly float y;
-        public readonly float z ;
+        protected byte[] buffer;
 
-        public readonly float hp;
+        public float x { get { return Memory.ReadFloat(Engine.processHandle, (int)baseAddr + Offsets.Unit.x, buffer); } } //need realtime value. list updates only every ~50ms
+        public float y { get { return Memory.ReadFloat(Engine.processHandle, (int)baseAddr + Offsets.Unit.y, buffer); } }
+        public float z { get { return Memory.ReadFloat(Engine.processHandle, (int)baseAddr + Offsets.Unit.z, buffer); } }
+
+        public float hp { get { return Memory.ReadFloat(Engine.processHandle, (int)baseAddr + Offsets.Unit.hp, buffer); } }
         public readonly float maxhp;
         public readonly float shield;
         public readonly float mana;
@@ -54,18 +56,18 @@ namespace ObjectReader
         {
             this.id = id;
             this.baseAddr = (uint)baseAddr;
-            byte[] buffer = new byte[4];
+            buffer = new byte[4];
             IntPtr process = Engine.processHandle;
 
             this.name = GetName(process, baseAddr, buffer);
             this.className = GetClassName(process, baseAddr, buffer);
-            this.x = Memory.ReadFloat(process, baseAddr + Offsets.Unit.x, buffer);
-            this.y = Memory.ReadFloat(process, baseAddr + Offsets.Unit.y, buffer);
-            this.z = Memory.ReadFloat(process, baseAddr + Offsets.Unit.z, buffer);
+            //this.x = Memory.ReadFloat(process, baseAddr + Offsets.Unit.x, buffer);
+            //this.y = Memory.ReadFloat(process, baseAddr + Offsets.Unit.y, buffer);
+            //this.z = Memory.ReadFloat(process, baseAddr + Offsets.Unit.z, buffer);
 
             this.championName = Memory.ReadString(process, baseAddr + Offsets.Unit.championName, buffer);
             this.isDead = Memory.ReadByte(process, baseAddr + Offsets.Unit.isDead, buffer) == 1;
-            this.hp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.hp, buffer);
+            //this.hp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.hp, buffer);
             this.maxhp = Memory.ReadFloat(process, baseAddr + Offsets.Unit.maxHp, buffer);
             this.mana = Memory.ReadFloat(process, baseAddr + Offsets.Unit.mana, buffer);
             this.maxmana = Memory.ReadFloat(process, baseAddr + Offsets.Unit.maxMana, buffer);
@@ -157,25 +159,23 @@ namespace ObjectReader
 
             string name = GetName(process, unitBaseAddr, buffer);
 
-            Unit unit;
             switch (objClassName)
             {
                 case "obj_AI_Minion":
                     if (name == "SightWard" || name == "VisionWard")
-                        unit = new Ward(idInList, unitBaseAddr, (name == "SightWard" ? WardType.Regular : WardType.Pink));
+                        return new Ward(idInList, unitBaseAddr, (name == "SightWard" ? WardType.Regular : WardType.Pink));
                     else
-                        unit = new Minion(idInList, unitBaseAddr);
-                    break;
+                        return new Minion(idInList, unitBaseAddr);
                 case "obj_AI_Turret":
-                    unit = new Turret(idInList, unitBaseAddr);
-                    break;
+                    return new Turret(idInList, unitBaseAddr);
                 case "AIHeroClient":
-                    unit = new Champion(idInList, unitBaseAddr);
-                    break;
+                    return new Champion(idInList, unitBaseAddr);
                 default:
-                    return null;
+                    if (name == "LineMissile")
+                        return new LineMissile(idInList, unitBaseAddr);
+                    else
+                        return new Unit(idInList, unitBaseAddr);
             }
-            return unit;
         }
     }
 }

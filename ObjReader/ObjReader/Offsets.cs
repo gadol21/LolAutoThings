@@ -98,5 +98,20 @@ namespace ObjectReader
             internal const int attackRange = 0x808;
         }
 
+        public abstract class LineMissile
+        {
+            internal const int originX = 0x16c;
+            internal const int originZ = 0x170;
+            internal const int originY= 0x174;
+
+            internal const int endX = 0x184;
+            internal const int endZ = 0x188;
+            internal const int endY = 0x18c;
+
+            internal const int currentX = 0x91; //this is more accurate than x,z,y
+            internal const int currentZ = 0x95;
+            internal const int currentY = 0x99;
+        }
+
     }
 }

@@ -5,11 +5,21 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
-using System.Drawing;
 using lolcomjector;
 
 namespace ObjectReader
 {
+    public struct Vector2
+    {
+        public int x;
+        public int y;
+
+        public Vector2(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
     public enum MessageType : uint
     {
         White = 0,
@@ -253,7 +263,7 @@ namespace ObjectReader
         /// <param name="cameraAngle">The angle between the ray of the camera and the ground</param>
         /// <param name="fovYAngle">The field of view angle of the camera in y axis</param>
         /// <returns></returns>
-        private static Point WorldToScreen(float cameraX, float cameraY, float cameraZ, float targetX, float targetY, float targetZ, double cameraAngle, double fovYAngle)
+        private static Vector2 WorldToScreen(float cameraX, float cameraY, float cameraZ, float targetX, float targetY, float targetZ, double cameraAngle, double fovYAngle)
         {
             cameraAngle = cameraAngle * Math.PI / 180;
             fovYAngle = fovYAngle * Math.PI / 180;
@@ -284,10 +294,10 @@ namespace ObjectReader
 
             double screenX = distanceFromScreenX * Math.Tan(xAngleAtPov) + screenWidth / 2;
 
-            return new Point((int)screenX, (int)screenY);
+            return new Vector2((int)screenX, (int)screenY);
         }
 
-        public static Point WorldToScreen(float targetX, float targetY, float targetZ)
+        public static Vector2 WorldToScreen(float targetX, float targetY, float targetZ)
         {
             Camera c = GetCamera();
             return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, targetX, targetY, targetZ, c.CameraAngle, c.CameraFovY * 1.4);
@@ -298,7 +308,7 @@ namespace ObjectReader
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        public static Point WorldToScreen(Unit unit)
+        public static Vector2 WorldToScreen(Unit unit)
         {
             Camera c = GetCamera();
             return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle, c.CameraFovY * 1.4);
