@@ -72,43 +72,27 @@ namespace lolcomjector
         public void Clear()
         {
             Byte[] buffer = new Byte[5];
-            buffer[0] = (byte)'c';
-            buffer[1] = (byte)'l';
-            buffer[2] = (byte)'e';
-            buffer[3] = (byte)'a';
-            buffer[4] = (byte)'r';
+            Encoding.ASCII.GetBytes("clear").CopyTo(buffer, 0);
             sock.SendTo(buffer, ep);
         }
         public void SendText(string text, int millis, int fontSize, int x, int y, Argb color,TextFormat format = TextFormat.Left)
         {
             Byte[] buffer = new Byte[28 + text.Length + 1];
 
-            Byte[] textAscii = new Byte[4];
-            buffer[0] = (byte)'t';
-            buffer[1] = (byte)'e';
-            buffer[2] = (byte)'x';
-            buffer[3] = (byte)'t';
+            Encoding.ASCII.GetBytes("text").CopyTo(buffer, 0);
 
-            Byte[] arrFsize = BitConverter.GetBytes(fontSize);
-            Byte[] arrMillis = BitConverter.GetBytes(millis);
-            Byte[] arrX = BitConverter.GetBytes(x);
-            Byte[] arrY = BitConverter.GetBytes(y);
-            Byte[] arrFormat = BitConverter.GetBytes((int)format);
-            for (int i = 0; i < 4; i++)
-            {
-                buffer[i + 4] = arrMillis[i];
-                buffer[i + 8] = arrFsize[i];
-                buffer[i + 12] = arrX[i];
-                buffer[i + 16] = arrY[i];
-                buffer[i + 24] = arrFormat[i];
-            }
+            BitConverter.GetBytes(millis).CopyTo(buffer, 4);
+            BitConverter.GetBytes(fontSize).CopyTo(buffer, 8);
+            BitConverter.GetBytes(x).CopyTo(buffer, 12);
+            BitConverter.GetBytes(y).CopyTo(buffer, 16);
+            BitConverter.GetBytes((int)format).CopyTo(buffer, 24);
+
             buffer[20] = color.alpha;
             buffer[21] = color.red;
             buffer[22] = color.green;
             buffer[23] = color.blue;
 
-            for (int i = 0; i < text.Length; i++)
-                buffer[28 + i] = (byte)text[i];
+            Encoding.ASCII.GetBytes(text).CopyTo(buffer, 28);
             buffer[buffer.Length - 1] = 0;//null terminate the string
             sock.SendTo(buffer, ep);
         }
@@ -128,8 +112,7 @@ namespace lolcomjector
         {
             text = "remove" + text;
             Byte[] buffer = new Byte[text.Length + 1];
-            for (int i = 0; i < text.Length; i++)
-                buffer[i] = (byte)text[i];
+            Encoding.ASCII.GetBytes(text).CopyTo(buffer, 0);
             buffer[buffer.Length - 1] = 0; //null terminate the string
             sock.SendTo(buffer, ep);
         }
@@ -137,18 +120,10 @@ namespace lolcomjector
         internal void LolFloatingText(uint unitBase, string message, uint messageType)
         {
             Byte[] buffer = new Byte[16 + message.Length + 1];
-            string command = "floating";
-            for (int i = 0; i < command.Length;i++ )
-                buffer[i] = (byte)command[i];
-            Byte[] arrUnitBase = BitConverter.GetBytes(unitBase);
-            Byte[] arrMessageType = BitConverter.GetBytes(messageType);
-            for (int i = 0; i < 4; i++)
-            {
-                buffer[8 + i] = arrUnitBase[i];
-                buffer[12 + i] = arrMessageType[i];
-            }
-            for (int i = 0; i < message.Length; i++)
-                buffer[16 + i] = (byte)message[i];
+            Encoding.ASCII.GetBytes("floating").CopyTo(buffer, 0);
+            BitConverter.GetBytes(unitBase).CopyTo(buffer,8);
+            BitConverter.GetBytes(messageType).CopyTo(buffer,12);
+            Encoding.ASCII.GetBytes(message).CopyTo(buffer, 16);
             buffer[buffer.Length - 1] = 0; //null terminate the string
             sock.SendTo(buffer, ep);
         }

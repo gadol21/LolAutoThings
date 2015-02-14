@@ -35,7 +35,7 @@ namespace LolThingies
                         break;
                     if (u.team == me.team)
                         continue;
-                    if (u.hp <= 0 || u.isDead || !Engine.IsVisible(u))
+                    if (u.hp <= 0 || u.isDead || !u.IsVisible())
                         continue;
                     int myLevel = Engine.GetMyLevel();
                     if (myLevel <= 0) //happens when the game ends?

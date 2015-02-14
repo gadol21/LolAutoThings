@@ -290,7 +290,7 @@ namespace ObjectReader
         public static Point WorldToScreen(float targetX, float targetY, float targetZ)
         {
             Camera c = GetCamera();
-            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, targetX, targetY, targetZ, c.CameraAngle, c.CameraFovY);
+            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, targetX, targetY, targetZ, c.CameraAngle, c.CameraFovY * 1.4);
         }
         /// <summary>
         /// convert the world coords to screen coords.
@@ -301,7 +301,7 @@ namespace ObjectReader
         public static Point WorldToScreen(Unit unit)
         {
             Camera c = GetCamera();
-            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle,c.CameraFovY*1.4); //c.Z and c.CameraFovY are not updated for latest patch, so i used temporary values
+            return WorldToScreen(c.CameraX, c.CameraY, c.CameraZ, unit.x, unit.y, unit.z + 60, c.CameraAngle, c.CameraFovY * 1.4);
         }
         public static bool IsOnLoadingScreen()
         {

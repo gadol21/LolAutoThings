@@ -50,6 +50,7 @@ namespace ObjectReader
         {
             internal const int baseAdress = 0x01DF7EA8;
             internal const int Offset0 = 0x00;
+            //x and y are actually the x and y the camera looks at, and not the actual x and y of the camera
             internal const int X = 0x110;
             internal const int Y = 0x118;
             internal const int AngleLook = 0x12C;
