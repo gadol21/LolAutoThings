@@ -11,7 +11,7 @@ namespace ObjectReader
         //Level Structure
         public abstract class Level
         {
-            internal const int baseOffset = 0x1DF4EE4;
+            internal const int baseOffset = 0x10AADD0;
             internal const int offset0 = 0x100;
 
             internal const int level = 0x58;
@@ -41,28 +41,28 @@ namespace ObjectReader
         //List
         public abstract class ObjectList
         {
-            internal const int ListBegin = 0x38f4f58;
+            internal const int ListBegin = 0x2d2c120;
 
-            internal const int OurHero = 0x01DF50D8;
+            internal const int OurHero = 0x010aa8a0;
         }
         //Camera
         public abstract class Camera
         {
-            internal const int baseAdress = 0x01DF7EA8;
+            internal const int baseAdress = 0x10a8674;
             internal const int Offset0 = 0x00;
             //x and y are actually the x and y the camera looks at, and not the actual x and y of the camera
-            internal const int X = 0x110;
-            internal const int Y = 0x118;
-            internal const int AngleLook = 0x12C;
-            internal const int AngleRotation = 0x130;
-            internal const int FovY = 0x13C;
-            internal const int Z = 0x234;
+            internal const int X = 0x120;
+            internal const int Y = 0x128;
+            internal const int AngleLook = 0x13C;
+            internal const int AngleRotation = 0x140;
+            internal const int FovY = 0x14C;
+            internal const int Z = 0x244; //zoom
         }
         //Unit structure
         public abstract class Unit
         {
-            internal const int unitVisibleStruct = 0x188;
-            internal const int unitVisibleStruct_unitVisible = 0x24;
+            internal const int unitVisibleStruct = 0x1BC;
+            internal const int unitVisibleStruct_unitVisible = 0x84;
 
             internal const int team = 0x14; //100 blue 200 red 300 jungle
             internal const int name = 0x20;
@@ -71,33 +71,34 @@ namespace ObjectReader
             internal const int z = 0x60;
             internal const int y = 0x64;
             internal const int isDead = 0x114;
-            internal const int hp = 0x13C;
-            internal const int maxHp = 0x14C;
-            internal const int mana = 0x1B8;
-            internal const int maxMana = 0x1C8;
-            internal const int shield = 0x21C;
-            internal const int championName = 0x5cc;
-            internal const int cdr = 0x6B4;
-            internal const int tenacity = 0x704;
-            internal const int armorPen = 0x730;
-            internal const int magicPen = 0x734;
-            internal const int armorPenPercent = 0x738;
-            internal const int magicPenPercent = 0x73C;
-            internal const int bonusAd = 0x764;
-            internal const int ap = 0x76C;
-            internal const int lifeSteal = 0x7B8;
-            internal const int spellVemp = 0x7BC;
-            internal const int AttSpeedMultiplier = 0x7C8;
-            internal const int baseAd = 0x7CC;
-            internal const int critChance = 0x7E4;
-            internal const int armor = 0x7E8;
-            internal const int MR = 0x7EC;
-            internal const int hpRegenPerSec = 0x7F0;
-            internal const int ManaRegenPerSec = 0x800;
-            internal const int MovementSpeed = 0x804;
-            internal const int attackRange = 0x808;
+            internal const int hp = 0x170;
+            internal const int maxHp = 0x180;
+            internal const int mana = 0x1EC;
+            internal const int maxMana = 0x1FC;
+            internal const int shield = 0x250;
+            internal const int championName = 0x774;
+            internal const int cdr = 0x85c;
+            internal const int tenacity = 0x8c0;
+            internal const int armorPen = 0x8f0;
+            internal const int magicPen = 0x8f4;
+            internal const int armorPenPercent = 0x8f8;
+            internal const int magicPenPercent = 0x8fc;
+            internal const int bonusAd = 0x928;
+            internal const int ap = 0x930;
+            internal const int lifeSteal = 0x97c;
+            internal const int spellVemp = 0x980;
+            internal const int AttSpeedMultiplier = 0x98c;
+            internal const int baseAd = 0x990;
+            internal const int critChance = 0x9a8;
+            internal const int armor = 0x9ac;
+            internal const int MR = 0x9b0;
+            internal const int hpRegenPerSec = 0x9b4;
+            internal const int ManaRegenPerSec = 0x9c4;
+            internal const int MovementSpeed = 0x9c8;
+            internal const int attackRange = 0x9cc;
         }
 
+        [Obsolete("not updated for latest patch", true)]
         public abstract class LineMissile
         {
             internal const int lineWidth = 0x79c; //this is not right

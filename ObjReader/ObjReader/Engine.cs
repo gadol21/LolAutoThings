@@ -149,14 +149,6 @@ namespace ObjectReader
             string ourName = Memory.ReadString(processHandle, heroObject + Offsets.Unit.name, buffer);
             return GetAll<Champion>().Where(u => u.name == ourName).FirstOrDefault();
         }
-        public static int GetMyLevel()
-        {
-            byte[] buffer = new byte[4];
-            int levelStructStart = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.Level.baseOffset, buffer);
-            int add = Memory.ReadInt(processHandle, levelStructStart + Offsets.Level.offset0, buffer);
-            int level = Memory.ReadInt(processHandle, add + Offsets.Level.level, buffer);
-            return level;
-        }
         
         public static void Init()
         {

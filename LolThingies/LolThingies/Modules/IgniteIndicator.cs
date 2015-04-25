@@ -28,7 +28,7 @@ namespace LolThingies
         {
             while (true)
             {
-                Unit me = Engine.GetMyHero();
+                Champion me = Engine.GetMyHero();
                 foreach (Unit u in Engine.GetAll<Champion>())
                 {
                     if (me == null)
@@ -37,7 +37,7 @@ namespace LolThingies
                         continue;
                     if (u.hp <= 0 || u.isDead || !u.IsVisible())
                         continue;
-                    int myLevel = Engine.GetMyLevel();
+                    int myLevel = me.level;
                     if (myLevel <= 0) //happens when the game ends?
                         continue;
                     if (u.hp < igniteDps[myLevel - 1]*5) 

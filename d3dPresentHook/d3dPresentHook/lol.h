@@ -22,9 +22,9 @@ void FloatingText(DWORD unitBase, char *string, DWORD messageType);
 void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit = NULL);
 
 //offsets here
-const DWORD FLOATING_TEXT = 0x8CAD00;
-const DWORD FLOATING_TEXT_MAGIC = 0x1DF821C;
-const DWORD MOVE_TO = 0xDEB890;
+const DWORD FLOATING_TEXT = 0xA7CB40;
+//const DWORD FLOATING_TEXT_MAGIC = 0x1DF821C;
+const DWORD MOVE_TO = 0x75BD60;
 
 const DWORD UNIT_POSITION = 0x5C; //where x,z,y are inside unit
 

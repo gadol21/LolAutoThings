@@ -3,12 +3,13 @@
 #include <stdio.h>
 
 DWORD base = 0;
-void FloatingText(DWORD unitBase,char *string, DWORD messageType){
+void FloatingText(DWORD unitBase,char *string, DWORD messageType) {
 	if(!base)
 		base = (DWORD)GetModuleHandleA("League of Legends.exe");
 	if(!base) //make sure we got it
 		return;
-	DWORD magic = *(DWORD *)(base + FLOATING_TEXT_MAGIC);
+	//DWORD magic = *(DWORD *)(base + FLOATING_TEXT_MAGIC); old magic
+	DWORD magic = 0x22BA530;
 	DWORD  funcaddr = base + FLOATING_TEXT;
 	__asm{
 		push esi //for some reason this func changes esi, and this causes problems
@@ -22,7 +23,7 @@ void FloatingText(DWORD unitBase,char *string, DWORD messageType){
 	}
 }
 
-void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit){
+void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit) {
 	if (!base)
 		base = (DWORD)GetModuleHandleA("League of Legends.exe");
 	if (!base) //make sure we got it
