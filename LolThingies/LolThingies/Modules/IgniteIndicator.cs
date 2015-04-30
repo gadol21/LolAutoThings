@@ -28,7 +28,7 @@ namespace LolThingies
         {
             while (true)
             {
-                Champion me = Engine.GetMyHero();
+                MainChampion me = Champion.Me;
                 foreach (Unit u in Engine.GetAll<Champion>())
                 {
                     if (me == null)

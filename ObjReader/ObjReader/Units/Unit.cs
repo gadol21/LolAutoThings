@@ -159,6 +159,8 @@ namespace ObjectReader
 
             string name = GetName(process, unitBaseAddr, buffer);
 
+            int mainChampId = Engine.GetMyHeroId();
+
             switch (objClassName)
             {
                 case "obj_AI_Minion":
@@ -169,7 +171,10 @@ namespace ObjectReader
                 case "obj_AI_Turret":
                     return new Turret(idInList, unitBaseAddr);
                 case "AIHeroClient":
-                    return new Champion(idInList, unitBaseAddr);
+                    if (idInList == mainChampId)
+                        return new MainChampion(idInList, unitBaseAddr);
+                    else
+                        return new Champion(idInList, unitBaseAddr);
                 default:
                     if (name == "LineMissile")
                         return new LineMissile(idInList, unitBaseAddr);

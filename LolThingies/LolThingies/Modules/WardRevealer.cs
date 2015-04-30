@@ -46,7 +46,7 @@ namespace LolThingies
         {
             while (true)
             {
-                Champion myPlayer = Engine.GetMyHero();
+                Champion myPlayer = Champion.Me;
                 foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //remove the texts from their old location
                     Communicator.GetInstance().RemoveText(ward.type + " ward here");
                 foreach (Ward ward in Engine.GetAll<Ward>().Where(w => w.team != myPlayer.team)) //get all wards of the enemy team

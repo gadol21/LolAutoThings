@@ -98,7 +98,7 @@ namespace ObjectReader
         }
 
         private static Dictionary<int, DateTime> lastWriteTime = new Dictionary<int, DateTime>();
-        private const int WRITE_DELAY = 400; //TODO: make it so each module can write every WRITE_DELAY, instead of all of them can write every WRITE_DELAY
+        private const int WRITE_DELAY = 500; //TODO: make it so each module can write every WRITE_DELAY, instead of all of them can write every WRITE_DELAY
         /// <summary>
         /// sends a floating text over a target unit.
         /// please note that not all message types works on all objects,
@@ -106,14 +106,16 @@ namespace ObjectReader
         /// (didn't search beyond 10, so there might be more)
         /// 
         /// has a defence mechanism, not allowing text to be written on the same unit in a short delay
-        /// (minimum time between calls 400 ms)
+        /// (minimum time between calls 500 ms)
         /// </summary>
         /// <param name="target"></param>
         /// <param name="message"></param>
         /// <param name="messageType"></param>
         /// <returns>returns true if a floating text was sent.</returns>
-        public static bool FloatingText(Unit target, string message, MessageType messageType)
+        public static bool FloatingText(Unit target, string message, MessageType messageType) //TODO: this is bugged - sometimes won't write when it should
         {
+            if (!target.IsVisible() || target.isDead) //don't send if the target is dead or not visible
+                return false;
             if (!lastWriteTime.ContainsKey(target.GetId()))
                 lastWriteTime.Add(target.GetId(), DateTime.Now);
             else
@@ -140,14 +142,17 @@ namespace ObjectReader
             }
         }
 
-        public static Champion GetMyHero()
+        internal static int GetMyHeroId()
         {
             if (processHandle == null || moduleHandle == null)
                 throw new Exception("not inited?");
             byte[] buffer = new byte[4];
             int heroObject = Memory.ReadInt(processHandle, (int)moduleHandle + Offsets.ObjectList.OurHero, buffer);
             string ourName = Memory.ReadString(processHandle, heroObject + Offsets.Unit.name, buffer);
-            return GetAll<Champion>().Where(u => u.name == ourName).FirstOrDefault();
+            Champion mainChampion = GetAll<Champion>().Where(u => u.name == ourName).FirstOrDefault();
+            if (mainChampion == null) //this will probably happen on first iteration
+                return -1;
+            return mainChampion.GetId();
         }
         
         public static void Init()
@@ -173,27 +178,27 @@ namespace ObjectReader
 
         public static void MoveTo(float x, float z, float y)
         {
-            Communicator.GetInstance().LolMoveTo(x, z, y, MoveType.Move, GetMyHero().baseAddr, 0);
+            Communicator.GetInstance().LolMoveTo(x, z, y, MoveType.Move, Champion.Me.baseAddr, 0);
         }
 
         public static void MoveTo(Unit u)
         {
-            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Move, GetMyHero().baseAddr, u.baseAddr);
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Move, Champion.Me.baseAddr, u.baseAddr);
         }
 
         public static void Attack(Unit u)
         {
-            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Attack, GetMyHero().baseAddr, u.baseAddr);
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Attack, Champion.Me.baseAddr, u.baseAddr);
         }
 
         public static void AttackMoveTo(Unit u)
         {
-            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.AttackMove, GetMyHero().baseAddr, u.baseAddr);
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.AttackMove, Champion.Me.baseAddr, u.baseAddr);
         }
 
         public static void AttackMoveTo(float x, float y, float z)
         {
-            Communicator.GetInstance().LolMoveTo(x, y, z, MoveType.AttackMove, GetMyHero().baseAddr, 0);
+            Communicator.GetInstance().LolMoveTo(x, y, z, MoveType.AttackMove, Champion.Me.baseAddr, 0);
         }
 
         public static bool CanCastSpell(string spellLetter)

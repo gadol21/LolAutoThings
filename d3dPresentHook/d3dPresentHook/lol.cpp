@@ -9,7 +9,7 @@ void FloatingText(DWORD unitBase,char *string, DWORD messageType) {
 	if(!base) //make sure we got it
 		return;
 	//DWORD magic = *(DWORD *)(base + FLOATING_TEXT_MAGIC); old magic
-	DWORD magic = 0x22BA530;
+	DWORD magic = base + 0x10AA530;
 	DWORD  funcaddr = base + FLOATING_TEXT;
 	__asm{
 		push esi //for some reason this func changes esi, and this causes problems

@@ -63,11 +63,14 @@ namespace LolThingies
                             continue;
                         if (minion.hp > 0 && !minion.isDead)
                         {
-                            Champion myHero = Engine.GetMyHero();
+                            MainChampion myHero = Champion.Me;
                             if (myHero == null)
                                 break;
                             if (minion.hp < minion.maxhp && myHero.DistanceFrom(minion) < SMITE_RANGE && Engine.CanCastSpell(smiteKey))
+                            {
                                 Engine.FloatingText(minion, "Ready To Smite", MessageType.Red);
+                                Console.WriteLine("written ready to smite");
+                            }
                             int myLevel = myHero.level;
                             if (myLevel < 1 || myLevel > 18) // happens sometimes when the game ends
                                 break;

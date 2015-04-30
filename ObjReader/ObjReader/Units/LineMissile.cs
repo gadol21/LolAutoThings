@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ObjectReader
 {
+    [Obsolete("not yet updated for the latest patch")]
     public class LineMissile : Unit
     {
         public float originX { get { return Memory.ReadFloat(Engine.processHandle, (int)baseAddr + Offsets.LineMissile.originX, buffer); } }

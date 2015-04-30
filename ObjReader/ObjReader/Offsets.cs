@@ -98,8 +98,7 @@ namespace ObjectReader
             internal const int attackRange = 0x9cc;
         }
 
-        [Obsolete("not updated for latest patch", true)]
-        public abstract class LineMissile
+        public abstract class LineMissile //not updated for the latest patch yet
         {
             internal const int lineWidth = 0x79c; //this is not right
             internal const int originX = 0x16c;
