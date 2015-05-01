@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "lol.h"
 #include <stdio.h>
+#include <Windows.h>
 
 DWORD base = 0;
 void FloatingText(DWORD unitBase,char *string, DWORD messageType) {
@@ -9,7 +10,7 @@ void FloatingText(DWORD unitBase,char *string, DWORD messageType) {
 	if(!base) //make sure we got it
 		return;
 	//DWORD magic = *(DWORD *)(base + FLOATING_TEXT_MAGIC); old magic
-	DWORD magic = base + 0x10AA530;
+	DWORD magic = base + FLOATING_TEXT_MAGIC;
 	DWORD  funcaddr = base + FLOATING_TEXT;
 	__asm{
 		push esi //for some reason this func changes esi, and this causes problems

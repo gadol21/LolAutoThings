@@ -7,7 +7,6 @@ namespace ObjectReader
 {
     internal abstract class Offsets
     {
-        //all of the offsets are outdated.
         //Level Structure
         public abstract class Level
         {
@@ -41,9 +40,9 @@ namespace ObjectReader
         //List
         public abstract class ObjectList
         {
-            internal const int ListBegin = 0x2d2c120;
+            internal const int ListBegin = 0x2E17620;
 
-            internal const int OurHero = 0x010aa8a0;
+            internal const int OurHero = 0x011918B0;
         }
         //Camera
         public abstract class Camera
