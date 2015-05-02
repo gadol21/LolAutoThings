@@ -112,7 +112,7 @@ namespace ObjectReader
         /// <param name="message"></param>
         /// <param name="messageType"></param>
         /// <returns>returns true if a floating text was sent.</returns>
-        public static bool FloatingText(Unit target, string message, MessageType messageType) //TODO: this is bugged - sometimes won't write when it should
+        public static bool FloatingText(Unit target, string message, MessageType messageType = MessageType.Red) //TODO: this is bugged - sometimes won't write when it should
         {
             if (!target.IsVisible() || target.isDead) //don't send if the target is dead or not visible
                 return false;
@@ -120,7 +120,7 @@ namespace ObjectReader
                 lastWriteTime.Add(target.GetId(), DateTime.Now);
             else
             {
-                if ((DateTime.Now - lastWriteTime[target.GetId()]).Milliseconds > WRITE_DELAY)
+                if ((DateTime.Now - lastWriteTime[target.GetId()]).TotalMilliseconds > WRITE_DELAY)
                     lastWriteTime[target.GetId()] = DateTime.Now;
                 else
                     return false; //return false if not enough time has passed
@@ -184,6 +184,14 @@ namespace ObjectReader
         public static void MoveTo(Unit u)
         {
             Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Move, Champion.Me.baseAddr, u.baseAddr);
+        }
+
+        /// <summary>
+        /// acts like pressing s in game
+        /// </summary>
+        public static void StopMove()
+        {
+            Communicator.GetInstance().LolMoveTo(0, 0, 0, MoveType.Stop, Champion.Me.baseAddr, 0);
         }
 
         public static void Attack(Unit u)

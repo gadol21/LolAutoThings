@@ -7,11 +7,10 @@ namespace ObjectReader
 {
     internal abstract class Offsets
     {
-        //all of the offsets are outdated.
         //Level Structure
         public abstract class Level
         {
-            internal const int baseOffset = 0x10AADD0;
+            internal const int baseOffset = 0x1197d0c;
             internal const int offset0 = 0x100;
 
             internal const int level = 0x58;
@@ -41,14 +40,14 @@ namespace ObjectReader
         //List
         public abstract class ObjectList
         {
-            internal const int ListBegin = 0x2d2c120;
+            internal const int ListBegin = 0x2E17620;
 
-            internal const int OurHero = 0x010aa8a0;
+            internal const int OurHero = 0x011918B0;
         }
         //Camera
         public abstract class Camera
         {
-            internal const int baseAdress = 0x10a8674;
+            internal const int baseAdress = 0x119ACAC;
             internal const int Offset0 = 0x00;
             //x and y are actually the x and y the camera looks at, and not the actual x and y of the camera
             internal const int X = 0x120;
