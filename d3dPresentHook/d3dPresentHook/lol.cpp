@@ -40,7 +40,8 @@ void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit) 
 			moveType = MOVETYPE_MOVE;
 	}
 	position = (targetUnit == NULL) ? position : reinterpret_cast<LPPOSITION>(targetUnit + UNIT_POSITION);
-	__asm{
+	
+	__asm {
 		push isStop //idk if this even right, but it works
 		push 0
 		push isAttackMove

@@ -10,7 +10,7 @@ namespace ObjectReader
         //Level Structure
         public abstract class Level
         {
-            internal const int baseOffset = 0x10AADD0;
+            internal const int baseOffset = 0x1197d0c;
             internal const int offset0 = 0x100;
 
             internal const int level = 0x58;
@@ -47,7 +47,7 @@ namespace ObjectReader
         //Camera
         public abstract class Camera
         {
-            internal const int baseAdress = 0x10a8674;
+            internal const int baseAdress = 0x119ACAC;
             internal const int Offset0 = 0x00;
             //x and y are actually the x and y the camera looks at, and not the actual x and y of the camera
             internal const int X = 0x120;

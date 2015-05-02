@@ -24,7 +24,7 @@ void MoveTo(LPPOSITION position, int moveType, DWORD myChamp, DWORD targetUnit =
 //offsets here
 const DWORD FLOATING_TEXT = 0x5E3CE0;
 const DWORD FLOATING_TEXT_MAGIC = 0x119B3E0;
-const DWORD MOVE_TO = 0x75BD60; //TODO: update this
+const DWORD MOVE_TO = 0x7D3590;
 
 const DWORD UNIT_POSITION = 0x5C; //where x,z,y are inside unit
 

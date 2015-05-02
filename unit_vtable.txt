@@ -1,0 +1,11 @@
+0x10 - GetName
+0x14 - GetX / GetXZY
+0x24 - ? - go deep
+
+0x6c - set is_unit_in_screen to true
+0x70 set is_unit_in_screen to false
+
+
+unit struct
+[base + 0x2964] + 0x258 = unit walking angle
+player: 0x3134 champion structure - fizz
