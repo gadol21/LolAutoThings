@@ -1,0 +1,8 @@
+setup.py
+ObjReader.egg-info/PKG-INFO
+ObjReader.egg-info/SOURCES.txt
+ObjReader.egg-info/dependency_links.txt
+ObjReader.egg-info/requires.txt
+ObjReader.egg-info/top_level.txt
+objreader/__init__.py
+objreader/engine.py
