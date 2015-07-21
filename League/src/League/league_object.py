@@ -37,6 +37,15 @@ class LeagueObject(object):
         name_addr = self._readers[Int](self._addr + 0x20)
         return self._readers[NullTerminatedString](name_addr)
 
+    @property
+    def type(self):
+        type_addr = self._readers[Int](self._addr + 0x4)
+        type_len = self._readers[Int](type_addr + 0x14)
+        if type_len < 16:
+            return self._readers[LengthedString](type_addr + 0x4, type_len)
+        type_addr = self._readers[Int](type_addr + 0x4)
+        return self._readers[NullTerminatedString](type_addr)
+
     def get_fields(self):
         """
         You should override it
