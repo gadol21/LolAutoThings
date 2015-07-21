@@ -1,5 +1,4 @@
 from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
-from objects_handler import ObjectsHandler
 
 
 class LeagueObject(object):
@@ -10,13 +9,14 @@ class LeagueObject(object):
 
     BASE_FIELDS = {'name_length': (0x30, Int)}
 
-    def __init__(self, list_index):
-        self._readers = {Byte: ObjectsHandler().engine.read_byte, Short: ObjectsHandler().engine.read_short,
-                         Int: ObjectsHandler().engine.read_int, Float: ObjectsHandler().engine.read_float,
-                         NullTerminatedString: ObjectsHandler().engine.read_string,
-                         LengthedString: ObjectsHandler().engine.read_string}
+    def __init__(self, engine, list_index):
+        self._engine = engine
+        self._readers = {Byte: engine.read_byte, Short: engine.read_short,
+                         Int: engine.read_int, Float: engine.read_float,
+                         NullTerminatedString: engine.read_string,
+                         LengthedString: engine.read_string}
         self.id = list_index
-        self.addr = ObjectsHandler().engine.object_addr(list_index)
+        self.addr = engine.object_addr(list_index)
         self._fields = self.get_fields()
         self._fields.update(self.BASE_FIELDS)
 
@@ -67,4 +67,4 @@ class LeagueObject(object):
         return {}
 
     def dump_memory(self):
-        return self.ObjectsHandler().engine.dump_memory(self.addr)
+        return self._engine.dump_memory(self.addr)

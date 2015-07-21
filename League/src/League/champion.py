@@ -3,8 +3,8 @@ from field_types import Float
 
 
 class Champion(LeagueObject):
-    def __init__(self, list_index):
-        super(Champion, self).__init__(list_index)
+    def __init__(self, engine, list_index):
+        super(Champion, self).__init__(engine, list_index)
 
     def get_fields(self):
         return {'x': (0x5c, Float),

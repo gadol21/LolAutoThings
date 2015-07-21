@@ -1,4 +1,5 @@
 from objreader import Engine
+from league_object import LeagueObject
 
 
 def singleton(class_):
@@ -14,23 +15,31 @@ def singleton(class_):
 @singleton
 class ObjectsHandler(object):
 
-    LIST_SIZE = 10e4
+    LIST_SIZE = 10 ** 4
 
     def __init__(self):
         self.engine = Engine()
 
-    def get_by_name(self, name):
+    def get_by_name(self, name, obj_class=LeagueObject):
         """
         :return: list contain all the objects with the specific name
         """
         objects = []
         for i in xrange(self.LIST_SIZE):
             if self.engine.object_exist(i):
-                obj = LeagueObject(i)
-                if obj.name == 'CG Potato':
-                    me = obj
+                obj = obj_class(self.engine, i)
+                if obj.name == name:
+                    objects.append(obj)
+        return objects
 
-    def get_by_type(self, obj_type):
+    def get_by_type(self, obj_type, obj_class=LeagueObject):
         """
         :return: list contain all the objects with the specific type
         """
+        objects = []
+        for i in xrange(self.LIST_SIZE):
+            if self.engine.object_exist(i):
+                obj = obj_class(self.engine, i)
+                if obj.type == obj_type:
+                    objects.append(obj)
+        return objects
