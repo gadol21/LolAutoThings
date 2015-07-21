@@ -1,0 +1,10 @@
+setup.py
+League/__init__.py
+League/chamion.py
+League/field_types.py
+League/league_object.py
+League/objreader.py
+league.egg-info/PKG-INFO
+league.egg-info/SOURCES.txt
+league.egg-info/dependency_links.txt
+league.egg-info/top_level.txt

@@ -2938,11 +2938,25 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_Engine swig_types[0]
-#define SWIGTYPE_p_char swig_types[1]
-#define SWIGTYPE_p_std__invalid_argument swig_types[2]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[3]
-static swig_type_info *swig_types[5];
-static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
+#define SWIGTYPE_p___int64 swig_types[1]
+#define SWIGTYPE_p_char swig_types[2]
+#define SWIGTYPE_p_float swig_types[3]
+#define SWIGTYPE_p_int swig_types[4]
+#define SWIGTYPE_p_long swig_types[5]
+#define SWIGTYPE_p_p_char swig_types[6]
+#define SWIGTYPE_p_p_unsigned_long swig_types[7]
+#define SWIGTYPE_p_short swig_types[8]
+#define SWIGTYPE_p_signed___int64 swig_types[9]
+#define SWIGTYPE_p_signed_char swig_types[10]
+#define SWIGTYPE_p_std__invalid_argument swig_types[11]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[12]
+#define SWIGTYPE_p_unsigned___int64 swig_types[13]
+#define SWIGTYPE_p_unsigned_char swig_types[14]
+#define SWIGTYPE_p_unsigned_int swig_types[15]
+#define SWIGTYPE_p_unsigned_long swig_types[16]
+#define SWIGTYPE_p_unsigned_short swig_types[17]
+static swig_type_info *swig_types[19];
+static swig_module_info swig_module = {swig_types, 18, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -3474,6 +3488,14 @@ SWIGINTERNINLINE PyObject *
 SWIG_From_std_string  (const std::string& s)
 {
   return SWIG_FromCharPtrAndSize(s.data(), s.size());
+}
+
+
+SWIGINTERNINLINE PyObject* 
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return (value > LONG_MAX) ?
+    PyLong_FromUnsignedLong(value) : PyLong_FromLong(static_cast< long >(value)); 
 }
 
 
@@ -4367,6 +4389,27 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_delete_Engine(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Engine",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Engine" "', argument " "1"" of type '" "Engine *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Engine_is_league_running(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -4378,10 +4421,10 @@ SWIGINTERN PyObject *_wrap_Engine_is_league_running(PyObject *SWIGUNUSEDPARM(sel
   if (!PyArg_ParseTuple(args,(char *)"O:Engine_is_league_running",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_is_league_running" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_is_league_running" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
-  result = (bool)(arg1)->is_league_running();
+  result = (bool)((Engine const *)arg1)->is_league_running();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4426,7 +4469,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_read_string",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_string" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_string" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4434,7 +4477,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_0(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_string" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (arg1)->read_string(arg2);
+  result = ((Engine const *)arg1)->read_string(arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4461,7 +4504,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_1(PyObject *SWIGUNUSEDPARM(s
   if (!PyArg_ParseTuple(args,(char *)"OOO:Engine_read_string",&obj0,&obj1,&obj2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_string" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_string" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4474,7 +4517,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_1(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Engine_read_string" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = (arg1)->read_string(arg2,arg3);
+  result = ((Engine const *)arg1)->read_string(arg2,arg3);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4532,8 +4575,8 @@ SWIGINTERN PyObject *_wrap_Engine_read_string(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'Engine_read_string'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Engine::read_string(size_t)\n"
-    "    Engine::read_string(size_t,size_t)\n");
+    "    Engine::read_string(size_t) const\n"
+    "    Engine::read_string(size_t,size_t) const\n");
   return 0;
 }
 
@@ -4553,7 +4596,7 @@ SWIGINTERN PyObject *_wrap_Engine_dump_memory(PyObject *SWIGUNUSEDPARM(self), Py
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_dump_memory",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_dump_memory" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_dump_memory" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4561,8 +4604,91 @@ SWIGINTERN PyObject *_wrap_Engine_dump_memory(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_dump_memory" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (arg1)->dump_memory(arg2);
+  result = ((Engine const *)arg1)->dump_memory(arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Engine_object_addr(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  DWORD result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Engine_object_addr",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_object_addr" "', argument " "1"" of type '" "Engine const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_object_addr" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (DWORD)((Engine const *)arg1)->object_addr(arg2);
+  resultobj = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Engine_object_exist(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Engine_object_exist",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_object_exist" "', argument " "1"" of type '" "Engine const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_object_exist" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (bool)((Engine const *)arg1)->object_exist(arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Engine_print_debug_info(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Engine_print_debug_info",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_print_debug_info" "', argument " "1"" of type '" "Engine const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine * >(argp1);
+  ((Engine const *)arg1)->print_debug_info();
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4584,7 +4710,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_byte(PyObject *SWIGUNUSEDPARM(self), PyOb
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_read_byte",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_byte" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_byte" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4592,7 +4718,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_byte(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_byte" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (char)(arg1)->SWIGTEMPLATEDISAMBIGUATOR read< char >(arg2);
+  result = (char)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< char >(arg2);
   resultobj = SWIG_From_char(static_cast< char >(result));
   return resultobj;
 fail:
@@ -4615,7 +4741,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_short(PyObject *SWIGUNUSEDPARM(self), PyO
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_read_short",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_short" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_short" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4623,7 +4749,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_short(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_short" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (short)(arg1)->SWIGTEMPLATEDISAMBIGUATOR read< short >(arg2);
+  result = (short)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< short >(arg2);
   resultobj = SWIG_From_short(static_cast< short >(result));
   return resultobj;
 fail:
@@ -4646,7 +4772,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_int(PyObject *SWIGUNUSEDPARM(self), PyObj
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_read_int",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_int" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_int" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4654,7 +4780,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_int(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_int" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (int)(arg1)->SWIGTEMPLATEDISAMBIGUATOR read< int >(arg2);
+  result = (int)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< int >(arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -4677,7 +4803,7 @@ SWIGINTERN PyObject *_wrap_Engine_read_float(PyObject *SWIGUNUSEDPARM(self), PyO
   if (!PyArg_ParseTuple(args,(char *)"OO:Engine_read_float",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_float" "', argument " "1"" of type '" "Engine *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_read_float" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
@@ -4685,29 +4811,8 @@ SWIGINTERN PyObject *_wrap_Engine_read_float(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_float" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (float)(arg1)->SWIGTEMPLATEDISAMBIGUATOR read< float >(arg2);
+  result = (float)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< float >(arg2);
   resultobj = SWIG_From_float(static_cast< float >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_Engine(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Engine *arg1 = (Engine *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_Engine",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Engine" "', argument " "1"" of type '" "Engine *""'"); 
-  }
-  arg1 = reinterpret_cast< Engine * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -4742,15 +4847,18 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"SwigPyIterator___sub__", _wrap_SwigPyIterator___sub__, METH_VARARGS, NULL},
 	 { (char *)"SwigPyIterator_swigregister", SwigPyIterator_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_Engine", _wrap_new_Engine, METH_VARARGS, NULL},
+	 { (char *)"delete_Engine", _wrap_delete_Engine, METH_VARARGS, NULL},
 	 { (char *)"Engine_is_league_running", _wrap_Engine_is_league_running, METH_VARARGS, NULL},
 	 { (char *)"Engine_start", _wrap_Engine_start, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_string", _wrap_Engine_read_string, METH_VARARGS, NULL},
 	 { (char *)"Engine_dump_memory", _wrap_Engine_dump_memory, METH_VARARGS, NULL},
+	 { (char *)"Engine_object_addr", _wrap_Engine_object_addr, METH_VARARGS, NULL},
+	 { (char *)"Engine_object_exist", _wrap_Engine_object_exist, METH_VARARGS, NULL},
+	 { (char *)"Engine_print_debug_info", _wrap_Engine_print_debug_info, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_byte", _wrap_Engine_read_byte, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_short", _wrap_Engine_read_short, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_int", _wrap_Engine_read_int, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_float", _wrap_Engine_read_float, METH_VARARGS, NULL},
-	 { (char *)"delete_Engine", _wrap_delete_Engine, METH_VARARGS, NULL},
 	 { (char *)"Engine_swigregister", Engine_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
@@ -4759,27 +4867,83 @@ static PyMethodDef SwigMethods[] = {
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
 static swig_type_info _swigt__p_Engine = {"_p_Engine", "Engine *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p___int64 = {"_p___int64", "__int64 *|LONGLONG *|LONG64 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_char = {"_p_char", "CHAR *|TCHAR *|char *|CCHAR *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_float = {"_p_float", "FLOAT *|float *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_int = {"_p_int", "BOOL *|INT32 *|int *|INT *|INT_PTR *|LONG32 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_long = {"_p_long", "SHANDLE_PTR *|LONG_PTR *|LONG *|HRESULT *|long *|SSIZE_T *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_p_char = {"_p_p_char", "PTCH *|PCTSTR *|LPCTSTR *|LPTCH *|PUTSTR *|LPUTSTR *|PCUTSTR *|LPCUTSTR *|char **|PTSTR *|LPTSTR *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_p_unsigned_long = {"_p_p_unsigned_long", "unsigned long **|PLCID *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_short = {"_p_short", "HALF_PTR *|short *|SHORT *|INT16 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_signed___int64 = {"_p_signed___int64", "INT64 *|signed __int64 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_signed_char = {"_p_signed_char", "signed char *|INT8 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_swig__SwigPyIterator = {"_p_swig__SwigPyIterator", "swig::SwigPyIterator *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned___int64 = {"_p_unsigned___int64", "UINT64 *|DWORD64 *|unsigned __int64 *|DWORDLONG *|ULONGLONG *|ULONG64 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_char = {"_p_unsigned_char", "FCHAR *|unsigned char *|UCHAR *|BYTE *|TBYTE *|UINT8 *|BOOLEAN *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "UINT32 *|DWORD32 *|UINT *|unsigned int *|UINT_PTR *|ULONG32 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_long = {"_p_unsigned_long", "HANDLE_PTR *|DWORD *|ULONG_PTR *|DWORD_PTR *|FLONG *|unsigned long *|ULONG *|SIZE_T *|LCID *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_unsigned_short = {"_p_unsigned_short", "WORD *|UHALF_PTR *|unsigned short *|USHORT *|FSHORT *|LANGID *|UINT16 *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Engine,
+  &_swigt__p___int64,
   &_swigt__p_char,
+  &_swigt__p_float,
+  &_swigt__p_int,
+  &_swigt__p_long,
+  &_swigt__p_p_char,
+  &_swigt__p_p_unsigned_long,
+  &_swigt__p_short,
+  &_swigt__p_signed___int64,
+  &_swigt__p_signed_char,
   &_swigt__p_std__invalid_argument,
   &_swigt__p_swig__SwigPyIterator,
+  &_swigt__p_unsigned___int64,
+  &_swigt__p_unsigned_char,
+  &_swigt__p_unsigned_int,
+  &_swigt__p_unsigned_long,
+  &_swigt__p_unsigned_short,
 };
 
 static swig_cast_info _swigc__p_Engine[] = {  {&_swigt__p_Engine, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p___int64[] = {  {&_swigt__p___int64, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_float[] = {  {&_swigt__p_float, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_long[] = {  {&_swigt__p_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_p_char[] = {  {&_swigt__p_p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_p_unsigned_long[] = {  {&_swigt__p_p_unsigned_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_signed___int64[] = {  {&_swigt__p_signed___int64, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_signed_char[] = {  {&_swigt__p_signed_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_swig__SwigPyIterator[] = {  {&_swigt__p_swig__SwigPyIterator, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_unsigned___int64[] = {  {&_swigt__p_unsigned___int64, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_unsigned_char[] = {  {&_swigt__p_unsigned_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_unsigned_long[] = {  {&_swigt__p_unsigned_long, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_unsigned_short[] = {  {&_swigt__p_unsigned_short, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Engine,
+  _swigc__p___int64,
   _swigc__p_char,
+  _swigc__p_float,
+  _swigc__p_int,
+  _swigc__p_long,
+  _swigc__p_p_char,
+  _swigc__p_p_unsigned_long,
+  _swigc__p_short,
+  _swigc__p_signed___int64,
+  _swigc__p_signed_char,
   _swigc__p_std__invalid_argument,
   _swigc__p_swig__SwigPyIterator,
+  _swigc__p_unsigned___int64,
+  _swigc__p_unsigned_char,
+  _swigc__p_unsigned_int,
+  _swigc__p_unsigned_long,
+  _swigc__p_unsigned_short,
 };
 
 
