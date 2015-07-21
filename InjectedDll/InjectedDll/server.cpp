@@ -25,6 +25,11 @@ Server::Server(uint16_t port) : m_port(port), m_server(NULL) {
 	if (result != 0) {
 		throw std::runtime_error("bind failed. port already in use?");
 	}
+
+	result = listen(m_server, 1);
+	if (result != 0) {
+		throw std::runtime_error("failed to listen on the socket");
+	}
 }
 
 Server::~Server() {
@@ -34,9 +39,11 @@ Server::~Server() {
 }
 
 void Server::handle_one() {
+	struct sockaddr addr;
+	int addrlen = sizeof(addr);
 	SOCKET client = accept(m_server,	// Socket
-						   NULL,		// Out addr
-						   0);			// Out addrlen
+						   &addr,		// Out addr
+						   &addrlen);	// Out addrlen
 	char buffer[1024];
 	int bytes_read = 1;
 	// 0 is returned from recv if the connection was closed
@@ -48,7 +55,6 @@ void Server::handle_one() {
 
 		CommandPtr command(CommandFactory::Create(buffer, bytes_read));
 		Hooker::get_instance().register_callback(std::move(command), false);
-		// command will get deleted here, probably before the callback was called
 	}
 	closesocket(client);
 }
