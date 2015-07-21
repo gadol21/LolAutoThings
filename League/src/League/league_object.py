@@ -7,7 +7,7 @@ class LeagueObject(object):
     data of the object.
     """
 
-    BASE_FIELDS = {'team': 0}
+    BASE_FIELDS = {'name_length': (0x30, Int)}
 
     def __init__(self, engine, list_index):
         self._engine = engine
@@ -15,8 +15,9 @@ class LeagueObject(object):
                          Int: engine.read_int, Float: engine.read_float,
                          NullTerminatedString: engine.read_string,
                          LengthedString: engine.read_string}
-        self._addr = engine.get_object_addr(list_index)
-        self._fields = self.get_fields().update(self.BASE_FIELDS)
+        self._addr = engine.object_addr(list_index)
+        self._fields = self.get_fields()
+        self._fields.update(self.BASE_FIELDS)
 
     def __getattr__(self, item):
         if not item in self._fields:
@@ -29,12 +30,23 @@ class LeagueObject(object):
             offset, field_type, args = field
         return self._readers[field_type](self._addr + offset, *args)
 
+    @property
+    def name(self):
+        if self.name_length < 16:
+            return self._readers[LengthedString](self._addr + 0x20, self.name_length)
+        name_addr = self._readers[Int](self._addr + 0x20)
+        return self._readers[NullTerminatedString](name_addr)
+
     def get_fields(self):
         """
+        You should override it
         :return: dictionary - for each property name it contain tuple of
          offset and type.
         {'hp': (10, Int), 'name': (20, NullTerminatedString)}
         The unique one is: {'name': (20, LengthedString, (5))} when 5 is the
         length of the string.
         """
-        raise NotImplemented()
+        return {}
+
+    def dump_memory(self):
+        return self._engine.dump_memory(self._addr)

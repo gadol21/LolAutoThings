@@ -1,6 +1,7 @@
 %module objreader
 
 %include "stl.i"
+%include "windows.i"
   
 %{  
     #include "engine.h"  

@@ -164,6 +164,8 @@ class Engine(_object):
             self.this.append(this)
         except:
             self.this = this
+    __swig_destroy__ = _objreader.delete_Engine
+    __del__ = lambda self: None
 
     def is_league_running(self):
         return _objreader.Engine_is_league_running(self)
@@ -176,6 +178,9 @@ class Engine(_object):
 
     def dump_memory(self, offset):
         return _objreader.Engine_dump_memory(self, offset)
+
+    def object_addr(self, index):
+        return _objreader.Engine_object_addr(self, index)
 
     def object_exist(self, index):
         return _objreader.Engine_object_exist(self, index)
@@ -194,8 +199,6 @@ class Engine(_object):
 
     def read_float(self, offset):
         return _objreader.Engine_read_float(self, offset)
-    __swig_destroy__ = _objreader.delete_Engine
-    __del__ = lambda self: None
 Engine_swigregister = _objreader.Engine_swigregister
 Engine_swigregister(Engine)
 

@@ -8,7 +8,15 @@ const char* Engine::M_WINDOW_NAME = "League of Legends (TM) Client";
 const char* Engine::M_PROCESS_NAME = "League of Legends.exe";
 
 Engine::Engine() : m_process_id(0), m_list_addr(0), m_process_handle(NULL),
-	m_base_addr(NULL) { }
+	m_base_addr(NULL) {
+	if (!start()) {
+		std::cout << "Failed to start the engine" << std::endl;
+	}
+}
+
+Engine::~Engine() {
+	CloseHandle(m_process_handle);
+}
 
 bool Engine::is_league_running() const {
 	return FindWindow(NULL, M_WINDOW_NAME) != NULL;
@@ -20,17 +28,24 @@ std::string Engine::read_string(size_t offset) const {
 	unsigned char last_char = static_cast<unsigned char>(255);
 	SIZE_T bytes_read;
 	while (last_char != 0) {
-		ReadProcessMemory(m_process_handle, m_base_addr + offset + counter, &last_char, 1, &bytes_read);
+		ReadProcessMemory(m_process_handle, reinterpret_cast<LPCVOID>(offset + counter),
+			&last_char, 1, &bytes_read);
 		result += last_char;
+		counter += 1;
 	}
+	result.pop_back();
 	return result;
 }
 
 std::string Engine::read_string(size_t offset, size_t length) const {
 	std::unique_ptr<char> buffer(new char[length]);
-	SIZE_T bytes_read;
-	ReadProcessMemory(m_process_handle, m_base_addr + offset, buffer.get(), length, &bytes_read);
-	std::string result(buffer.get());
+	DWORD bytes_read;
+	ReadProcessMemory(m_process_handle, reinterpret_cast<LPCVOID>(offset),
+		buffer.get(), length, &bytes_read);
+	if (bytes_read == 0) {
+		std::cout << "Reading string with specific length, read 0 bytes" << std::endl;
+	}
+	std::string result(buffer.get(), length);
 	return result;
 }
 
@@ -38,8 +53,16 @@ std::string Engine::dump_memory(size_t offset) const {
 	return read_string(offset, M_DUMP_MEMORY_SIZE);
 }
 
+DWORD Engine::object_list_addr(size_t index) const {
+	return m_list_addr + index * sizeof(void*);
+}
+
+DWORD Engine::object_addr(size_t index) const {
+	return read<int>(object_list_addr(index));
+}
+
 bool Engine::object_exist(size_t index) const {
-	return read<int>(m_list_addr + index * sizeof(void*)) != 0;
+	return read<int>(object_list_addr(index)) != 0;
 }
 
 bool Engine::start() {
@@ -96,6 +119,7 @@ void Engine::load_list_addr() {
 }
 
 void Engine::print_debug_info() const {
+	std::cout << std::hex;
 	std::cout << "League running: " << is_league_running() << std::endl;
 	std::cout << "Process id: " << m_process_id << std::endl;
 	std::cout << "Base addr: " << reinterpret_cast<DWORD>(m_base_addr) << std::endl;
