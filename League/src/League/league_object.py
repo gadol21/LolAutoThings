@@ -15,7 +15,8 @@ class LeagueObject(object):
                          Int: engine.read_int, Float: engine.read_float,
                          NullTerminatedString: engine.read_string,
                          LengthedString: engine.read_string}
-        self._addr = engine.object_addr(list_index)
+        self.id = list_index
+        self.addr = engine.object_addr(list_index)
         self._fields = self.get_fields()
         self._fields.update(self.BASE_FIELDS)
 
@@ -28,7 +29,7 @@ class LeagueObject(object):
             args = ()
         else:
             offset, field_type, args = field
-        return self.read(field_type, self._addr + offset, *args)
+        return self.read(field_type, self.addr + offset, *args)
 
     def read(self, field_type, addr, *args):
         return self._readers[field_type](addr, *args)
@@ -38,8 +39,8 @@ class LeagueObject(object):
     def name(self):
         name_pos = 0x20
         if self.name_length < 16:
-            return self.read(LengthedString, self._addr + name_pos, self.name_length)
-        name_addr = self.read(Int, self._addr + name_pos)
+            return self.read(LengthedString, self.addr + name_pos, self.name_length)
+        name_addr = self.read(Int, self.addr + name_pos)
         return self.read(NullTerminatedString, name_addr)
 
     @property
@@ -47,7 +48,7 @@ class LeagueObject(object):
         type_struct_offset = 0x4
         len_offset = 0x14
         type_string_offset = 0x4  # inside the struct
-        type_struct = self.read(Int, self._addr + type_struct_offset)
+        type_struct = self.read(Int, self.addr + type_struct_offset)
         type_len = self.read(Int, type_struct + len_offset)
         if type_len < 16:
             return self.read(LengthedString, type_struct + type_string_offset, type_len)
@@ -66,4 +67,4 @@ class LeagueObject(object):
         return {}
 
     def dump_memory(self):
-        return self._engine.dump_memory(self._addr)
+        return self._engine.dump_memory(self.addr)
