@@ -1,0 +1,2 @@
+C:\Users\itay\Desktop\swigwin-3.0.4\swig.exe -c++ -python objreader.i
+"C:\Program Files\mingw-w64\x86_64-5.1.0-win32-seh-rt_v4-rev0\mingw64\bin\gcc.exe" -fPIC -std=c++11 -shared objreader_wrap.cxx engine.cc -IC:\Python27\include -L. -LC:\python27\libs -lpython27 -IC:\python27\include -o testfile_wrap.pyd
