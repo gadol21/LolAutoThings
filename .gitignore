@@ -4,6 +4,7 @@ OldVersion/
 *.pyd
 *.ilk
 *.xml
+League/.idea/*
 
 # Compiled Object files
 *.slo

@@ -4,9 +4,14 @@
 #include "server.h"
 #include "hooker.h"
 
+const uint16_t PORT = 37882;
+
 DWORD __stdcall server_thread(void* params) {
 	try{
-		Server server(5541);
+		if (IsDebuggerPresent()) {
+			__asm int 3;
+		}
+		Server server(PORT);
 		while (true) {
 			server.handle_one();
 		}
