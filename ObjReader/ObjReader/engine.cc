@@ -14,15 +14,6 @@ bool Engine::is_league_running() {
 	return FindWindow(NULL, M_WINDOW_NAME) != NULL;
 }
 
-
-template <typename T>
-T Engine::read(size_t offset) {
-	char buffer[sizeof(T)];
-	SIZE_T bytes_read;
-	ReadProcessMemory(m_process_handle, m_base_addr + offset, buffer, sizeof(T), &bytes_read);
-	return *reinterpret_cast<T*>(buffer);
-}
-
 std::string Engine::read_string(size_t offset) {
 	size_t counter = 0;
 	std::string result;

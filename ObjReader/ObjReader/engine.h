@@ -28,3 +28,5 @@ private:
 	static const char* M_PROCESS_NAME;
 	static const size_t M_DUMP_MEMORY_SIZE = 4096;
 };
+
+#include "engine.inl"
