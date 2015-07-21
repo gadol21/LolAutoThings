@@ -3,6 +3,7 @@ OldVersion/
 *.pyc
 *.pyd
 *.ilk
+*.xml
 
 # Compiled Object files
 *.slo

@@ -28,23 +28,31 @@ class LeagueObject(object):
             args = ()
         else:
             offset, field_type, args = field
-        return self._readers[field_type](self._addr + offset, *args)
+        return self.read(field_type, self._addr + offset, *args)
+
+    def read(self, field_type, addr, *args):
+        return self._readers[field_type](addr, *args)
+
 
     @property
     def name(self):
+        name_pos = 0x20
         if self.name_length < 16:
-            return self._readers[LengthedString](self._addr + 0x20, self.name_length)
-        name_addr = self._readers[Int](self._addr + 0x20)
-        return self._readers[NullTerminatedString](name_addr)
+            return self.read(LengthedString, self._addr + name_pos, self.name_length)
+        name_addr = self.read(Int, self._addr + name_pos)
+        return self.read(NullTerminatedString, name_addr)
 
     @property
     def type(self):
-        type_addr = self._readers[Int](self._addr + 0x4)
-        type_len = self._readers[Int](type_addr + 0x14)
+        type_struct_offset = 0x4
+        len_offset = 0x14
+        type_string_offset = 0x4  # inside the struct
+        type_struct = self.read(Int, self._addr + type_struct_offset)
+        type_len = self.read(Int, type_struct + len_offset)
         if type_len < 16:
-            return self._readers[LengthedString](type_addr + 0x4, type_len)
-        type_addr = self._readers[Int](type_addr + 0x4)
-        return self._readers[NullTerminatedString](type_addr)
+            return self.read(LengthedString, type_struct + type_string_offset, type_len)
+        string_addr = self.read(Int, type_struct + type_string_offset)
+        return self.read(NullTerminatedString, string_addr)
 
     def get_fields(self):
         """
