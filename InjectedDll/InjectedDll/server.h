@@ -1,10 +1,10 @@
 #ifndef __SERVER_H
 #define __SERVER_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <Windows.h>
 
-const char* LOOPBACK = "127.0.0.1";
+#pragma comment(lib,"ws2_32.lib")
 
 /**
  * Server will listen for connections, and will be able to handle only one connection at a time.
@@ -16,17 +16,24 @@ const char* LOOPBACK = "127.0.0.1";
  */
 class Server {
 public:
+	/**
+	 * Initializes the socket
+	 * @note: the server binds the given port on creation, and not on handle_one()
+	 * @throws: runtime_error if failed to initialize server
+	 */
 	Server(uint16_t port);
 
 	~Server();
 
 	/**
-	 * start accepting connections. blocks
+	 * accepts one connection, and handle it. blocks until the connection is over
 	 */
-	void start();
+	void handle_one();
 
 private:
 	uint16_t m_port;
+	SOCKET m_server;
+	static const char* LOOPBACK;
 };
 
 #endif // ndef __SERVER_H
