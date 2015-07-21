@@ -10,9 +10,9 @@ from time import time
 me = None
 for i in xrange(10000):
 	if e.object_exist(i):
-		obj = LeagueObject(e, i)
+		obj = LeagueObject(i)
 		if obj.name == 'CG Potato':
 			me = obj
-c = Champion(e, me.id)
+c = Champion(me.id)
 #del obj
 #del e
