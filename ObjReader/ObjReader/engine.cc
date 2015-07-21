@@ -7,14 +7,14 @@
 const char* Engine::M_WINDOW_NAME = "League of Legends (TM) Client";
 const char* Engine::M_PROCESS_NAME = "League of Legends.exe";
 
-Engine::Engine() : m_process_id(0), m_process_handle(NULL),
+Engine::Engine() : m_process_id(0), m_list_addr(0), m_process_handle(NULL),
 	m_base_addr(NULL) { }
 
-bool Engine::is_league_running() {
+bool Engine::is_league_running() const {
 	return FindWindow(NULL, M_WINDOW_NAME) != NULL;
 }
 
-std::string Engine::read_string(size_t offset) {
+std::string Engine::read_string(size_t offset) const {
 	size_t counter = 0;
 	std::string result;
 	unsigned char last_char = static_cast<unsigned char>(255);
@@ -26,7 +26,7 @@ std::string Engine::read_string(size_t offset) {
 	return result;
 }
 
-std::string Engine::read_string(size_t offset, size_t length) {
+std::string Engine::read_string(size_t offset, size_t length) const {
 	std::unique_ptr<char> buffer(new char[length]);
 	SIZE_T bytes_read;
 	ReadProcessMemory(m_process_handle, m_base_addr + offset, buffer.get(), length, &bytes_read);
@@ -34,8 +34,12 @@ std::string Engine::read_string(size_t offset, size_t length) {
 	return result;
 }
 
-std::string Engine::dump_memory(size_t offset) {
+std::string Engine::dump_memory(size_t offset) const {
 	return read_string(offset, M_DUMP_MEMORY_SIZE);
+}
+
+bool Engine::object_exist(size_t index) const {
+	return read<int>(m_list_addr + index * sizeof(void*)) != 0;
 }
 
 bool Engine::start() {
@@ -46,6 +50,7 @@ bool Engine::start() {
 	m_process_id = get_process_id();
 	open_process();
 	find_module_addr();
+	load_list_addr();
 	return true;
 }
 
@@ -72,7 +77,7 @@ void Engine::find_module_addr() {
 }
 
 
-size_t Engine::get_process_id() {
+size_t Engine::get_process_id() const {
 	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
 	PROCESSENTRY32 pe32;
 	pe32.dwSize = sizeof(pe32);
@@ -84,4 +89,16 @@ size_t Engine::get_process_id() {
 	}
 	CloseHandle(snapshot);
 	return pe32.th32ProcessID;
+}
+
+void Engine::load_list_addr() {
+	m_list_addr = read<DWORD>(reinterpret_cast<DWORD>(m_base_addr + M_OFFSET_LIST));
+}
+
+void Engine::print_debug_info() const {
+	std::cout << "League running: " << is_league_running() << std::endl;
+	std::cout << "Process id: " << m_process_id << std::endl;
+	std::cout << "Base addr: " << reinterpret_cast<DWORD>(m_base_addr) << std::endl;
+	std::cout << "List addr: " << m_list_addr << std::endl;
+	std::cout << "Handle: " << m_process_handle << std::endl;
 }
