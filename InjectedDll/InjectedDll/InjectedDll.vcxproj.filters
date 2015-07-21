@@ -29,7 +29,16 @@
     <ClCompile Include="hooker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="command.cpp">
+    <ClCompile Include="command_factory.cpp">
+      <Filter>Commands\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="floating_text_command.cpp">
+      <Filter>Commands\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lol_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="send_chat_command.cpp">
       <Filter>Commands\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -43,13 +52,22 @@
     <ClInclude Include="hooker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="command.h">
-      <Filter>Commands\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="command_types.h">
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="floating_text_command.h">
+      <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command_factory.h">
+      <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lol_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="send_chat_command.h">
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

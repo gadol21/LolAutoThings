@@ -1,4 +1,6 @@
 #include "server.h"
+#include "command_factory.h"
+#include "hooker.h"
 #include <stdexcept>
 
 const char* Server::LOOPBACK = "127.0.0.1";
@@ -44,6 +46,9 @@ void Server::handle_one() {
 						  1024,		// buffer length
 						  0);		// flags
 
+		CommandPtr command(CommandFactory::Create(buffer, bytes_read));
+		Hooker::get_instance().register_callback(std::move(command), false);
+		// command will get deleted here, probably before the callback was called
 	}
 	closesocket(client);
 }

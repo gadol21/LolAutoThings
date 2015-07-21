@@ -3,10 +3,10 @@
 
 #include <Windows.h>
 #include <list>
+#include "command.h"
+#include "command_factory.h"
 
 using std::list;
-
-typedef void(*hooker_callback)();
 
 /**
  * singleton class that is responsible for hooking functions.
@@ -29,11 +29,10 @@ public:
 
 	/**
 	 * Registers a callback to be called every main_loop's step
+	 * if persistent = false, the callback will be removed in the next
 	 * @note: the callback must return fast! it blocks the main_loop
 	 */
-	void register_callback(hooker_callback callback);
-
-	void remove_callback(hooker_callback callback);
+	void register_callback(CommandPtr callback, bool persistent);
 
 private:
 	Hooker();
@@ -57,7 +56,8 @@ private:
 	DWORD get_relative_address(DWORD from, DWORD to, size_t instruction_size=5);
 
 	static const char* MOV_EDI_EDI;
-	list<hooker_callback> m_callbacks;
+	list<CommandPtr> m_onetime_callbacks;
+	list<CommandPtr> m_persistent_callbacks;
 	bool m_is_hooked;
 	/// the address of the function we hook
 	DWORD m_hook_addr;
@@ -67,9 +67,15 @@ private:
 
 /**
 * this function is the callback that gets called every main_loop step.
-* it executes our code and than calls the original main_loop
+* it calls on_callback, and then jumps back to the main_loop
 * @note: idk if naked is needed here or in the cpp
 */
 void callback();
+
+/**
+ * this function gets called from callback. it contains the entire callback logic,
+ * calls all registered callbacks and stuff
+ */
+void __stdcall on_callback();
 
 #endif // ndef HOOKER_H

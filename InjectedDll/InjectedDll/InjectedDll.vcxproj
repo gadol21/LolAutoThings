@@ -75,7 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="command.cpp" />
+    <ClCompile Include="command_factory.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -84,14 +84,20 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="floating_text_command.cpp" />
     <ClCompile Include="hooker.cpp" />
+    <ClCompile Include="lol_helper.cpp" />
+    <ClCompile Include="send_chat_command.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h" />
+    <ClInclude Include="command_factory.h" />
+    <ClInclude Include="send_chat_command.h" />
     <ClInclude Include="command_types.h" />
     <ClInclude Include="floating_text_command.h" />
     <ClInclude Include="hooker.h" />
+    <ClInclude Include="lol_helper.h" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="server.h" />
   </ItemGroup>
