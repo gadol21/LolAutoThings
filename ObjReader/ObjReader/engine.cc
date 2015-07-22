@@ -125,13 +125,19 @@ void Engine::inject() {
 	LPVOID located_memory = VirtualAllocEx(m_process_handle, NULL, 256,
 		MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	SIZE_T bytes_written;
-	char dll_path[256];
-	GetFullPathName(M_DLL_NAME, 256, dll_path, NULL);
-	WriteProcessMemory(m_process_handle, located_memory, dll_path, strlen(dll_path), &bytes_written);
+	char this_path[255];
+	DWORD bytes = GetModuleFileName(GetModuleHandle("_objreader.pyd"), this_path, 255);
+	std::string dll_path(this_path);
+	dll_path = dll_path.substr(0, dll_path.find_last_of("/\\") + 1);
+	dll_path += M_DLL_NAME;
+	BOOL result = WriteProcessMemory(m_process_handle, located_memory, dll_path.c_str(),
+		dll_path.length(), &bytes_written);
 	DWORD thread_id;
-	CreateRemoteThread(m_process_handle, NULL, 0,
+	HANDLE thread_handle = CreateRemoteThread(m_process_handle, NULL, 0,
 		reinterpret_cast<LPTHREAD_START_ROUTINE>(loadlibrary_addr),
-		dll_path, 0, &thread_id);
+		located_memory, 0, &thread_id);
+	WaitForSingleObject(thread_handle, INFINITE);
+	CloseHandle(thread_handle);
 }
 
 void Engine::print_debug_info() const {

@@ -52,7 +52,9 @@
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy _objreader.pyd ..\..\League\src\League
+      <Command>echo copying pyd
+copy _objreader.pyd ..\..\League\src\League
+echo copying objreader.py
 copy objreader.py ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -73,7 +75,9 @@ copy objreader.py ..\..\League\src\League</Command>
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy _objreader.pyd ..\..\League\src\League
+      <Command>echo copying pyd
+copy _objreader.pyd ..\..\League\src\League
+echo copying objreader.py
 copy objreader.py ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
