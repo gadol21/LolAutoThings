@@ -1,13 +1,20 @@
 send chat message?
 __stdcall League_Of_Legends + 0xa412a0(char* message)
+HOW TO FIND:
+1. easier: search for "game_chat_known_commands", then go 1 function up
+2. if 1 not possible: bp on RiotLauncher!MaestroGameController_SendChatMessage, go up a several functions and you're there
 
 FloatingText?
 __cdecl League_Of_Legends + 0x23a7b0(DWORD magic, void* unit_base, int message_type, char* string)
+HOW TO FIND:
+put a hardware breakpoint on "Level Up!"
 
 //TODO: put all function calls in here (in a hook)
 //note: hotpatching is supported!
 main_loop start??
 void League_Of_Legends + 0x18ad60()
+HOW TO FIND:
+search for "GAMESTATE_GAMELOOP" string
 
 CastSpell (check calling convention)
 League_Of_Legends + 0xca40d0
@@ -17,3 +24,9 @@ Argument3: D3DXVECTOR* TargetPosition
 Argument4: D3DXVECTOR* CasterPosition? Dunno once it seemed to be pos of caster but i only use auto smite and there i set this vector to D3DXVECTOR3(0,0,0)
 Argument5: I think if it is a skill shot set this argument as 0; if it is not a skill shot but something like smite or warwick q 
 this argument = *(DWORD*)TargetBaseAddress+0xF8
+HOW TO FIND:
+search for "ERROR: Client Tried to cast a spell from an invalid slot: %d."
+
+buyItem (not found yet)
+leads:
+search for "buyItem", "sellItem", "undo"

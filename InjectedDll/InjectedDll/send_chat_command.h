@@ -9,7 +9,7 @@ using std::string;
 typedef void(__stdcall *send_chat_func)(const char* message);
 
 /**
- * Represents a send chat command. protocol:
+ * Represents a send chat command. protocol (what is expected to be in the buffer):
  *
  * uint8_t message_len
  * char message[message_len]

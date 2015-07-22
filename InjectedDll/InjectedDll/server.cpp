@@ -45,16 +45,20 @@ void Server::handle_one() {
 						   &addr,		// Out addr
 						   &addrlen);	// Out addrlen
 	char buffer[1024];
-	int bytes_read = 1;
+	int bytes_read;
+
+	bytes_read = recv(client,	// Socket
+		buffer,	// buffer
+		1024,		// buffer length
+		0);		// flags
 	// 0 is returned from recv if the connection was closed
 	while (bytes_read != 0) {
+		CommandPtr command(CommandFactory::Create(buffer, bytes_read));
+		Hooker::get_instance().register_callback(std::move(command), false);
 		bytes_read = recv(client,	// Socket
 						  buffer,	// buffer
 						  1024,		// buffer length
 						  0);		// flags
-
-		CommandPtr command(CommandFactory::Create(buffer, bytes_read));
-		Hooker::get_instance().register_callback(std::move(command), false);
 	}
 	closesocket(client);
 }

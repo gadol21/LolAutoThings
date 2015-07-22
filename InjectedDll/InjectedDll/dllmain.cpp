@@ -8,9 +8,6 @@ const uint16_t PORT = 37882;
 
 DWORD __stdcall server_thread(void* params) {
 	try{
-		if (IsDebuggerPresent()) {
-			__asm int 3;
-		}
 		Server server(PORT);
 		while (true) {
 			server.handle_one();
