@@ -6,7 +6,7 @@
 
 const char* Engine::M_WINDOW_NAME = "League of Legends (TM) Client";
 const char* Engine::M_PROCESS_NAME = "League of Legends.exe";
-const char* Engine::DLL_NAME = "InjectedDll.dll";
+const char* Engine::M_DLL_NAME = "InjectedDll.dll";
 
 Engine::Engine() : m_process_id(0), m_list_addr(0), m_process_handle(NULL),
 	m_base_addr(NULL) {
