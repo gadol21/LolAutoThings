@@ -57,6 +57,11 @@ private:
 	void load_list_addr();
 
 	/**
+	 * Injceting the dll into league of legends. open_process must be called before this.
+	 */
+	void inject();
+
+	/**
 	 * Return the process id of league of legends.
 	 * Throws runtime error if the process does not exist.
 	 */
@@ -74,6 +79,7 @@ private:
 	static const char* M_PROCESS_NAME;
 	static const size_t M_DUMP_MEMORY_SIZE = 4096;
 	static const size_t M_OFFSET_LIST = 0x2D9A3A0;
+	static const char* M_DLL_NAME;
 };
 
 #include "engine.inl"

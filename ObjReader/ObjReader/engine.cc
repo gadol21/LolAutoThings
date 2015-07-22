@@ -6,6 +6,7 @@
 
 const char* Engine::M_WINDOW_NAME = "League of Legends (TM) Client";
 const char* Engine::M_PROCESS_NAME = "League of Legends.exe";
+const char* Engine::DLL_NAME = "InjectedDll.dll";
 
 Engine::Engine() : m_process_id(0), m_list_addr(0), m_process_handle(NULL),
 	m_base_addr(NULL) {
@@ -74,6 +75,7 @@ bool Engine::start() {
 	open_process();
 	find_module_addr();
 	load_list_addr();
+	inject();
 	return true;
 }
 
@@ -116,6 +118,20 @@ size_t Engine::get_process_id() const {
 
 void Engine::load_list_addr() {
 	m_list_addr = read<DWORD>(reinterpret_cast<DWORD>(m_base_addr + M_OFFSET_LIST));
+}
+
+void Engine::inject() {
+	FARPROC loadlibrary_addr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+	LPVOID located_memory = VirtualAllocEx(m_process_handle, NULL, 256,
+		MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	SIZE_T bytes_written;
+	char dll_path[256];
+	GetFullPathName(M_DLL_NAME, 256, dll_path, NULL);
+	WriteProcessMemory(m_process_handle, located_memory, dll_path, strlen(dll_path), &bytes_written);
+	DWORD thread_id;
+	CreateRemoteThread(m_process_handle, NULL, 0,
+		reinterpret_cast<LPTHREAD_START_ROUTINE>(loadlibrary_addr),
+		dll_path, 0, &thread_id);
 }
 
 void Engine::print_debug_info() const {

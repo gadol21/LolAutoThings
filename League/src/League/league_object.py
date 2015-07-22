@@ -35,7 +35,6 @@ class LeagueObject(object):
     def read(self, field_type, addr, *args):
         return self._readers[field_type](addr, *args)
 
-
     @property
     def name(self):
         name_pos = 0x20
