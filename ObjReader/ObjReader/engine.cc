@@ -92,7 +92,7 @@ void Engine::find_module_addr() {
 	Module32First(ptr, &module);
 	while (strcmp(module.szModule, M_PROCESS_NAME)) {
 		std::cout << module.szModule << std::endl;
-		if (Module32Next(ptr, &module)) {
+		if (!Module32Next(ptr, &module)) {
 			throw std::runtime_error("Could not find the module");
 		}
 	}
