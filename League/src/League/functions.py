@@ -1,7 +1,7 @@
 from socket import socket
 from struct import pack
 
-_PORT = 33782
+_PORT = 37882
 _FLOATING_TEXT = 1
 _SEND_CHAT = 2
 _CAST_SPELL = 3

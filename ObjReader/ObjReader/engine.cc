@@ -129,9 +129,9 @@ void Engine::inject() {
 	GetFullPathName(M_DLL_NAME, 256, dll_path, NULL);
 	WriteProcessMemory(m_process_handle, located_memory, dll_path, strlen(dll_path), &bytes_written);
 	DWORD thread_id;
-	CreateRemoteThread(m_process_handle, NULL, 0, 
-		reinterpret_cast<LPTHREAD_START_ROUTINE>(loadlibrary_addr), 
-		dll_path, 0, &thread_id)
+	CreateRemoteThread(m_process_handle, NULL, 0,
+		reinterpret_cast<LPTHREAD_START_ROUTINE>(loadlibrary_addr),
+		dll_path, 0, &thread_id);
 }
 
 void Engine::print_debug_info() const {

@@ -41,6 +41,9 @@
     <ClCompile Include="send_chat_command.cpp">
       <Filter>Commands\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cast_spell_command.cpp">
+      <Filter>Commands\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
@@ -68,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="send_chat_command.h">
+      <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cast_spell_command.h">
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
