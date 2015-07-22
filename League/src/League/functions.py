@@ -17,3 +17,7 @@ def _send_command(msg_type, args_str):
 
 def write_to_chat(msg):
     _send_command(_SEND_CHAT, pack('b{0}s', len(msg), msg))
+
+
+def floating_text(unit_addr, msg_type, msg):
+    _send_command(_FLOATING_TEXT, pack('II{0}s'.format(len(msg), unit_addr, msg_type, msg)))
