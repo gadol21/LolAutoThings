@@ -73,7 +73,7 @@ private:
 	static const char* M_WINDOW_NAME;
 	static const char* M_PROCESS_NAME;
 	static const size_t M_DUMP_MEMORY_SIZE = 4096;
-	static const size_t M_OFFSET_LIST = 0x2E59440;
+	static const size_t M_OFFSET_LIST = 0x2D9A3A0;
 };
 
 #include "engine.inl"

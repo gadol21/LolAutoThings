@@ -1,22 +1,23 @@
 from socket import socket
 from struct import pack
-from utils import singleton
+
+_PORT = 33782
+_FLOATING_TEXT = 1
+_SEND_CHAT = 2
+_CAST_SPELL = 3
+_MOVE_ATTACK = 4
 
 
-@singleton
-class FunctionCaller(object):
+def _send_command(msg_type, args_str):
+    s = socket()
+    s.connect(('127.0.0.1', _PORT))
+    s.write(pack('I{0}s'.format(len(args_str)), msg_type, args_str))
+    s.close()
 
-    PORT = 33782
-    FLOATING_TEXT = 1
-    SEND_CHAT = 2
-    CAST_SPELL = 3
-    MOVE_ATTACK = 4
 
-    def _send_command(self, msg_type, args_str):
-        s = socket()
-        s.connect(('127.0.0.1', self.PORT))
-        s.write(pack('I{0}s'.format(len(args_str)), msg_type, args_str))
-        s.close()
+def write_to_chat(msg):
+    _send_command(_SEND_CHAT, pack('b{0}s', len(msg), msg))
 
-    def write_to_chat(self, msg):
-        self._send_command(self.SEND_CHAT, pack('b{0}s', len(msg), msg))
+
+def floating_text(unit_addr, msg_type, msg):
+    _send_command(_FLOATING_TEXT, pack('II{0}s'.format(len(msg), unit_addr, msg_type, msg)))
