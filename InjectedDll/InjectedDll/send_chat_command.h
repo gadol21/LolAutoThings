@@ -3,10 +3,12 @@
 
 #include "command.h"
 #include <string>
+#include <cstdint>
 
 using std::string;
 
-typedef void(__stdcall *send_chat_func)(const char* message);
+///note: this is __thiscall. send ecx explicitly before calling
+typedef void(__cdecl *send_chat_func)();
 
 /**
  * Represents a send chat command. protocol (what is expected to be in the buffer):

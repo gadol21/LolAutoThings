@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "send_chat_command.h"
 #include "lol_helper.h"
 #include "offsets.h"
@@ -16,5 +18,11 @@ SendChatCommand::SendChatCommand(const char* buffer, size_t buffer_len) {
 
 void SendChatCommand::operator()() {
 	send_chat_func SendChat = reinterpret_cast<send_chat_func>(LolHelper::get_lol_base() + offsets::send_chat_message);
-	SendChat(m_message.c_str());
+	DWORD message_to_send_addr = LolHelper::get_lol_base() + offsets::send_chat_message_this + offsets::send_chat_message_this_message_offset;
+	// maximum of 100 chars because riot puts this max too, probably size of the buffer
+	strncpy(reinterpret_cast<char*>(message_to_send_addr), m_message.c_str(), 100);
+	
+	DWORD send_chat_this = LolHelper::get_lol_base() + offsets::send_chat_message_this;
+	__asm mov ecx, send_chat_this;
+	SendChat();
 }

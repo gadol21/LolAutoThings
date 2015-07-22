@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cast_spell_command.cpp" />
     <ClCompile Include="command_factory.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -91,6 +92,7 @@
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cast_spell_command.h" />
     <ClInclude Include="command.h" />
     <ClInclude Include="command_factory.h" />
     <ClInclude Include="send_chat_command.h" />
