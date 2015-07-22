@@ -71,4 +71,4 @@ class LeagueObject(object):
         return self._engine.dump_memory(self.addr)
 
     def floating_text(self, msg_type, msg):
-        functions.floating_text(self._addr, msg_type, msg)
+        functions.floating_text(self.addr, msg_type, msg)
