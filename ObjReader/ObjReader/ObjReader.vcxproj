@@ -52,7 +52,9 @@
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy _objreader.pyd ..\..\League\src\League
+      <Command>echo copying pyd
+copy _objreader.pyd ..\..\League\src\League
+echo copying objreader.py
 copy objreader.py ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -73,7 +75,9 @@ copy objreader.py ..\..\League\src\League</Command>
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy _objreader.pyd ..\..\League\src\League
+      <Command>echo copying pyd
+copy _objreader.pyd ..\..\League\src\League
+echo copying objreader.py
 copy objreader.py ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -96,7 +100,7 @@ C:\Users\itay\Desktop\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
 echo on
-C:\Program Files\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
+C:\Users\itay\Desktop\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">objreader_wrap.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">objreader_wrap.cc</Outputs>
     </CustomBuild>
