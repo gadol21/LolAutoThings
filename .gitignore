@@ -5,11 +5,7 @@ OldVersion/
 *.ilk
 *.xml
 League/.idea/*
-<<<<<<< HEAD
 Leage/src/league.egg-info/
-=======
-League/src/league.egg-info/*
->>>>>>> origin/master
 
 # Compiled Object files
 *.slo
