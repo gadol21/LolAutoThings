@@ -1,0 +1,16 @@
+send chat message?
+1. easier: search for "ChatSend", go inside the callback provided, and there should be a call to send_chat
+2. if 1 not possible: bp on RiotLauncher!MaestroGameController_SendChatMessage, go up a several functions and you're there
+
+FloatingText
+put a hardware breakpoint on "Level Up!"
+
+main_loop
+search for "GAMESTATE_GAMELOOP" string
+
+CastSpell (check calling convention)
+search for "ERROR: Client Tried to cast a spell from an invalid slot: %d."
+
+AttackMove
+the cursor xzy is stored in memory. after it there is the xzy of the last click.
+hardware bp there and see who changes it. should be close to AttackMove
