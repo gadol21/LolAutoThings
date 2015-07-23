@@ -35,7 +35,7 @@ typedef struct {
  * uint32_t main_champion (our hero)
  * uint8_t spell_index (0=Q;1=W;2=E;3=R;4=D;5=F)
  * position target_pos
- * position source_pos (for most spells it is our pos)
+ * position source_pos (for most spells it is our pos, or zeros)
  * uint32_t target_unit
  */
 class CastSpellCommand : public Command {
