@@ -39,6 +39,10 @@ std::string Engine::read_string(size_t offset) const {
 }
 
 std::string Engine::read_string(size_t offset, size_t length) const {
+	if (length == 0) {
+		std::cout << "read string with param length = 0" << std::endl;
+		return "";
+	}
 	std::unique_ptr<char> buffer(new char[length]);
 	DWORD bytes_read;
 	ReadProcessMemory(m_process_handle, reinterpret_cast<LPCVOID>(offset),

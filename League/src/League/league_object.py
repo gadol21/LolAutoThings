@@ -16,6 +16,8 @@ class LeagueObject(object):
                          LengthedString: engine.read_string}
         self.id = list_index
         self.addr = engine.object_addr(list_index)
+        if self.addr == 0:
+            raise IndexError("There is no object in this address " + str(list_index))
         self._fields = self.get_fields()
 
     def __getattr__(self, item):
@@ -30,7 +32,14 @@ class LeagueObject(object):
         return self.read(field_type, self.addr + offset, *args)
 
     def read(self, field_type, addr, *args):
-        return self._readers[field_type](addr, *args)
+        try:
+            return self._readers[field_type](addr, *args)
+        except Exception, e:
+            print "ERROR args:", args
+            print "the target was", self.id, self.addr
+            print "memory"
+            print map(ord, self.dump_memory())
+            raise e
 
     @property
     def name(self):

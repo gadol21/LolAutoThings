@@ -25,9 +25,12 @@ def get(obj_type):
     objects = []
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
-            obj = _get_obj(i)
-            if type(obj) == obj_type:
-                objects.append(obj)
+            try:
+                obj = _get_obj(i)
+                if type(obj) == obj_type:
+                    objects.append(obj)
+            except IndexError:
+                pass
     return objects
 
 
@@ -38,9 +41,12 @@ def get_by_name(name):
     objects = []
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
-            obj = _get_obj(i)
-            if obj.name == name:
-                objects.append(obj)
+            try:
+                obj = _get_obj(i)
+                if obj.name == name:
+                    objects.append(obj)
+            except IndexError:
+                pass
     return objects
 
 
@@ -51,9 +57,12 @@ def get_by_type(obj_type):
     objects = []
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
-            obj = _get_obj(i)
-            if obj.type == obj_type:
-                objects.append(obj)
+            try:
+                obj = _get_obj(i)
+                if obj.type == obj_type:
+                    objects.append(obj)
+            except IndexError:
+                pass
     return objects
 
 
@@ -64,10 +73,12 @@ def names_contain(string):
     """
     names = set()
     for i in xrange(LIST_SIZE):
-        if engine.object_exist(i):
+        try:
             obj = LeagueObject(engine, i)
             if string.lower() in obj.name.lower():
                 names.add(obj.name)
+        except IndexError:
+                pass
     return names
 
 
@@ -78,8 +89,10 @@ def types_contain(string):
     """
     types = set()
     for i in xrange(LIST_SIZE):
-        if engine.object_exist(i):
+        try:
             obj = LeagueObject(engine, i)
             if string.lower() in obj.type.lower():
                 types.add(obj.type)
+        except IndexError:
+                pass
     return types
