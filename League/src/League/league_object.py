@@ -8,8 +8,6 @@ class LeagueObject(object):
     data of the object.
     """
 
-    BASE_FIELDS = {'name_length': (0x30, Int)}
-
     def __init__(self, engine, list_index):
         self._engine = engine
         self._readers = {Byte: engine.read_byte, Short: engine.read_short,
@@ -19,7 +17,6 @@ class LeagueObject(object):
         self.id = list_index
         self.addr = engine.object_addr(list_index)
         self._fields = self.get_fields()
-        self._fields.update(self.BASE_FIELDS)
 
     def __getattr__(self, item):
         if not item in self._fields:
@@ -64,7 +61,9 @@ class LeagueObject(object):
         The unique one is: {'name': (20, LengthedString, (5))} when 5 is the
         length of the string.
         """
-        return {}
+        return {'name_length': (0x30, Int),
+                'x': (0x5c, Float), 'z': (0x60, Float), 'y': (0x64, Float)
+                }
 
     def dump_memory(self):
         return self._engine.dump_memory(self.addr)
