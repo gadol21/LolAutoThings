@@ -82,3 +82,6 @@ class LeagueObject(object):
 
     def __repr__(self):
         return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))
+
+    def __dir__(self):
+        return sorted(set(self.__dict__.keys() + self.get_fields().keys()))
