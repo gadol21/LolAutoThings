@@ -20,6 +20,8 @@ const uint32_t cast_spell_this = 0x22c8;
 const uint32_t cast_spell_spellmanager = 0x2730;
 const uint32_t cast_spell_target_unit_offset = 0xf8;
 
+const uint32_t attackmove = 0x5f65d0;
+
 } // namespace offsets
 
 #endif // ndef __OFFSETS_H

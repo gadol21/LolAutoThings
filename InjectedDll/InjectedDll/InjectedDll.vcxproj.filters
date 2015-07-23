@@ -44,6 +44,9 @@
     <ClCompile Include="cast_spell_command.cpp">
       <Filter>Commands\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="attackmove_command.cpp">
+      <Filter>Commands\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
@@ -74,6 +77,9 @@
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cast_spell_command.h">
+      <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="attackmove_command.h">
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

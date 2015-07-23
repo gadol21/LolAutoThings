@@ -3,6 +3,12 @@
 
 #include <Windows.h>
 
+typedef struct {
+	float x;
+	float z;
+	float y;
+} position;
+
 /**
  * a helper class for lol stuff
  */

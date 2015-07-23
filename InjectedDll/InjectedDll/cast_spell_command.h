@@ -2,13 +2,8 @@
 #define __CAST_SPELL_COMMAND_H
 
 #include "command.h"
+#include "lol_helper.h"
 #include <cstdint>
-
-typedef struct {
-	float x;
-	float z;
-	float y;
-} position;
 
 /**
  * spellmanager consists of 6 pointers to the 6 spells
