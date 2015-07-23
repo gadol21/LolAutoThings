@@ -2,6 +2,8 @@
 #include "command_types.h"
 #include "send_chat_command.h"
 #include "floating_text_command.h"
+#include "cast_spell_command.h"
+#include "attackmove_command.h"
 #include <string>
 #include <cstdint>
 
@@ -20,10 +22,10 @@ CommandPtr CommandFactory::Create(const char* command, size_t command_len) {
 		return CommandPtr(new FloatingTextCommand(command_without_id, command_without_id_len));
 		break;
 	case command_type::CAST_SPELL:
-		throw std::invalid_argument("Not Implemented");
+		return CommandPtr(new CastSpellCommand(command_without_id, command_without_id_len));
 		break;
 	case command_type::MOVEATTACK:
-		throw std::invalid_argument("Not Implemented");
+		return CommandPtr(new AttackMoveCommand(command_without_id, command_without_id_len));
 		break;
 	default:
 		throw std::invalid_argument("unknown command");
