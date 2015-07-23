@@ -45,6 +45,9 @@ std::string Engine::read_string(size_t offset, size_t length) const {
 		buffer.get(), length, &bytes_read);
 	if (bytes_read == 0) {
 		std::cout << "Reading string with specific length, read 0 bytes" << std::endl;
+		std::cout << "The offset was " << offset << std::endl;
+		std::cout << "Last error " << GetLastError() << std::endl;
+		throw std::runtime_error("Read Process Memory failed");
 	}
 	std::string result(buffer.get(), length);
 	return result;

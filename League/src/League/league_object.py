@@ -62,7 +62,7 @@ class LeagueObject(object):
         length of the string.
         """
         return {'name_length': (0x30, Int),
-                'x': (0x5c, Float), 'z': (0x60, Float), 'y': (0x64, Float)
+                'x': (0x5c, Float), 'z': (0x60, Float), 'y': (0x64, Float), 'health': (0x154, Float)
                 }
 
     def dump_memory(self):
