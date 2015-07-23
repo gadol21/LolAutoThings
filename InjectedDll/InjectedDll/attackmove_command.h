@@ -5,12 +5,13 @@
 #include "command.h"
 #include "lol_helper.h"
 
-typedef void(__thiscall * attackmove_func)(uint32_t thisptr, uint32_t type, position& target_pos, uint32_t is_attack_move, uint32_t unknown1, uint32_t unknown2);
+typedef void(__thiscall * attackmove_func)(uint32_t thisptr, uint32_t type, position& target_pos, uint32_t target_unit, uint32_t is_attack_move, uint32_t unknown1, uint32_t unknown2);
 
 typedef struct {
 	uint32_t main_champ;
-	uint8_t type;
+	uint32_t target_unit;
 	position target_pos;
+	uint8_t type;
 	uint8_t is_attack_move;
 } attackmove_message;
 
@@ -21,6 +22,7 @@ typedef struct {
  * uint32_t main_champ base - the base addr of the main champion object
  * uint8_t type. see AttackMoveCommand's consts M_TYPE_*
  * position target_pos
+ * uint32_t target_unit - the unit to attack, or 0
  * uint8_t is_attack_move - bool that indicates this is attackmove. can come with M_TYPE_MOVE and M_TYPE_ATTACK only.
  */
 class AttackMoveCommand : public Command {
@@ -40,6 +42,7 @@ private:
 	uint32_t m_main_champ;
 	uint8_t m_type;
 	position m_target_pos;
+	uint32_t m_target_unit;
 	uint8_t m_is_attack_move;
 
 	/// the AttackMove types supported
