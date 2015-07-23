@@ -4381,7 +4381,14 @@ SWIGINTERN PyObject *_wrap_new_Engine(PyObject *SWIGUNUSEDPARM(self), PyObject *
   Engine *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)":new_Engine")) SWIG_fail;
-  result = (Engine *)new Engine();
+  {
+    try {
+      result = (Engine *)new Engine();
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Engine, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -4402,7 +4409,14 @@ SWIGINTERN PyObject *_wrap_delete_Engine(PyObject *SWIGUNUSEDPARM(self), PyObjec
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Engine" "', argument " "1"" of type '" "Engine *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
-  delete arg1;
+  {
+    try {
+      delete arg1;
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -4424,7 +4438,14 @@ SWIGINTERN PyObject *_wrap_Engine_is_league_running(PyObject *SWIGUNUSEDPARM(sel
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_is_league_running" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
-  result = (bool)((Engine const *)arg1)->is_league_running();
+  {
+    try {
+      result = (bool)((Engine const *)arg1)->is_league_running();
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4446,7 +4467,14 @@ SWIGINTERN PyObject *_wrap_Engine_start(PyObject *SWIGUNUSEDPARM(self), PyObject
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_start" "', argument " "1"" of type '" "Engine *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
-  result = (bool)(arg1)->start();
+  {
+    try {
+      result = (bool)(arg1)->start();
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4477,7 +4505,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_0(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_string" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((Engine const *)arg1)->read_string(arg2);
+  {
+    try {
+      result = ((Engine const *)arg1)->read_string(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4517,7 +4552,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_string__SWIG_1(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Engine_read_string" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = ((Engine const *)arg1)->read_string(arg2,arg3);
+  {
+    try {
+      result = ((Engine const *)arg1)->read_string(arg2,arg3);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4604,7 +4646,14 @@ SWIGINTERN PyObject *_wrap_Engine_dump_memory(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_dump_memory" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((Engine const *)arg1)->dump_memory(arg2);
+  {
+    try {
+      result = ((Engine const *)arg1)->dump_memory(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -4635,7 +4684,14 @@ SWIGINTERN PyObject *_wrap_Engine_object_addr(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_object_addr" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (DWORD)((Engine const *)arg1)->object_addr(arg2);
+  {
+    try {
+      result = (DWORD)((Engine const *)arg1)->object_addr(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
   return resultobj;
 fail:
@@ -4666,7 +4722,14 @@ SWIGINTERN PyObject *_wrap_Engine_object_exist(PyObject *SWIGUNUSEDPARM(self), P
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_object_exist" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (bool)((Engine const *)arg1)->object_exist(arg2);
+  {
+    try {
+      result = (bool)((Engine const *)arg1)->object_exist(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -4687,7 +4750,14 @@ SWIGINTERN PyObject *_wrap_Engine_print_debug_info(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_print_debug_info" "', argument " "1"" of type '" "Engine const *""'"); 
   }
   arg1 = reinterpret_cast< Engine * >(argp1);
-  ((Engine const *)arg1)->print_debug_info();
+  {
+    try {
+      ((Engine const *)arg1)->print_debug_info();
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -4718,7 +4788,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_byte(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_byte" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (char)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< char >(arg2);
+  {
+    try {
+      result = (char)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< char >(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_char(static_cast< char >(result));
   return resultobj;
 fail:
@@ -4749,7 +4826,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_short(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_short" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (short)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< short >(arg2);
+  {
+    try {
+      result = (short)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< short >(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_short(static_cast< short >(result));
   return resultobj;
 fail:
@@ -4780,7 +4864,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_int(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_int" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (int)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< int >(arg2);
+  {
+    try {
+      result = (int)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< int >(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -4811,7 +4902,14 @@ SWIGINTERN PyObject *_wrap_Engine_read_float(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_read_float" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (float)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< float >(arg2);
+  {
+    try {
+      result = (float)((Engine const *)arg1)->SWIGTEMPLATEDISAMBIGUATOR read< float >(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
   resultobj = SWIG_From_float(static_cast< float >(result));
   return resultobj;
 fail:

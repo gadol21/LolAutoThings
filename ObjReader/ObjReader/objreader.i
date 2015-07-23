@@ -2,6 +2,15 @@
 
 %include "stl.i"
 %include "windows.i"
+
+%exception {
+   try {
+      $action
+   } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+   }
+}
   
 %{  
     #include "engine.h"  

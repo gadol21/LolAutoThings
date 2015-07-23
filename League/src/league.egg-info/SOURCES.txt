@@ -1,9 +1,12 @@
 setup.py
-League/__init__.py
-League/chamion.py
-League/field_types.py
-League/league_object.py
-League/objreader.py
+league/__init__.py
+league/champion.py
+league/field_types.py
+league/functions.py
+league/league_object.py
+league/minion.py
+league/objects_handler.py
+league/objreader.py
 league.egg-info/PKG-INFO
 league.egg-info/SOURCES.txt
 league.egg-info/dependency_links.txt

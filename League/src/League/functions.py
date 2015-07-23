@@ -23,14 +23,15 @@ def floating_text(unit_addr, msg_type, msg):
     _send_command(_FLOATING_TEXT, pack('IIb{0}s'.format(len(msg)), unit_addr, msg_type, len(msg), msg))
 
 
-def attackmove(main_champ, type, target_pos, is_attack_move):
+def attackmove(main_champ, type, target_pos, target_unit, is_attack_move):
     """
     :param main_champ: address of main champion
     :param type: attackmove type. should be one of 3 supported consts
     :param target_pos: a tuple (x, z, y)
+    :param target_unit: the base address of the unit to attack, or 0
     :param is_attack_move: indicate an AttackMove. cannot be combined with type stop
     """
-    command = pack('Ibfffb', main_champ_addr, type, target_pos[0], target_pos[1], target_pos[2], is_attack_move)
+    command = pack('IIfffbbxx', main_champ, target_unit, target_pos[0], target_pos[1], target_pos[2], type, is_attack_move)
     _send_command(_MOVE_ATTACK, command)
 
 
