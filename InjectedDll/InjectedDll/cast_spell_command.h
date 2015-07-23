@@ -14,7 +14,7 @@ typedef struct {
 } spellmanager;
 
 /// this function is __thiscall. make sure to pass ecx explicitly before calling it
-typedef void(__stdcall * cast_spell_func)(void* spell_information, uint32_t spell_index, position& target, position& source, uint32_t target_unit);
+typedef void(__thiscall * cast_spell_func)(uint32_t thisptr, void* spell_information, uint32_t spell_index, position& target, position& source, uint32_t target_unit);
 
 typedef struct {
 	uint32_t main_champion;

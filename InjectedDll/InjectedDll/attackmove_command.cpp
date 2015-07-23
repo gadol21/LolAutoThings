@@ -18,6 +18,5 @@ AttackMoveCommand::AttackMoveCommand(const char* buffer, size_t buffer_len) {
 void AttackMoveCommand::operator()() {
 	attackmove_func AttackMove = reinterpret_cast<attackmove_func>(LolHelper::get_lol_base() + offsets::attackmove);
 
-	__asm mov ecx, m_main_champ;
-	AttackMove(m_type, m_target_pos, m_is_attack_move, 0, 0);
+	AttackMove(m_main_champ, m_type, m_target_pos, m_is_attack_move, 0, 0);
 }

@@ -23,8 +23,11 @@ void CastSpellCommand::operator()() {
 		target = *reinterpret_cast<DWORD*>((m_target_unit + offsets::cast_spell_target_unit_offset));
 	}
 
-	__asm mov ecx, offsets::cast_spell_this;
-	CastSpell(manager->spells[m_spell_index],		// SpellInformation
+	DWORD cast_spell_this = m_main_champion + offsets::cast_spell_this;
+	void* spell_info = manager->spells[m_spell_index];
+
+	CastSpell(cast_spell_this,
+			  spell_info,							// SpellInformation
 			  m_spell_index,						// spell index
 			  m_target_pos,							// target pos
 			  m_source_pos,							// source pos

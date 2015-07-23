@@ -23,6 +23,7 @@ void SendChatCommand::operator()() {
 	strncpy(reinterpret_cast<char*>(message_to_send_addr), m_message.c_str(), 100);
 	
 	DWORD send_chat_this = LolHelper::get_lol_base() + offsets::send_chat_message_this;
+
 	__asm mov ecx, send_chat_this;
 	SendChat();
 }

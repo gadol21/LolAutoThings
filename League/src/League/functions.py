@@ -21,3 +21,30 @@ def write_to_chat(msg):
 
 def floating_text(unit_addr, msg_type, msg):
     _send_command(_FLOATING_TEXT, pack('IIb{0}s'.format(len(msg)), unit_addr, msg_type, len(msg), msg))
+
+
+def attackmove(main_champ, type, target_pos, is_attack_move):
+    """
+    :param main_champ: address of main champion
+    :param type: attackmove type. should be one of 3 supported consts
+    :param target_pos: a tuple (x, z, y)
+    :param is_attack_move: indicate an AttackMove. cannot be combined with type stop
+    """
+    command = pack('Ibfffb', main_champ_addr, type, target_pos[0], target_pos[1], target_pos[2], is_attack_move)
+    _send_command(_MOVE_ATTACK, command)
+
+
+def cast_spell(main_champ, spell_index, target_pos, source_pos, target_unit):
+    """
+    :param main_champ: address of main champion
+    :param spell_index: Q=0, W=1, E=2, R=3, D=4, F=5
+    :param target_pos: a tuple (x, z, y)
+    :param source_pos: a tuple (x, z, y)
+    :param target_unit: the target unit, or 0 if skillshot
+    """
+    command = pack('IbffffffI',main_champ
+                              ,spell_index
+                              ,target_pos[0], target_pos[1], target_pos[2]
+                              ,source_pos[0], source_pos[1], source_pos[2],
+                              target_unit)
+    _send_command(_CAST_SPELL, command)

@@ -5,7 +5,7 @@
 #include "command.h"
 #include "lol_helper.h"
 
-typedef void(__stdcall * attackmove_func)(uint32_t type, position& target_pos, uint32_t is_attack_move, uint32_t unknown1, uint32_t unknown2);
+typedef void(__thiscall * attackmove_func)(uint32_t thisptr, uint32_t type, position& target_pos, uint32_t is_attack_move, uint32_t unknown1, uint32_t unknown2);
 
 typedef struct {
 	uint32_t main_champ;
