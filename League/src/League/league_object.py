@@ -79,3 +79,6 @@ class LeagueObject(object):
 
     def floating_text(self, msg_type, msg):
         functions.floating_text(self.addr, msg_type, msg)
+
+    def __repr__(self):
+        return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))
