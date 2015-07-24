@@ -6,13 +6,18 @@ TARGETS = ["SRU_Dragon6.1.1", "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", 
 SMITE_RANGE = 500
 
 def get_smite_dmg():
-	return 390
+	dmgs = [390, 410, 430, 450, 480, 510, 540, 570, 600, 640, 680, 720, 760, 800, 850, 900, 950, 1000]
+	return dmgs[me.level - 1]
 	
 def get_smite_pos():
-	return 4
+	if me.spell_manager.d.name == "summonersmite":
+		return 4
+	return 5
 	
 def smite_available():
-	return True
+	if me.spell_manager.d.name == "summonersmite":
+		return me.spell_manager.d.cd == 0
+	return me.spell_manager.f.cd == 0
 
 def step():
 	objs = get(Minion)
@@ -21,6 +26,8 @@ def step():
 			if (obj.health < get_smite_dmg() and smite_available() and
 			(((obj.x - me.x) ** 2 + (obj.y - me.y) ** 2) ** 0.5) < SMITE_RANGE):
 				cast_spell(me.addr, get_smite_pos(), (obj.x, obj.z, obj.y), (0, 0, 0), obj.addr)
+				if 'Dragon' in obj.name:
+					write_to_chat("easy")
 			
 if __name__ == '__main__':
 	while True:

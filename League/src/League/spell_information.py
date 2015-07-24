@@ -29,7 +29,7 @@ class SpellInformation(MemoryReader):
         """
         cd_offset = 0x14
         game_time_offset = 0x111358C
-        spell_online_time =  self.read(Float, self.addr + cd_offset)
+        spell_online_time = self.read(Float, self.addr + cd_offset)
         game_time = self.read(Float, self._engine.get_module_addr() + game_time_offset)
         time_till_online = spell_online_time - game_time
         return time_till_online if time_till_online > 0 else 0
