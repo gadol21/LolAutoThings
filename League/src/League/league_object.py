@@ -1,45 +1,20 @@
 from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from memory_reader import MemoryReader
 import functions
 
 
-class LeagueObject(object):
+class LeagueObject(MemoryReader):
     """
     Describe abstract class for league object, provide the ability to read
     data of the object.
     """
 
     def __init__(self, engine, list_index):
-        self._engine = engine
-        self._readers = {Byte: engine.read_byte, Short: engine.read_short,
-                         Int: engine.read_int, Float: engine.read_float,
-                         NullTerminatedString: engine.read_string,
-                         LengthedString: engine.read_string}
+        super(LeagueObject, self).__init__(engine)
         self.id = list_index
         self.addr = engine.object_addr(list_index)
         if self.addr == 0:
             raise IndexError("There is no object in this address " + str(list_index))
-        self._fields = self.get_fields()
-
-    def __getattr__(self, item):
-        if not item in self._fields:
-            raise KeyError("Could not find the specific attr")
-        field = self._fields[item]
-        if len(field) == 2:
-            offset, field_type = field
-            args = ()
-        else:
-            offset, field_type, args = field
-        return self.read(field_type, self.addr + offset, *args)
-
-    def read(self, field_type, addr, *args):
-        try:
-            return self._readers[field_type](addr, *args)
-        except Exception, e:
-            print "ERROR args:", args
-            print "the target was", self.id, self.addr
-            print "memory"
-            print map(ord, self.dump_memory())
-            raise e
 
     @property
     def name(self):
@@ -82,6 +57,3 @@ class LeagueObject(object):
 
     def __repr__(self):
         return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))
-
-    def __dir__(self):
-        return sorted(set(self.__dict__.keys() + self.get_fields().keys()))
