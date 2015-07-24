@@ -155,3 +155,7 @@ void Engine::print_debug_info() const {
 	std::cout << "List addr: " << m_list_addr << std::endl;
 	std::cout << "Handle: " << m_process_handle << std::endl;
 }
+
+DWORD Engine::get_module_addr() const {
+	return reinterpret_cast<DWORD>(m_base_addr);
+}
