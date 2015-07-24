@@ -1,6 +1,6 @@
 from league import *
 
-me = get_by_name('CG Potato')[0]
+me = get_me()
 
 TARGETS = ["SRU_Dragon6.1.1", "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1"]
 SMITE_RANGE = 500

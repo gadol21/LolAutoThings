@@ -188,6 +188,9 @@ class Engine(_object):
     def print_debug_info(self):
         return _objreader.Engine_print_debug_info(self)
 
+    def get_module_addr(self):
+        return _objreader.Engine_get_module_addr(self)
+
     def read_byte(self, offset):
         return _objreader.Engine_read_byte(self, offset)
 

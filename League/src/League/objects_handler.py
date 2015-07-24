@@ -16,6 +16,15 @@ def _get_obj(index):
     return obj
 
 
+def get_me():
+    name_offset = 0x1113310
+    me_name = engine.read_string(engine.get_module_addr() + name_offset)
+    champions = get(Champion)
+    for champ in champions:
+        if champ.name == me_name:
+            return champ
+
+
 def get(obj_type):
     """
     :param obj_type: Class of the objects to return, for example: Champion will

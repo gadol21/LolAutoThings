@@ -57,3 +57,29 @@ class LeagueObject(MemoryReader):
 
     def __repr__(self):
         return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))
+
+    def __dir__(self):
+        return sorted(set(self.__dict__.keys() + self.get_fields().keys()))
+
+    def cast_skillshot(self, skill_id, target_pos):
+        """
+        like ezreal q
+        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        :param target_pos: tuple (x, z, y)
+        """
+        functions.cast_spell(self.addr, skill_id, target_pos, (self.x, self.z, self.y), 0)
+
+    def cast_self_spell(self, skill_id):
+        """
+        spells like hecarim q
+        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        """
+        functions.cast_spell(self.addr, skill_id, 0, (self.x, self.z, self.y), 0)
+
+    def cast_target(self, skill_id, target):
+        """
+        spells like veigar's ult
+        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        target - LeagueObject of the target
+        """
+        functions.cast_spell(self.addr, skill_id, (target.x, target.z, target.y), (self.x, self.z, self.y), target)
