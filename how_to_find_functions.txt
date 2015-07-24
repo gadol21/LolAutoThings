@@ -13,4 +13,5 @@ search for "ERROR: Client Tried to cast a spell from an invalid slot: %d."
 
 AttackMove
 the cursor xzy is stored in memory. after it there is the xzy of the last click.
-hardware bp there and see who changes it. should be close to AttackMove
+hardware bp there and see who changes it. should be close to AttackMove (no need to go up the stack, should be in the same function
+it breaks on)
