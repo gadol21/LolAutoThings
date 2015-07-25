@@ -51,6 +51,6 @@ class AutoSmite(object):
 	def on_object_removed(self, obj_addr):
 		#check if the object is jungle monster
 		for i in xrange(len(self.targets)):
-			if self.targets[i][0].addr == obj_addr:
+			if self.targets[i].addr == obj_addr:
 				self.targets.remove(self.targets[i])
 				return 
