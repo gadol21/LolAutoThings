@@ -11,19 +11,30 @@ class WardDetector(object):
 	def init(self):
 		self.last = time.time()
 		self.wards = [] # tuple of ward and creation time
+		current_time = time.time()
+		for ward in get_by_name('SightWard'):
+			self.wards.append((ward, current_time + 180))
+		for ward in get_by_name('VisionWard'):
+			self.wards.append((ward, current_time + 180))
 
 	def step(self):
-		if time.time() - self.last > 1:
-			self.wards = get_by_name('SightWard')
-			for ward in self.wards:
-				ward.floating_text(26, 'Ward')
+		current_time = time.time()
+		if current_time - self.last > 1:
+			#self.wards = get_by_name('SightWard')
+			for ward, death_time in self.wards:
+				ward.floating_text(26, 'Ward ' + str(int(death_time - current_time)))
 			self.last = time.time()
 
 	def on_object_added(self, obj_addr):
 		obj = get_obj(obj_addr)
 		#check if obj is ward
-		print "ward detector obj added"
+		obj_name = obj.name
+		if obj_name == 'SightWard' or obj_name == 'VisionWard':
+			self.wards.append((obj, time.time() + 180))
 		
 	def on_object_removed(self, obj_addr):
 		#check if anyward in the list got this addr.
-		print "ward detector obj removed"
+		for i in xrange(len(self.wards)):
+			if self.wards[i][0].addr == obj_addr:
+				self.wards.remove(self.wards[i])
+				return

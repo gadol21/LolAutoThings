@@ -18,7 +18,7 @@ class LeagueObject(MemoryReader):
     def __eq__(self, other):
         if type(other) == int:
             return self.addr == other
-        raise NotImplemented()
+        return self.addr == other.addr
 
     @property
     def id(self):
