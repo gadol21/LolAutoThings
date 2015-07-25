@@ -17,9 +17,15 @@ using std::list;
  */
 class Hooker{
 public:
-	~Hooker();
+	/**
+	 * construct a new Hooker
+	 * @param callback -	the function to be called when the hook pops
+	 *						should jmp back to hook location
+	 * @param patch_addr -	the location to install the patch at
+	 */
+	Hooker(DWORD callback, DWORD patch_addr);
 
-	static Hooker& get_instance();
+	~Hooker();
 
 	/**
 	 * hook main_loop function
@@ -28,15 +34,11 @@ public:
 	void install_hook();
 
 	/**
-	 * Registers a callback to be called every main_loop's step
-	 * if persistent = false, the callback will be removed in the next
-	 * @note: the callback must return fast! it blocks the main_loop
+	 * returns the address where the hook is/will be installed
 	 */
-	void register_callback(CommandPtr callback, bool persistent);
+	DWORD get_hook_addr();
 
 private:
-	Hooker();
-
 	/**
 	 * install a hotpatch at a given address
 	 * @throws runtime_error if failed
@@ -56,13 +58,9 @@ private:
 	DWORD get_relative_address(DWORD from, DWORD to, size_t instruction_size=5);
 
 	static const char* MOV_EDI_EDI;
-	list<CommandPtr> m_onetime_callbacks;
-	list<CommandPtr> m_persistent_callbacks;
 	bool m_is_hooked;
-	/// the address of the function we hook
 	DWORD m_hook_addr;
-
-	friend void __stdcall on_callback();
+	DWORD m_callback;
 };
 
 /**

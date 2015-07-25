@@ -5,10 +5,10 @@
 #include <stdexcept>
 #include <algorithm>
 
-DWORD callback_ret_addr = 0;
 const char* Hooker::MOV_EDI_EDI = "\x8b\xff";
 
-Hooker::Hooker() : m_is_hooked(false) { }
+Hooker::Hooker(DWORD callback, DWORD patch_addr) 
+	: m_is_hooked(false), m_hook_addr(patch_addr), m_callback(callback) { }
 
 Hooker::~Hooker() {
 	if (m_is_hooked) {
@@ -19,23 +19,12 @@ Hooker::~Hooker() {
 	}
 }
 
-Hooker& Hooker::get_instance() {
-	static Hooker instance;
-	return instance;
-}
-
 void Hooker::install_hook() {
 	if (m_is_hooked) {
 		// TODO: return something? throw something?
 		return;
 	}
-	DWORD lol_base = LolHelper::get_lol_base();
-	if (lol_base == NULL) {
-		throw std::runtime_error("failed to find league exe");
-	}
-	m_hook_addr = lol_base + offsets::main_loop;
-	callback_ret_addr = m_hook_addr + 2;
-	hotpatch(m_hook_addr, reinterpret_cast<DWORD>(callback));
+	hotpatch(m_hook_addr, m_callback);
 	m_is_hooked = true;
 }
 
@@ -70,32 +59,6 @@ DWORD Hooker::get_relative_address(DWORD from, DWORD to, size_t instruction_size
 	return to - (from + instruction_size);
 }
 
-void Hooker::register_callback(CommandPtr callback, bool persistent) {
-	if (!persistent) {
-		m_onetime_callbacks.push_back(std::move(callback));
-	}
-	else {
-		m_persistent_callbacks.push_back(std::move(callback));
-	}
-}
-
-void __stdcall on_callback() {
-	Hooker& hooker = Hooker::get_instance();
-
-	for (list<CommandPtr>::iterator it = hooker.m_persistent_callbacks.begin(); it != hooker.m_persistent_callbacks.end(); ++it) {
-		(**it)();
-	}
-	// note the difference from the previous loop - this one erases each element from the list after it calls it.
-	for (list<CommandPtr>::iterator it = hooker.m_onetime_callbacks.begin(); it != hooker.m_onetime_callbacks.end(); it = hooker.m_onetime_callbacks.erase(it)) {
-		(**it)();
-	}
-}
-
-__declspec(naked) void callback() {
-	__asm {
-		pushad
-		call on_callback
-		popad
-		jmp callback_ret_addr
-	}
+DWORD Hooker::get_hook_addr() {
+	return m_hook_addr;
 }

@@ -1,6 +1,6 @@
 #include "server.h"
 #include "command_factory.h"
-#include "hooker.h"
+#include "main_loop_hooker.h"
 #include <stdexcept>
 
 const char* Server::LOOPBACK = "127.0.0.1";
@@ -54,7 +54,7 @@ void Server::handle_one() {
 	// 0 is returned from recv if the connection was closed
 	while (bytes_read != 0) {
 		CommandPtr command(CommandFactory::Create(buffer, bytes_read));
-		Hooker::get_instance().register_callback(std::move(command), false);
+		MainLoopHooker::get_instance().register_callback(std::move(command), false);
 		bytes_read = recv(client,	// Socket
 						  buffer,	// buffer
 						  1024,		// buffer length

@@ -4,9 +4,12 @@ league/champion.py
 league/field_types.py
 league/functions.py
 league/league_object.py
+league/memory_reader.py
 league/minion.py
 league/objects_handler.py
 league/objreader.py
+league/spell_information.py
+league/spell_manager.py
 league.egg-info/PKG-INFO
 league.egg-info/SOURCES.txt
 league.egg-info/dependency_links.txt
