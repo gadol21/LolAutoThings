@@ -47,6 +47,9 @@
     <ClCompile Include="attackmove_command.cpp">
       <Filter>Commands\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="patcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="attackmove_command.h">
       <Filter>Commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patcher.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

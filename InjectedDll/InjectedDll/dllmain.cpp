@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include "server.h"
 #include "hooker.h"
+#include "lol_helper.h"
+#include "patcher.h"
 
 const uint16_t PORT = 37882;
 
@@ -21,6 +23,7 @@ DWORD __stdcall server_thread(void* params) {
 
 void start_server() {
 	try {
+		Patcher::install_patches();
 		Hooker::get_instance().install_hook();
 	}
 	catch (const std::runtime_error& exception){

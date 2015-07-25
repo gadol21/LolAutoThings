@@ -13,8 +13,9 @@ const uint32_t send_chat_message_this_message_offset = 0xe8;// 5.14 2
 
 const uint32_t floating_text = 0x5DF060;					// 5.14 2
 const uint32_t floating_text_magic = 0x1114D40;				// 5.14 2
+const uint32_t floating_text_visability_check = 0x91f4d4;	// 5.14 2
 
-const uint32_t cast_spell = 0xbf6160;						// 5.14_2
+const uint32_t cast_spell = 0xbf6160;						// 5.14 2
 // these offsets are from main_unit base address
 const uint32_t cast_spell_this = 0x22c8;					// 5.14 2
 const uint32_t cast_spell_spellmanager = 0x27e0;			// 5.14 2
