@@ -45,3 +45,11 @@ class SpellInformation(MemoryReader):
         spelldata = self.read(Int, self.addr + spelldata_offset)
         unknown = self.read(Int, spelldata + unknown_offset)
         return self.read(NullTerminatedString, unknown + name_offset)
+
+    @property
+    def stacks(self):
+        """
+        returns the amount of stack currently the spell has.
+        """
+        level_offset = 0x18
+        return self.read(Int, self.addr + level_offset)
