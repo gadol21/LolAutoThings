@@ -18,6 +18,10 @@ FloatingTextCommand::FloatingTextCommand(const char* buffer, size_t buffer_len) 
 void FloatingTextCommand::operator()() {
 	floating_text_func FloatingText = reinterpret_cast<floating_text_func>(LolHelper::get_lol_base() + offsets::floating_text);
 	DWORD magic = LolHelper::get_lol_base() + offsets::floating_text_magic;
+	
+	uint32_t unit_name_len = *reinterpret_cast<uint32_t*>(m_unit + offsets::league_object_name_len);
 
-	FloatingText(magic, m_unit, m_type, m_message.c_str());
+	if (unit_name_len != 0) {
+		FloatingText(magic, m_unit, m_type, m_message.c_str());
+	}
 }
