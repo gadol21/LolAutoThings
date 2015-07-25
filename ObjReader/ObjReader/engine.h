@@ -42,6 +42,7 @@ public:
 	/// Print debug information such as the process id, the module addr and the list addr.
 	void print_debug_info() const;
 
+	/// Return league of legends module address.
 	DWORD get_module_addr() const;
 
 private:
