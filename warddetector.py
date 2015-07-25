@@ -19,7 +19,7 @@ class WardDetector(object):
 
 	def step(self):
 		current_time = time.time()
-		if current_time - self.last > 1:
+		if current_time - self.last > 1.5:
 			#self.wards = get_by_name('SightWard')
 			for ward, death_time in self.wards:
 				ward.floating_text(26, 'Ward ' + str(int(death_time - current_time)))
