@@ -13,6 +13,8 @@ class AutoSmite(object):
 	
 	def init(self):
 		self.me = get_me()
+		if self.me is None:
+			raise RuntimeError('Please rerun')
 		self.targets = []
 		objs = get(Minion)
 		for obj in objs:
@@ -31,9 +33,9 @@ class AutoSmite(object):
 		
 	def smite_available(self):
 		if "summonersmite" in self.me.spell_manager.d.name:
-			return self.me.spell_manager.d.cd == 0
+			return self.me.spell_manager.d.cd == 0 and self.me.spell_manager.d.stacks > 0
 		if "summonersmite" in self.me.spell_manager.f.name:
-			return self.me.spell_manager.f.cd == 0
+			return self.me.spell_manager.f.cd == 0 and self.me.spell_manager.f.stacks > 0
 		return False
 
 	def step(self):
