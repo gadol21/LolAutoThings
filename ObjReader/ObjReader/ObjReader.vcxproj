@@ -66,6 +66,7 @@ copy objreader.py ..\..\League\src\League</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(PYTHON_INCLUDE);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,7 +101,7 @@ C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"<
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
 echo on
-C:\Users\itay\Desktop\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
+C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">objreader_wrap.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">objreader_wrap.cc</Outputs>
     </CustomBuild>

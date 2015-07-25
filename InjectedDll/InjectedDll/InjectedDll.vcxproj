@@ -65,11 +65,13 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;INJECTEDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile />
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -79,7 +81,7 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
     </Link>
     <PostBuildEvent>
       <Command>cd
-copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
+copy ..\Release\InjectedDll.dll ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
