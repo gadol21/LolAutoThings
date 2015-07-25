@@ -17,7 +17,9 @@ def get_smite_pos():
 def smite_available():
 	if "summonersmite" in me.spell_manager.d.name:
 		return me.spell_manager.d.cd == 0
-	return me.spell_manager.f.cd == 0
+	if "summonersmite" in me.spell_manager.f.name:
+		return me.spell_manager.f.cd == 0
+	return False
 
 def step():
 	objs = get(Minion)
