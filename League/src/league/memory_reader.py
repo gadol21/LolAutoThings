@@ -1,5 +1,6 @@
 from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
 
+
 class MemoryReader(object):
     """
     represents an object that reads its own properties from league's memory.

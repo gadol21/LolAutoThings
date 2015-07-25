@@ -4794,6 +4794,44 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Engine_get_obj_id(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine *arg1 = (Engine *) 0 ;
+  DWORD arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned long val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  DWORD result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Engine_get_obj_id",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Engine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Engine_get_obj_id" "', argument " "1"" of type '" "Engine const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_long(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Engine_get_obj_id" "', argument " "2"" of type '" "DWORD""'");
+  } 
+  arg2 = static_cast< DWORD >(val2);
+  {
+    try {
+      result = (DWORD)((Engine const *)arg1)->get_obj_id(arg2);
+    } catch (std::runtime_error &e) {
+      PyErr_SetString(PyExc_RuntimeError, const_cast<char*>(e.what()));
+      return NULL;
+    }
+  }
+  resultobj = SWIG_From_unsigned_SS_long(static_cast< unsigned long >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Engine_read_byte(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Engine *arg1 = (Engine *) 0 ;
@@ -4983,6 +5021,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Engine_object_exist", _wrap_Engine_object_exist, METH_VARARGS, NULL},
 	 { (char *)"Engine_print_debug_info", _wrap_Engine_print_debug_info, METH_VARARGS, NULL},
 	 { (char *)"Engine_get_module_addr", _wrap_Engine_get_module_addr, METH_VARARGS, NULL},
+	 { (char *)"Engine_get_obj_id", _wrap_Engine_get_obj_id, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_byte", _wrap_Engine_read_byte, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_short", _wrap_Engine_read_short, METH_VARARGS, NULL},
 	 { (char *)"Engine_read_int", _wrap_Engine_read_int, METH_VARARGS, NULL},

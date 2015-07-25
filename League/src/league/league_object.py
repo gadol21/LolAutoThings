@@ -9,12 +9,20 @@ class LeagueObject(MemoryReader):
     data of the object.
     """
 
-    def __init__(self, engine, list_index):
+    def __init__(self, engine, addr):
         super(LeagueObject, self).__init__(engine)
-        self.id = list_index
-        self.addr = engine.object_addr(list_index)
+        self.addr = addr
         if self.addr == 0:
-            raise IndexError("There is no object in this address " + str(list_index))
+            raise IndexError("There is no object in this address ")
+
+    def __eq__(self, other):
+        if type(other) == int:
+            return self.addr == other
+        raise NotImplemented()
+
+    @property
+    def id(self):
+        return self._engine.get_obj_id(self.addr)
 
     @property
     def name(self):

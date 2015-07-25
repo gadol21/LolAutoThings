@@ -191,6 +191,9 @@ class Engine(_object):
     def get_module_addr(self):
         return _objreader.Engine_get_module_addr(self)
 
+    def get_obj_id(self, obj_addr):
+        return _objreader.Engine_get_obj_id(self, obj_addr)
+
     def read_byte(self, offset):
         return _objreader.Engine_read_byte(self, offset)
 

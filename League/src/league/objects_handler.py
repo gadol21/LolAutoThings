@@ -9,11 +9,15 @@ TYPE_CLASSES = {"AIHeroClient": Champion, "obj_AI_Minion": Minion}
 DEFAULT_TYPE = LeagueObject
 
 
-def _get_obj(index):
-    obj = LeagueObject(engine, index)
+def get_obj(addr):
+    obj = LeagueObject(engine, addr)
     if obj.type in TYPE_CLASSES:
-        return TYPE_CLASSES[obj.type](engine, index)
+        return TYPE_CLASSES[obj.type](engine, addr)
     return obj
+
+
+def _get_obj_by_index(index):
+    return get_obj(engine.object_addr(index))
 
 
 def get_me():
@@ -35,7 +39,7 @@ def get(obj_type):
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
             try:
-                obj = _get_obj(i)
+                obj = _get_obj_by_index(i)
                 if type(obj) == obj_type:
                     objects.append(obj)
             except IndexError:
@@ -51,7 +55,7 @@ def get_by_name(name):
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
             try:
-                obj = _get_obj(i)
+                obj = _get_obj_by_index(i)
                 if obj.name == name:
                     objects.append(obj)
             except IndexError:
@@ -67,7 +71,7 @@ def get_by_type(obj_type):
     for i in xrange(LIST_SIZE):
         if engine.object_exist(i):
             try:
-                obj = _get_obj(i)
+                obj = _get_obj_by_index(i)
                 if obj.type == obj_type:
                     objects.append(obj)
             except IndexError:
@@ -83,9 +87,10 @@ def names_contain(string):
     names = set()
     for i in xrange(LIST_SIZE):
         try:
-            obj = LeagueObject(engine, i)
-            if string.lower() in obj.name.lower():
-                names.add(obj.name)
+            if engine.object_exist(i):
+                obj = LeagueObject(engine, engine.object_addr(i))
+                if string.lower() in obj.name.lower():
+                    names.add(obj.name)
         except IndexError:
                 pass
     return names
@@ -99,9 +104,10 @@ def types_contain(string):
     types = set()
     for i in xrange(LIST_SIZE):
         try:
-            obj = LeagueObject(engine, i)
-            if string.lower() in obj.type.lower():
-                types.add(obj.type)
+            if engine.object_exist(i):
+                obj = LeagueObject(engine, engine.object_addr(i))
+                if string.lower() in obj.type.lower():
+                    types.add(obj.type)
         except IndexError:
                 pass
     return types

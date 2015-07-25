@@ -159,3 +159,12 @@ void Engine::print_debug_info() const {
 DWORD Engine::get_module_addr() const {
 	return reinterpret_cast<DWORD>(m_base_addr);
 }
+
+DWORD Engine::get_obj_id(DWORD obj_addr) const {
+	for (size_t i = 0; i < M_LIST_SIZE; ++i) {
+		if (object_addr(i) == obj_addr) {
+			return i;
+		}
+	}
+	return 0;
+}

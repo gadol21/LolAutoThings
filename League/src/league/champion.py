@@ -5,8 +5,8 @@ import functions
 
 
 class Champion(LeagueObject):
-    def __init__(self, engine, list_index):
-        super(Champion, self).__init__(engine, list_index)
+    def __init__(self, engine, addr):
+        super(Champion, self).__init__(engine, addr)
 
     def get_fields(self):
         properties = {'level': (0x3474, Int)}
