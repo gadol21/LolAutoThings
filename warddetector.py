@@ -13,9 +13,9 @@ class WardDetector(object):
 		self.wards = [] # tuple of ward and creation time
 		current_time = time.time()
 		for ward in get_by_name('SightWard'):
-			self.wards.append((ward, current_time + 180))
+			self.wards.append((ward, current_time + ward.ward_time))
 		for ward in get_by_name('VisionWard'):
-			self.wards.append((ward, current_time + 180))
+			self.wards.append((ward, current_time + ward.ward_time))
 
 	def step(self):
 		current_time = time.time()
@@ -30,7 +30,7 @@ class WardDetector(object):
 		#check if obj is ward
 		obj_name = obj.name
 		if obj_name == 'SightWard' or obj_name == 'VisionWard':
-			self.wards.append((obj, time.time() + 180))
+			self.wards.append((obj, time.time() + obj.ward_time))
 		
 	def on_object_removed(self, obj_addr):
 		#check if anyward in the list got this addr.
