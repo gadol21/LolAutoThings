@@ -7,6 +7,9 @@ namespace offsets {
 
 const uint32_t main_loop = 0x674240;						// 5.14 2
 
+const uint32_t list_remove = 0x859970;						// 5.14 2
+const uint32_t list_add = 0x9c4150;							// 5.14 2
+
 const uint32_t send_chat_message = 0x777fd0;				// 5.14 2
 const uint32_t send_chat_message_this = 0x2d9c538;			// 5.14 2
 const uint32_t send_chat_message_this_message_offset = 0xe8;// 5.14 2

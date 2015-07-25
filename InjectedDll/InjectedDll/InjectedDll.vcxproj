@@ -96,7 +96,11 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
     </ClCompile>
     <ClCompile Include="floating_text_command.cpp" />
     <ClCompile Include="hooker.cpp" />
+    <ClCompile Include="list_events_notifier.cpp" />
     <ClCompile Include="lol_helper.cpp" />
+    <ClCompile Include="main_loop_hooker.cpp" />
+    <ClCompile Include="object_add_hooker.cpp" />
+    <ClCompile Include="object_remove_hooker.cpp" />
     <ClCompile Include="patcher.cpp" />
     <ClCompile Include="send_chat_command.cpp" />
     <ClCompile Include="server.cpp" />
@@ -106,6 +110,10 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
     <ClInclude Include="cast_spell_command.h" />
     <ClInclude Include="command.h" />
     <ClInclude Include="command_factory.h" />
+    <ClInclude Include="list_events_notifier.h" />
+    <ClInclude Include="main_loop_hooker.h" />
+    <ClInclude Include="object_add_hooker.h" />
+    <ClInclude Include="object_remove_hooker.h" />
     <ClInclude Include="patcher.h" />
     <ClInclude Include="send_chat_command.h" />
     <ClInclude Include="command_types.h" />

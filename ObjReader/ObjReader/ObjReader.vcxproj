@@ -95,7 +95,7 @@ copy objreader.py ..\..\League\src\League</Command>
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
 echo on
-C:\Users\itay\Desktop\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
+C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo In order to function correctly, please ensure the following environment variables are correctly set:
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%

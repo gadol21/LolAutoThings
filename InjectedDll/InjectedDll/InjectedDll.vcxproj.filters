@@ -18,15 +18,21 @@
     <Filter Include="Commands\Source Files">
       <UniqueIdentifier>{05d0e649-6565-406b-b13c-54021517b507}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hookers">
+      <UniqueIdentifier>{a5409b3d-5906-4e39-ace0-91607dd31651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hookers\Header Files">
+      <UniqueIdentifier>{b15b03cd-1edc-4528-92e0-96e52cb92887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hookers\Source Files">
+      <UniqueIdentifier>{638a4758-d1c4-4659-b8f4-a4083498428e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="server.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hooker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="command_factory.cpp">
@@ -50,15 +56,27 @@
     <ClCompile Include="patcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_loop_hooker.cpp">
+      <Filter>Hookers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="object_add_hooker.cpp">
+      <Filter>Hookers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="object_remove_hooker.cpp">
+      <Filter>Hookers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hooker.cpp">
+      <Filter>Hookers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="list_events_notifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hooker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="command_types.h">
@@ -86,6 +104,21 @@
       <Filter>Commands\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="patcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object_remove_hooker.h">
+      <Filter>Hookers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object_add_hooker.h">
+      <Filter>Hookers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_loop_hooker.h">
+      <Filter>Hookers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hooker.h">
+      <Filter>Hookers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="list_events_notifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
