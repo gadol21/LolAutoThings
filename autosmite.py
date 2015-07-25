@@ -3,7 +3,8 @@ from league import *
 
 class AutoSmite(object):
 
-	TARGETS = ["SRU_Dragon6.1.1", "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1"]
+	TARGETS = ["SRU_Dragon6.1.1", "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1",
+	"SRU_Baron12.1.1"]
 	SMITE_RANGE = 500
 	
 	def __init__(self):
