@@ -1,4 +1,5 @@
 from league import *
+import time
 
 
 class AutoSmite(object):
@@ -10,11 +11,13 @@ class AutoSmite(object):
 	def __init__(self):
 		self.me = None
 		self.targets = None
+		self.last_easy = None
 	
 	def init(self):
 		self.me = get_me()
 		if self.me is None:
 			raise RuntimeError('Please rerun')
+		self.last_easy = time.time()
 		self.targets = []
 		objs = get(Minion)
 		for obj in objs:
@@ -39,12 +42,16 @@ class AutoSmite(object):
 		return False
 
 	def step(self):
+		if self.me.health == 0:
+			return
 		for obj in self.targets:
 			if (obj.health <= self.get_smite_dmg() and self.smite_available() and
 			(((obj.x - self.me.x) ** 2 + (obj.y - self.me.y) ** 2) ** 0.5) < self.SMITE_RANGE):
 				cast_spell(self.me.addr, self.get_smite_pos(), (obj.x, obj.z, obj.y), (0, 0, 0), obj.addr)
-				if 'Dragon' in obj.name:
-					write_to_chat("easy")
+				if 'Dragon' in obj.name or 'Baron' in obj.name:
+					if time.time() - self.last_easy > 3:
+						write_to_chat("easy")
+						self.last_easy = time.time()
 						
 	def on_object_added(self, obj_addr):
 		obj = get_obj(obj_addr)
