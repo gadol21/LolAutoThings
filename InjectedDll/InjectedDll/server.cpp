@@ -1,6 +1,6 @@
 #include "server.h"
-#include "command_factory.h"
-#include "main_loop_hooker.h"
+#include "commands/command_factory.h"
+#include "hookers/main_loop_hooker.h"
 #include <stdexcept>
 
 const char* Server::LOOPBACK = "127.0.0.1";

@@ -1,7 +1,7 @@
 #ifndef __MAIN_LOOP_HOOKER_H
 #define __MAIN_LOOP_HOOKER_H
 
-#include "command_factory.h"
+#include "commands/command_factory.h"
 #include "hooker.h"
 #include <list>
 

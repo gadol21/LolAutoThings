@@ -2,9 +2,9 @@
 #include <Windows.h>
 #include <stdexcept>
 #include "server.h"
-#include "main_loop_hooker.h"
-#include "object_remove_hooker.h"
-#include "object_add_hooker.h"
+#include "hookers/main_loop_hooker.h"
+#include "hookers/object_remove_hooker.h"
+#include "hookers/object_add_hooker.h"
 #include "lol_helper.h"
 #include "patcher.h"
 

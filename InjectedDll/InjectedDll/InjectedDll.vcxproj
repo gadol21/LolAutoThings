@@ -72,6 +72,7 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;INJECTEDDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeaderFile />
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,9 +86,9 @@ copy ..\Release\InjectedDll.dll ..\..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attackmove_command.cpp" />
-    <ClCompile Include="cast_spell_command.cpp" />
-    <ClCompile Include="command_factory.cpp" />
+    <ClCompile Include="commands\attackmove_command.cpp" />
+    <ClCompile Include="commands\cast_spell_command.cpp" />
+    <ClCompile Include="commands\command_factory.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -96,31 +97,31 @@ copy ..\Release\InjectedDll.dll ..\..\League\src\League</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="floating_text_command.cpp" />
-    <ClCompile Include="hooker.cpp" />
+    <ClCompile Include="commands\floating_text_command.cpp" />
+    <ClCompile Include="hookers\hooker.cpp" />
     <ClCompile Include="list_events_notifier.cpp" />
     <ClCompile Include="lol_helper.cpp" />
-    <ClCompile Include="main_loop_hooker.cpp" />
-    <ClCompile Include="object_add_hooker.cpp" />
-    <ClCompile Include="object_remove_hooker.cpp" />
+    <ClCompile Include="hookers\main_loop_hooker.cpp" />
+    <ClCompile Include="hookers\object_add_hooker.cpp" />
+    <ClCompile Include="hookers\object_remove_hooker.cpp" />
     <ClCompile Include="patcher.cpp" />
-    <ClCompile Include="send_chat_command.cpp" />
+    <ClCompile Include="commands\send_chat_command.cpp" />
     <ClCompile Include="server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="attackmove_command.h" />
-    <ClInclude Include="cast_spell_command.h" />
-    <ClInclude Include="command.h" />
-    <ClInclude Include="command_factory.h" />
+    <ClInclude Include="commands\attackmove_command.h" />
+    <ClInclude Include="commands\cast_spell_command.h" />
+    <ClInclude Include="commands\command.h" />
+    <ClInclude Include="commands\command_factory.h" />
     <ClInclude Include="list_events_notifier.h" />
-    <ClInclude Include="main_loop_hooker.h" />
-    <ClInclude Include="object_add_hooker.h" />
-    <ClInclude Include="object_remove_hooker.h" />
+    <ClInclude Include="hookers\main_loop_hooker.h" />
+    <ClInclude Include="hookers\object_add_hooker.h" />
+    <ClInclude Include="hookers\object_remove_hooker.h" />
     <ClInclude Include="patcher.h" />
-    <ClInclude Include="send_chat_command.h" />
-    <ClInclude Include="command_types.h" />
-    <ClInclude Include="floating_text_command.h" />
-    <ClInclude Include="hooker.h" />
+    <ClInclude Include="commands\send_chat_command.h" />
+    <ClInclude Include="commands\command_types.h" />
+    <ClInclude Include="commands\floating_text_command.h" />
+    <ClInclude Include="hookers\hooker.h" />
     <ClInclude Include="lol_helper.h" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="server.h" />

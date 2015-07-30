@@ -3,8 +3,8 @@
 
 #include <Windows.h>
 #include <list>
-#include "command.h"
-#include "command_factory.h"
+#include "commands/command.h"
+#include "commands/command_factory.h"
 
 using std::list;
 

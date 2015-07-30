@@ -1,4 +1,4 @@
-#include "object_remove_hooker.h"
+#include "hookers/object_remove_hooker.h"
 #include "list_events_notifier.h"
 #include "lol_helper.h"
 #include "offsets.h"
