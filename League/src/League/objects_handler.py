@@ -21,7 +21,7 @@ def _get_obj_by_index(index):
 
 
 def get_me():
-    name_offset = 0x1113310
+    name_offset = 0x111a258
     me_name = engine.read_string(engine.get_module_addr() + name_offset)
     champions = get(Champion)
     for champ in champions:
