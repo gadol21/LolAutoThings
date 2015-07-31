@@ -46,9 +46,9 @@ private:
 	uint8_t m_is_attack_move;
 
 	/// the AttackMove types supported
-	static const uint32_t M_TYPE_MOVE;
-	static const uint32_t M_TYPE_ATTACK;
-	static const uint32_t M_TYPE_STOP;
+	static const uint32_t M_TYPE_MOVE = 2;
+	static const uint32_t M_TYPE_ATTACK = 3;
+	static const uint32_t M_TYPE_STOP = 0xb; // not sure
 };
 
 #endif // ndef __ATTACKMOVE_COMMAND

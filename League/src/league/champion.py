@@ -9,7 +9,10 @@ class Champion(LeagueObject):
         super(Champion, self).__init__(engine, addr)
 
     def get_fields(self):
-        properties = {'level': (0x3474, Int)}
+        properties = {
+                        'level': (0x3474, Int),
+                        'mana':(0x210, Float), 'max_mana':(0x220, Float)
+                     }
         properties.update(super(Champion, self).get_fields())
         return properties
 
@@ -46,3 +49,17 @@ class Champion(LeagueObject):
         target - LeagueObject of the target
         """
         functions.cast_spell(self.addr, skill_id, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
+
+    def auto_attack(self, target):
+        """
+        auto attacks a target
+        :param target: the LeagueObject to attack
+        """
+        functions.attackmove(self.addr, 3, target.position, target.addr, False)
+
+    def move(self, position):
+        """
+        moves to a target position
+        :param position: a tuple of x, z, y
+        """
+        functions.attackmove(self.addr, 2, (1.0 * position[0], 1.0 * position[1], 1.0 * position[2]), 0, False)

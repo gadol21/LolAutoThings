@@ -9,9 +9,11 @@ main_loop
 search for "GAMESTATE_GAMELOOP" string
 
 CastSpell (check calling convention)
-search for "ERROR: Client Tried to cast a spell from an invalid slot: %d."
+1. search for "ERROR: Client Tried to cast a spell from an invalid slot: %d."
+2. search for "ALE-229C053F"
 
 AttackMove
-the cursor xzy is stored in memory. after it there is the xzy of the last click.
-hardware bp there and see who changes it. should be close to AttackMove (no need to go up the stack, should be in the same function
-it breaks on)
+1.  (not working ?) the cursor xzy is stored in memory. after it there is the xzy of the last click.
+	hardware bp there and see who changes it. should be close to AttackMove (no need to go up the stack, should be in the same function
+	it breaks on)
+2.	search for "ALE-E63471E6". it is only used by a function that gets called by attackmove only, so should be easy
