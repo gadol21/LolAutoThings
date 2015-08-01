@@ -100,8 +100,9 @@ C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"<
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo In order to function correctly, please ensure the following environment variables are correctly set:
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
+echo SWIG_DIR: %SWIG_DIR%
 echo on
-C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
+%SWIG_DIR%\swig.exe -c++ -python "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">objreader_wrap.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">objreader_wrap.cc</Outputs>
     </CustomBuild>
