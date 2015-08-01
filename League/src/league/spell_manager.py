@@ -1,6 +1,7 @@
-from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from field_types import *
 from memory_reader import MemoryReader
 from spell_information import SpellInformation
+
 
 class SpellManager(MemoryReader):
     """

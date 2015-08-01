@@ -5,5 +5,5 @@ setup(
     version='1',
     description='league of Legends swag',
     packages=find_packages(),
-	data_files = ['league/_objreader.pyd', 'league/InjectedDll.dll']
+    data_files = ['league/_objreader.pyd', 'league/InjectedDll.dll']
 )

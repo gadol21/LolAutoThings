@@ -16,7 +16,7 @@ class MemoryReader(object):
         self._fields = self.get_fields()
 
     def __getattr__(self, item):
-        if not item in self._fields:
+        if item not in self._fields:
             raise KeyError("Could not find the specific attr")
         field = self._fields[item]
         if len(field) == 2:
@@ -51,7 +51,7 @@ class MemoryReader(object):
         The unique one is: {'name': (20, LengthedString, (5))} when 5 is the
         length of the string.
         """
-        return { }
+        return {}
 
     def __dir__(self):
         """

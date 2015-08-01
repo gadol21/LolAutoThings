@@ -27,15 +27,16 @@ def floating_text(unit_addr, msg_type, msg):
     _send_command(_FLOATING_TEXT, pack('IIb{0}s'.format(len(msg)), unit_addr, msg_type, len(msg), msg))
 
 
-def attackmove(main_champ, type, target_pos, target_unit, is_attack_move):
+def attackmove(main_champ, attackmove_type, target_pos, target_unit, is_attack_move):
     """
     :param main_champ: address of main champion
-    :param type: attackmove type. should be one of 3 supported consts
+    :param attackmove_type: attackmove type. should be one of 3 supported consts
     :param target_pos: a tuple (x, z, y)
     :param target_unit: the base address of the unit to attack, or 0
     :param is_attack_move: indicate an AttackMove. cannot be combined with type stop
     """
-    command = pack('IIfffbbxx', main_champ, target_unit, target_pos[0], target_pos[1], target_pos[2], type, is_attack_move)
+    command = pack('IIfffbbxx', main_champ, target_unit, target_pos[0], target_pos[1], target_pos[2],
+                                attackmove_type, is_attack_move)
     _send_command(_MOVE_ATTACK, command)
 
 
@@ -47,9 +48,9 @@ def cast_spell(main_champ, spell_index, target_pos, source_pos, target_unit):
     :param source_pos: a tuple (x, z, y)
     :param target_unit: the target unit, or 0 if skillshot
     """
-    command = pack('IbffffffI',main_champ
-                              ,spell_index
-                              ,target_pos[0], target_pos[1], target_pos[2]
-                              ,source_pos[0], source_pos[1], source_pos[2],
-                              target_unit)
+    command = pack('IbffffffI', main_champ,
+                                spell_index,
+                                target_pos[0], target_pos[1], target_pos[2],
+                                source_pos[0], source_pos[1], source_pos[2],
+                                target_unit)
     _send_command(_CAST_SPELL, command)

@@ -1,4 +1,4 @@
-from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from field_types import *
 from league_object import LeagueObject
 from spell_manager import SpellManager
 import functions
@@ -9,10 +9,9 @@ class Champion(LeagueObject):
         super(Champion, self).__init__(engine, addr)
 
     def get_fields(self):
-        properties = {
-                        'level': (0x3474, Int),
-                        'mana':(0x210, Float), 'max_mana':(0x220, Float)
-                     }
+        properties = {'level': (0x3474, Int),
+                      'mana': (0x210, Float),
+                      'max_mana': (0x220, Float)}
         properties.update(super(Champion, self).get_fields())
         return properties
 

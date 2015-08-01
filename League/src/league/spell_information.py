@@ -1,5 +1,6 @@
-from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from field_types import *
 from memory_reader import MemoryReader
+
 
 class SpellInformation(MemoryReader):
     """
@@ -14,10 +15,8 @@ class SpellInformation(MemoryReader):
         self.addr = addr
 
     def get_fields(self):
-        properties = {
-                        'level':(0x10, Int),
-                        'stacks':(0x18, Int)
-                     }
+        properties = {'level': (0x10, Int),
+                      'stacks': (0x18, Int)}
         properties.update(super(SpellInformation, self).get_fields())
         return properties
 

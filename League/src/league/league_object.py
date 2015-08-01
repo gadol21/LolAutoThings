@@ -1,4 +1,4 @@
-from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from field_types import *
 from memory_reader import MemoryReader
 import functions
 
@@ -58,7 +58,7 @@ class LeagueObject(MemoryReader):
         """
         returns a tuple (x, z, y) representing the object's current location
         """
-        return (self.x, self.z, self.y)
+        return self.x, self.z, self.y
 
     def get_fields(self):
         """
@@ -69,12 +69,10 @@ class LeagueObject(MemoryReader):
         The unique one is: {'name': (20, LengthedString, (5))} when 5 is the
         length of the string.
         """
-        return {
-                'team':(0x14, Int),
-                'name_length':(0x30, Int),
-                'x':(0x5c, Float), 'z':(0x60, Float), 'y':(0x64, Float),
-                'health':(0x154, Float), 'max_health':(0x164, Int),
-                }
+        return {'team': (0x14, Int),
+                'name_length': (0x30, Int),
+                'x': (0x5c, Float), 'z': (0x60, Float), 'y': (0x64, Float),
+                'health': (0x154, Float), 'max_health': (0x164, Int)}
 
     def dump_memory(self):
         """
