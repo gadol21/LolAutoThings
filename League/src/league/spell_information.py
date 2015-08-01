@@ -13,13 +13,13 @@ class SpellInformation(MemoryReader):
         super(SpellInformation, self).__init__(engine)
         self.addr = addr
 
-    @property
-    def level(self):
-        """
-        returns the level of the spell
-        """
-        level_offset = 0x10
-        return self.read(Int, self.addr + level_offset)
+    def get_fields(self):
+        properties = {
+                        'level':(0x10, Int),
+                        'stacks':(0x18, Int)
+                     }
+        properties.update(super(SpellInformation, self).get_fields())
+        return properties
 
     @property
     def cd(self):
@@ -45,11 +45,3 @@ class SpellInformation(MemoryReader):
         spelldata = self.read(Int, self.addr + spelldata_offset)
         unknown = self.read(Int, spelldata + unknown_offset)
         return self.read(NullTerminatedString, unknown + name_offset)
-
-    @property
-    def stacks(self):
-        """
-        returns the amount of stack currently the spell has.
-        """
-        level_offset = 0x18
-        return self.read(Int, self.addr + level_offset)
