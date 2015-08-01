@@ -16,6 +16,10 @@ def _send_command(msg_type, args_str):
 
 
 def write_to_chat(msg):
+    """
+    writes the given message to chat.
+    :param msg: the message to write. should be no longer than 255 chars.
+    """
     _send_command(_SEND_CHAT, pack('b{0}s'.format(len(msg)), len(msg), msg))
 
 

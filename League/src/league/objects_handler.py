@@ -21,6 +21,9 @@ def _get_obj_by_index(index):
 
 
 def get_me():
+    """
+    :return: the main Champion
+    """
     me_offset = 0x111a258
     me = engine.read_int(engine.get_module_addr() + me_offset)
     champions = get(Champion)

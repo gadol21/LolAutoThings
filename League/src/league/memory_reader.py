@@ -44,7 +44,7 @@ class MemoryReader(object):
 
     def get_fields(self):
         """
-        You should override it
+        You should override this
         :return: dictionary - for each property name it contain tuple of
          offset and type.
         {'hp': (10, Int), 'name': (20, NullTerminatedString)}

@@ -22,10 +22,16 @@ class LeagueObject(MemoryReader):
 
     @property
     def id(self):
+        """
+        the object's id in the list. should be unique
+        """
         return self._engine.get_obj_id(self.addr)
 
     @property
     def name(self):
+        """
+        the object's name. for champions it is the summoner's name, not the champion's name
+        """
         name_pos = 0x20
         if self.name_length < 16:
             return self.read(LengthedString, self.addr + name_pos, self.name_length)
@@ -34,6 +40,9 @@ class LeagueObject(MemoryReader):
 
     @property
     def type(self):
+        """
+        the object's internal type
+        """
         type_struct_offset = 0x4
         len_offset = 0x14
         type_string_offset = 0x4  # inside the struct
@@ -68,9 +77,19 @@ class LeagueObject(MemoryReader):
                 }
 
     def dump_memory(self):
+        """
+        dumps the first X bytes from the object's base address.
+        X is defined in ObjReader
+        """
         return self._engine.dump_memory(self.addr)
 
     def floating_text(self, msg_type, msg):
+        """
+        writes a message on top of an object
+        :param msg_type: should be a value of league's enum,
+                         no consts yet, 6 should work for most objects, 26 for wards
+        :param msg: the message to write
+        """
         functions.floating_text(self.addr, msg_type, msg)
 
     def __repr__(self):
