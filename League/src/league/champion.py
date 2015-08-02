@@ -23,31 +23,31 @@ class Champion(LeagueObject):
         spell_manager_offset = 0x27e0
         return SpellManager(self._engine, self.addr + spell_manager_offset)
 
-    def cast_skillshot(self, skill_id, target_pos, src_pos=None):
+    def cast_skillshot(self, spell_info, target_pos, src_pos=None):
         """
         like ezreal q
-        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        :param spell_info: the spell information of the spell (obtained using spell_manager)
         :param target_pos: tuple (x, z, y)
         :param src_pos: for skills like rumble ult or victor e the requires a start pos
         """
         if src_pos is None:
             src_pos = self.position
-        functions.cast_spell(self.addr, skill_id, target_pos, src_pos, 0)
+        functions.cast_spell(self.addr, spell_info._index, target_pos, src_pos, 0)
 
-    def cast_self_spell(self, skill_id):
+    def cast_self_spell(self, spell_info):
         """
         spells like hecarim q
-        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        :param spell_info: the spell information of the spell (obtained using spell_manager)
         """
-        functions.cast_spell(self.addr, skill_id, 0, (self.x, self.z, self.y), 0)
+        functions.cast_spell(self.addr, spell_info._index, 0, (self.x, self.z, self.y), 0)
 
-    def cast_target(self, skill_id, target):
+    def cast_target(self, spell_info, target):
         """
         spells like veigar's ult
-        :param skill_id: the skill id - 0-q, 1-w, 2-e, 3-r, 4-d, 5-f
+        :param spell_info: the spell information of the spell (obtained using spell_manager)
         target - LeagueObject of the target
         """
-        functions.cast_spell(self.addr, skill_id, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
+        functions.cast_spell(self.addr, spell_info._index, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
 
     def auto_attack(self, target):
         """

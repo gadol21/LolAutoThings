@@ -7,12 +7,14 @@ class SpellInformation(MemoryReader):
     represents a SpellInformation object, contains information about the given spell
     """
 
-    def __init__(self, engine, addr):
+    def __init__(self, engine, addr, index):
         """
         :param addr: address of the SpellInformation
+        :param index: index of the spell in spell manager
         """
         super(SpellInformation, self).__init__(engine)
         self.addr = addr
+        self._index = index
 
     def get_fields(self):
         properties = {'level': (0x10, Int),

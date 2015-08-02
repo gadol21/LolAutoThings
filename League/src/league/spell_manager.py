@@ -8,6 +8,7 @@ class SpellManager(MemoryReader):
     represents an object's spell manager,
     contains spell information for q, w, e, r, d, f.
     """
+    MANAGER_INDEXES = {'q': 0, 'w': 1, 'e': 2, 'r': 3, 'd': 4, 'f': 5}
 
     def __init__(self, engine, addr):
         """
@@ -21,8 +22,8 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 0
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['q']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
 
     @property
@@ -30,8 +31,8 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 4
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['w']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
 
     @property
@@ -39,8 +40,8 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 8
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['e']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
 
     @property
@@ -48,8 +49,8 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 0xc
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['r']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
 
     @property
@@ -57,8 +58,8 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 0x10
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['d']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
 
     @property
@@ -66,6 +67,6 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        q_pos = 0x14
-        spellinfo_addr = self.read(Int, self.addr + q_pos)
+        index_in_magager = self.MANAGER_INDEXES['f']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
         return SpellInformation(self._engine, spellinfo_addr)
