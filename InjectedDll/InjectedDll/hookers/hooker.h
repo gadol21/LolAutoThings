@@ -63,17 +63,4 @@ private:
 	DWORD m_callback;
 };
 
-/**
-* this function is the callback that gets called every main_loop step.
-* it calls on_callback, and then jumps back to the main_loop
-* @note: idk if naked is needed here or in the cpp
-*/
-void callback();
-
-/**
- * this function gets called from callback. it contains the entire callback logic,
- * calls all registered callbacks and stuff
- */
-void __stdcall on_callback();
-
 #endif // ndef HOOKER_H
