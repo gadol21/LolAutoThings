@@ -43,8 +43,7 @@ class AutoSmite(object):
         if self.me.health == 0:
             return
         for obj in self.targets:
-            if (obj.health <= self.get_smite_dmg() and self.smite_available() and
-                            (((obj.x - self.me.x) ** 2 + (obj.y - self.me.y) ** 2) ** 0.5) < self.SMITE_RANGE):
+            if (obj.health <= self.get_smite_dmg() and self.smite_available() and self.me.distance_from(obj) < self.SMITE_RANGE):
                 self.me.cast_target(self.get_smite_spell(), obj)
                 if 'Dragon' in obj.name or 'Baron' in obj.name:
                     if time.time() - self.last_easy > 3:

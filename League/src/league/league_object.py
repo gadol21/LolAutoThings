@@ -81,6 +81,14 @@ class LeagueObject(MemoryReader):
         """
         return self._engine.dump_memory(self.addr)
 
+    def distance_from(self, another_obj):
+        """
+        returns the object's distance from another_obj.
+        :param another_obj: object to calculate distance from
+        :return: the distance
+        """
+        return ((self.x - another_obj.x) ** 2 + (self.y - another_obj.y) ** 2) ** 0.5
+
     def floating_text(self, msg_type, msg):
         """
         writes a message on top of an object
