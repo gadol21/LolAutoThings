@@ -5,6 +5,7 @@
 #include "hookers/main_loop_hooker.h"
 #include "hookers/object_remove_hooker.h"
 #include "hookers/object_add_hooker.h"
+#include "hookers/chat_hooker.h"
 #include "lol_helper.h"
 #include "patcher.h"
 
@@ -29,6 +30,7 @@ void start_server() {
 		MainLoopHooker::get_instance().install_hook();
 		ObjectRemoveHooker::get_instance().install_hook();
 		ObjectAddHooker::get_instance().install_hook();
+		ChatHooker::get_instance().install_hook();
 	}
 	catch (const std::runtime_error& exception){
 		MessageBoxA(NULL, exception.what(), "fatal error. quiting", MB_OK);

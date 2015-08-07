@@ -1,5 +1,5 @@
 #include "hookers/object_remove_hooker.h"
-#include "list_events_notifier.h"
+#include "events_notifier.h"
 #include "lol_helper.h"
 #include "offsets.h"
 #include <string>
@@ -34,7 +34,7 @@ void __stdcall on_callback_object_remove(DWORD object_to_remove) {
 		type = *reinterpret_cast<char**>(type_struct + 0x4);
 	}
 	if (type == "obj_AI_Minion") {
-		ListEventsNotifier::get_instance().notify_object_remove(object_to_remove);
+		EventsNotifier::get_instance().notify_object_remove(object_to_remove);
 	}
 }
 

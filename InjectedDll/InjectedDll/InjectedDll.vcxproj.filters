@@ -41,9 +41,6 @@
     <ClCompile Include="patcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="list_events_notifier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="commands\attackmove_command.cpp">
       <Filter>commands\Source Files</Filter>
     </ClCompile>
@@ -71,6 +68,12 @@
     <ClCompile Include="hookers\object_remove_hooker.cpp">
       <Filter>hookers\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hookers\chat_hooker.cpp">
+      <Filter>hookers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="events_notifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
@@ -83,9 +86,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="patcher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="list_events_notifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="commands\attackmove_command.h">
@@ -120,6 +120,12 @@
     </ClInclude>
     <ClInclude Include="commands\send_chat_command.h">
       <Filter>commands\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hookers\chat_hooker.h">
+      <Filter>hookers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="events_notifier.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

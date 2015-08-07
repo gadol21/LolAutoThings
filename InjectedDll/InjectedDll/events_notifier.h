@@ -3,17 +3,26 @@
 
 #include <Windows.h>
 #include <cstdint>
+#include <string>
+
+using std::string;
+
+enum Events : uint8_t {
+	object_add = 0,
+	object_remove = 1,
+	chat_command = 2
+};
 
 #pragma pack(push, 1)
 typedef struct {
 	uint8_t id;
 	DWORD param;
-} event_message;
+} object_event_message;
 #pragma pack(pop)
 
-class ListEventsNotifier {
+class EventsNotifier {
 public:
-	static ListEventsNotifier& get_instance();
+	static EventsNotifier& get_instance();
 
 	/**
 	 * sends a notification about an objects that gets added to the list
@@ -25,17 +34,24 @@ public:
 	*/
 	void notify_object_remove(DWORD obj);
 
+	/**
+	 * sends a notification about a chat command.
+	 * the message is just sent as a buffer of characters
+	 */
+	void notify_chat_command(const string& command);
+
 private:
-	ListEventsNotifier();
+	EventsNotifier();
+
+	/// sends a buffer with a given size home via the socket
+	void send(void* buffer, size_t size);
 
 	/**
 	 * sends a notification about an event
 	 */
-	void notify_event(uint8_t id, DWORD param);
+	void notify_object_event(Events event_id, DWORD param);
 
 	static const uint16_t M_PORT;
-	static const uint8_t M_OBJECT_ADD;
-	static const uint8_t M_OBJECT_REMOVE;
 	SOCKET m_socket;
 	sockaddr_in m_dest;
 };

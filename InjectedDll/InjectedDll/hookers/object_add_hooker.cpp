@@ -1,5 +1,5 @@
 #include "object_add_hooker.h"
-#include "list_events_notifier.h"
+#include "events_notifier.h"
 #include "lol_helper.h"
 #include "offsets.h"
 #include <string>
@@ -35,7 +35,7 @@ void __stdcall on_callback_object_add(DWORD object_to_add) {
 	}
 
 	if (type == "obj_AI_Minion") {
-		ListEventsNotifier::get_instance().notify_object_add(object_to_add);
+		EventsNotifier::get_instance().notify_object_add(object_to_add);
 	}
 }
 
