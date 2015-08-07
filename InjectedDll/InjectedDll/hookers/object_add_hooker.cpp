@@ -11,8 +11,7 @@ DWORD callback_ret_addr_obj_add;
 ObjectAddHooker::ObjectAddHooker()
 	: m_hooker(reinterpret_cast<DWORD>(callback_object_add),
 			   LolHelper::get_lol_base() + offsets::list_add) {
-	// we overriden an instruciton of size 3
-	callback_ret_addr_obj_add = m_hooker.get_hook_addr() + 3;
+	callback_ret_addr_obj_add = m_hooker.get_hook_addr() + 2;
 }
 
 void ObjectAddHooker::install_hook() {
@@ -47,8 +46,6 @@ _declspec(naked) void callback_object_add() {
 		push[esp + 0x24]
 		call on_callback_object_add
 		popad
-		// we overriden this instruction
-		sub esp, 0xc
 		jmp callback_ret_addr_obj_add
 	}
 }

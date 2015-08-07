@@ -22,51 +22,51 @@ class SpellManager(MemoryReader):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['q']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['q']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)
 
     @property
     def w(self):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['w']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['w']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)
 
     @property
     def e(self):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['e']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['e']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)
 
     @property
     def r(self):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['r']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['r']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)
 
     @property
     def d(self):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['d']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['d']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)
 
     @property
     def f(self):
         """
         :return: SpellInformation object representing the given spell
         """
-        index_in_magager = self.MANAGER_INDEXES['f']
-        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_magager, index_in_magager)
-        return SpellInformation(self._engine, spellinfo_addr)
+        index_in_manager = self.MANAGER_INDEXES['f']
+        spellinfo_addr = self.read(Int, self.addr + 4 * index_in_manager)
+        return SpellInformation(self._engine, spellinfo_addr, index_in_manager)

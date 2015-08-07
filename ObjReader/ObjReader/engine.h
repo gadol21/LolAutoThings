@@ -59,14 +59,14 @@ private:
 	 */
 	void open_process();
 
-	/// Set the absulute address of the module.
+	/// Set the absolute address of the module.
 	void find_module_addr();
 
-	/// Set the absoulte address of the object list.
+	/// Set the absolute address of the object list.
 	void load_list_addr();
 
 	/**
-	 * Injceting the dll into league of legends. open_process must be called before this.
+	 * Injecting the dll into league of legends. open_process must be called before this.
 	 */
 	void inject();
 
@@ -88,7 +88,7 @@ private:
 	static const char* M_PROCESS_NAME;
 	static const size_t M_DUMP_MEMORY_SIZE = 4096;
 	static const size_t M_LIST_SIZE = 10000;
-	static const size_t M_OFFSET_LIST = 0x2d9a3c0;
+	static const size_t M_OFFSET_LIST = 0x2d52690;
 	static const char* M_DLL_NAME;
 };
 

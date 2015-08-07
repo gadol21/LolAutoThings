@@ -3,7 +3,9 @@ send chat message?
 2. if 1 not possible: bp on RiotLauncher!MaestroGameController_SendChatMessage, go up a several functions and you're there
 
 FloatingText
-put a hardware breakpoint on "Level Up!"
+1. put a hardware breakpoint on "Level Up!"
+2. search for "game_floatingtext_levelup", or "game_floatingtext_quest_received". 
+   it is moved into ecx, and than there is a call to expand_macro. after this call, there is a call to floating_text
 
 main_loop
 search for "GAMESTATE_GAMELOOP" string
@@ -17,3 +19,8 @@ AttackMove
 	hardware bp there and see who changes it. should be close to AttackMove (no need to go up the stack, should be in the same function
 	it breaks on)
 2.	search for "ALE-E63471E6". it is only used by a function that gets called by attackmove only, so should be easy
+
+List of Objects:
+1. find "Starting GameWorld". this string is moved into ecx before call to a function. the function after this function is
+   initialize_object_list. the list of objects is initialized with the return value of another function
+   (mov my_object_list, eax)

@@ -29,7 +29,7 @@ class SpellInformation(MemoryReader):
         if the skill is already up, 0 is returned
         """
         cd_offset = 0x14
-        game_time_offset = 0x11155B0
+        game_time_offset = 0x10CC3E4
         spell_online_time = self.read(Float, self.addr + cd_offset)
         game_time = self.read(Float, self._engine.get_module_addr() + game_time_offset)
         time_till_online = spell_online_time - game_time

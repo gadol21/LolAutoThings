@@ -5,9 +5,6 @@
 
 /**
  * Hooks the function that adds objects to the list
- *
- * @note: this function is not hotpatchable, so we override an instruction.
- * @note: this instruction is (sub esp, 0xc), and its size is 3 bytes
  */
 class ObjectAddHooker {
 public:
