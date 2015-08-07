@@ -32,14 +32,14 @@ class Champion(LeagueObject):
         """
         if src_pos is None:
             src_pos = self.position
-        functions.cast_spell(self.addr, spell_info._index, target_pos, src_pos, 0)
+        functions.cast_spell(self.addr, spell_info, target_pos, src_pos, 0)
 
     def cast_self_spell(self, spell_info):
         """
         spells like hecarim q
         :param spell_info: the spell information of the spell (obtained using spell_manager)
         """
-        functions.cast_spell(self.addr, spell_info._index, 0, (self.x, self.z, self.y), 0)
+        functions.cast_spell(self.addr, spell_info, 0, (self.x, self.z, self.y), 0)
 
     def cast_target(self, spell_info, target):
         """
@@ -47,7 +47,7 @@ class Champion(LeagueObject):
         :param spell_info: the spell information of the spell (obtained using spell_manager)
         target - LeagueObject of the target
         """
-        functions.cast_spell(self.addr, spell_info._index, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
+        functions.cast_spell(self.addr, spell_info, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
 
     def auto_attack(self, target):
         """

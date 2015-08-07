@@ -40,17 +40,18 @@ def attackmove(main_champ, attackmove_type, target_pos, target_unit, is_attack_m
     _send_command(_MOVE_ATTACK, command)
 
 
-def cast_spell(main_champ, spell_index, target_pos, source_pos, target_unit):
+def cast_spell(main_champ, spell, target_pos, source_pos, target_unit):
     """
     :param main_champ: address of main champion
-    :param spell_index: Q=0, W=1, E=2, R=3, D=4, F=5
+    :param spell: the SpellInformation representing the spell.
     :param target_pos: a tuple (x, z, y)
     :param source_pos: a tuple (x, z, y)
     :param target_unit: the target unit, or 0 if skillshot
     """
-    command = pack('IbffffffI', main_champ,
-                                spell_index,
-                                target_pos[0], target_pos[1], target_pos[2],
-                                source_pos[0], source_pos[1], source_pos[2],
-                                target_unit)
+    command = pack('IIbffffffI', main_champ,
+                                 spell.addr,
+                                 spell._index,
+                                 target_pos[0], target_pos[1], target_pos[2],
+                                 source_pos[0], source_pos[1], source_pos[2],
+                                 target_unit)
     _send_command(_CAST_SPELL, command)

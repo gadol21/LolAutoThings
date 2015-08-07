@@ -18,7 +18,7 @@ DWORD __stdcall server_thread(void* params) {
 		}
 	}
 	catch (const std::exception& exception) {
-		MessageBoxA(NULL, exception.what(), "error", MB_OK);
+		MessageBoxA(NULL, exception.what(), "fatal error. quiting", MB_OK);
 	}
 	return 0;
 }
@@ -31,7 +31,7 @@ void start_server() {
 		ObjectAddHooker::get_instance().install_hook();
 	}
 	catch (const std::runtime_error& exception){
-		MessageBoxA(NULL, exception.what(), "error", MB_OK);
+		MessageBoxA(NULL, exception.what(), "fatal error. quiting", MB_OK);
 	}
 	CreateThread(NULL,			// Security attributes
 				 0,				// Stack size, default

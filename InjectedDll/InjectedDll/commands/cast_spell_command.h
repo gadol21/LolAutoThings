@@ -14,10 +14,11 @@ typedef struct {
 } spellmanager;
 
 /// this function is __thiscall. make sure to pass ecx explicitly before calling it
-typedef void(__thiscall * cast_spell_func)(uint32_t thisptr, void* spell_information, uint32_t spell_index, position& target, position& source, uint32_t target_unit);
+typedef void(__thiscall * cast_spell_func)(uint32_t thisptr, uint32_t spell_information, uint32_t spell_index, position& target, position& source, uint32_t target_unit);
 
 typedef struct {
 	uint32_t main_champion;
+	uint32_t spell_information;
 	uint8_t spell_index;
 	position target_pos;
 	position source_pos;
@@ -28,7 +29,8 @@ typedef struct {
  * Sends a CastSpell command - cast a given spell to a given target. protocol:
  *
  * uint32_t main_champion (our hero)
- * uint8_t spell_index (0=Q;1=W;2=E;3=R;4=D;5=F)
+ * uint32_t spell_information (the address of the spell information of the spell to cast)
+ * uint8_t  spell_index (0=Q;1=W;2=E;3=R;4=D;5=F)
  * position target_pos
  * position source_pos (for most spells it is our pos, or zeros)
  * uint32_t target_unit
@@ -45,6 +47,7 @@ public:
 
 private:
 	uint32_t m_main_champion;
+	uint32_t m_spell_information;
 	uint8_t m_spell_index;
 	position m_target_pos;
 	position m_source_pos;
