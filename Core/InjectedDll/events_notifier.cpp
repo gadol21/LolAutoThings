@@ -36,7 +36,7 @@ void EventsNotifier::notify_chat_command(const string& command) {
 	char* to_send = new char[2 + command.size()];
 	to_send[0] = Events::chat_command;
 	to_send[1] = command.size();
-	strncpy(to_send + 2, command.data(), to_send[1]);
+	strncpy_s(to_send + 2, to_send[1], command.data(), to_send[1]);
 	send(to_send, 2 + command.size());
 	delete[] to_send;
 }

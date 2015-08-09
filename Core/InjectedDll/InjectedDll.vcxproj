@@ -59,8 +59,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>cd
-copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
+      <Command>copy ..\$(Configuration)\InjectedDll.dll $(SolutionDir)..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,8 +81,7 @@ copy ..\Debug\InjectedDll.dll ..\..\League\src\League</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>cd
-copy ..\Release\InjectedDll.dll ..\..\League\src\League</Command>
+      <Command>copy ..\$(Configuration)\InjectedDll.dll $(SolutionDir)..\League\src\League</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

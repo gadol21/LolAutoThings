@@ -38,7 +38,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>_objreader</TargetName>
+    <TargetExt>.pyd</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>_objreader</TargetName>
+    <TargetExt>.pyd</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -48,14 +55,12 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>_objreader.pyd</OutputFile>
+      <OutputFile>$(SolutionDir)$(Configuration)\_objreader.pyd</OutputFile>
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo copying pyd
-copy _objreader.pyd ..\..\League\src\League
-echo copying objreader.py
-copy objreader.py ..\..\League\src\League</Command>
+      <Command>copy $(SolutionDir)$(Configuration)\_objreader.pyd $(SolutionDir)..\League\src\league
+copy $(ProjectDir)objreader.py $(SolutionDir)..\League\src\league</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,14 +77,12 @@ copy objreader.py ..\..\League\src\League</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>_objreader.pyd</OutputFile>
+      <OutputFile>$(SolutionDir)$(Configuration)\_objreader.pyd</OutputFile>
       <AdditionalDependencies>$(PYTHON_LIB);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo copying pyd
-copy _objreader.pyd ..\..\League\src\League
-echo copying objreader.py
-copy objreader.py ..\..\League\src\League</Command>
+      <Command>copy $(SolutionDir)$(Configuration)\_objreader.pyd $(SolutionDir)..\League\src\league
+copy $(ProjectDir)objreader.py $(SolutionDir)..\League\src\league</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -95,8 +98,9 @@ copy objreader.py ..\..\League\src\League</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">echo In order to function correctly, please ensure the following environment variables are correctly set:
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
+echo SWIG_DIR: %SWIG_DIR%
 echo on
-C:\Users\omerkattan\Documents\swigwin-3.0.4\swig.exe -c++ -python "%(FullPath)"</Command>
+%SWIG_DIR%\swig.exe -c++ -python "%(FullPath)"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">echo In order to function correctly, please ensure the following environment variables are correctly set:
 echo PYTHON_INCLUDE: %PYTHON_INCLUDE%
 echo PYTHON_LIB: %PYTHON_LIB%
@@ -108,7 +112,13 @@ echo on
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="engine.inl" />
+    <None Include="engine.inl">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
