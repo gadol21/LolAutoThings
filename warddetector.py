@@ -7,7 +7,8 @@ class WardDetector(object):
     def __init__(self):
         self.last = None
         self.wards = None
-        
+        self.active = True
+
     def init(self):
         self.last = time.time()
         self.wards = [] # tuple of ward and creation time
@@ -18,11 +19,12 @@ class WardDetector(object):
             self.wards.append((ward, current_time + ward.ward_time))
 
     def step(self):
-        current_time = time.time()
-        if current_time - self.last > 1:
-            for ward, death_time in self.wards:
-                ward.floating_text(26, 'Ward ' + str(int(death_time - current_time)))
-            self.last = time.time()
+        if self.active:
+            current_time = time.time()
+            if current_time - self.last > 1:
+                for ward, death_time in self.wards:
+                    ward.floating_text(26, 'Ward ' + str(int(death_time - current_time)))
+                self.last = time.time()
 
     def on_object_add(self, obj_addr):
         obj = get_obj(obj_addr)
@@ -39,4 +41,9 @@ class WardDetector(object):
                 return
 
     def on_chat(self, message):
-        print self.__class__.__name__, 'received a message:', message
+        if message == 'off':
+            print_to_user('turning ward detector off')
+            self.active = False
+        elif message == 'on':
+            print_to_user('turning ward detector on')
+            self.active = True

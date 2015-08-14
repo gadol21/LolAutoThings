@@ -11,15 +11,15 @@ class AutoSmite(object):
         self.me = None
         self.targets = None
         self.last_easy = None
+        self.active = True
 
     def init(self):
         self.me = get_me()
         if self.me is None:
-            raise RuntimeError('Please rerun')
+            raise RuntimeError('Please rerun after loading screen')
         self.last_easy = time.time()
         self.targets = []
-        objs = get(Minion)
-        for obj in objs:
+        for obj in get(Minion):
             if obj.name in self.TARGETS:
                 self.targets.append(obj)
 
@@ -40,15 +40,16 @@ class AutoSmite(object):
         return False
 
     def step(self):
-        if self.me.health == 0:
-            return
-        for obj in self.targets:
-            if obj.health <= self.get_smite_dmg() and self.smite_available() and self.me.distance_from(obj) < self.SMITE_RANGE:
-                self.me.cast_target(self.get_smite_spell(), obj)
-                if 'Dragon' in obj.name or 'Baron' in obj.name:
-                    if time.time() - self.last_easy > 3:
-                        write_to_chat("easy")
-                        self.last_easy = time.time()
+        if self.active:
+            if self.me.health == 0:
+                return
+            for obj in self.targets:
+                if obj.health <= self.get_smite_dmg() and self.smite_available() and self.me.distance_from(obj) < self.SMITE_RANGE:
+                    self.me.cast_target(self.get_smite_spell(), obj)
+                    if 'Dragon' in obj.name or 'Baron' in obj.name:
+                        if time.time() - self.last_easy > 3:
+                            write_to_chat("easy")
+                            self.last_easy = time.time()
 
     def on_object_add(self, obj_addr):
         obj = get_obj(obj_addr)
@@ -63,4 +64,9 @@ class AutoSmite(object):
                 return
 
     def on_chat(self, message):
-        print self.__class__.__name__, 'received a message:', message
+        if message == 'off':
+            print_to_user('turning auto smite off')
+            self.active = False
+        elif message == 'on':
+            print_to_user('turning auto smite on')
+            self.active = True
