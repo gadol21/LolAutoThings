@@ -24,16 +24,19 @@ class WardDetector(object):
                 ward.floating_text(26, 'Ward ' + str(int(death_time - current_time)))
             self.last = time.time()
 
-    def on_object_added(self, obj_addr):
+    def on_object_add(self, obj_addr):
         obj = get_obj(obj_addr)
-        #check if obj is ward
+        # check if obj is ward
         obj_name = obj.name
         if obj_name == 'SightWard' or obj_name == 'VisionWard':
             self.wards.append((obj, time.time() + obj.ward_time))
         
-    def on_object_removed(self, obj_addr):
-        #check if anyward in the list got this addr.
+    def on_object_remove(self, obj_addr):
+        # check if anyward in the list got this addr.
         for i in xrange(len(self.wards)):
             if self.wards[i][0].addr == obj_addr:
                 self.wards.remove(self.wards[i])
                 return
+
+    def on_chat(self, message):
+        print self.__class__.__name__, 'received a message:', message

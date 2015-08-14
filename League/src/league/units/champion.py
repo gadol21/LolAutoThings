@@ -1,7 +1,7 @@
-from field_types import *
+from league.field_types import *
 from league_object import LeagueObject
-from spell_manager import SpellManager
-import functions
+from league.spell_manager import SpellManager
+import league.functions
 
 
 class Champion(LeagueObject):
@@ -32,14 +32,14 @@ class Champion(LeagueObject):
         """
         if src_pos is None:
             src_pos = self.position
-        functions.cast_spell(self.addr, spell_info, target_pos, src_pos, 0)
+        league.functions.cast_spell(self.addr, spell_info, target_pos, src_pos, 0)
 
     def cast_self_spell(self, spell_info):
         """
         spells like hecarim q
         :param spell_info: the spell information of the spell (obtained using spell_manager)
         """
-        functions.cast_spell(self.addr, spell_info, 0, (self.x, self.z, self.y), 0)
+        league.functions.cast_spell(self.addr, spell_info, 0, (self.x, self.z, self.y), 0)
 
     def cast_target(self, spell_info, target):
         """
@@ -47,18 +47,18 @@ class Champion(LeagueObject):
         :param spell_info: the spell information of the spell (obtained using spell_manager)
         target - LeagueObject of the target
         """
-        functions.cast_spell(self.addr, spell_info, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
+        league.functions.cast_spell(self.addr, spell_info, (target.x, target.z, target.y), (self.x, self.z, self.y), target.addr)
 
     def auto_attack(self, target):
         """
         auto attacks a target
         :param target: the LeagueObject to attack
         """
-        functions.attackmove(self.addr, 3, target.position, target.addr, False)
+        league.functions.attackmove(self.addr, 3, target.position, target.addr, False)
 
     def move(self, position):
         """
         moves to a target position
         :param position: a tuple of x, z, y
         """
-        functions.attackmove(self.addr, 2, (1.0 * position[0], 1.0 * position[1], 1.0 * position[2]), 0, False)
+        league.functions.attackmove(self.addr, 2, (1.0 * position[0], 1.0 * position[1], 1.0 * position[2]), 0, False)

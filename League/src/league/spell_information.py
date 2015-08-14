@@ -46,3 +46,6 @@ class SpellInformation(MemoryReader):
         spelldata = self.read(Int, self.addr + spelldata_offset)
         unknown = self.read(Int, spelldata + unknown_offset)
         return self.read(NullTerminatedString, unknown + name_offset)
+
+    def __repr__(self):
+        return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))

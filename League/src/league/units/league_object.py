@@ -1,6 +1,6 @@
-from field_types import *
-from memory_reader import MemoryReader
-import functions
+from league.field_types import *
+from league.memory_reader import MemoryReader
+import league.functions
 
 
 class LeagueObject(MemoryReader):
@@ -96,7 +96,7 @@ class LeagueObject(MemoryReader):
                          no consts yet, 6 should work for most objects, 26 for wards
         :param msg: the message to write
         """
-        functions.floating_text(self.addr, msg_type, msg)
+        league.functions.floating_text(self.addr, msg_type, msg)
 
     def __repr__(self):
         return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))

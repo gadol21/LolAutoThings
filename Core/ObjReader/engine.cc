@@ -95,17 +95,19 @@ void Engine::open_process() {
 }
 
 void Engine::find_module_addr() {
-	HANDLE ptr = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, m_process_id);
+	HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, m_process_id);
 	MODULEENTRY32 module;
 	module.dwSize = sizeof(module);
-	Module32First(ptr, &module);
-	while (strcmp(module.szModule, M_PROCESS_NAME)) {
-		std::cout << module.szModule << std::endl;
-		if (!Module32Next(ptr, &module)) {
-			throw std::runtime_error("Could not find the module");
+	BOOL ret = Module32First(snap, &module);
+	while (ret == TRUE) {
+		if (strcmp(module.szModule, M_PROCESS_NAME) == 0) {
+			m_base_addr = module.modBaseAddr;
+			return;
 		}
+		ret = Module32Next(snap, &module);
 	}
-	m_base_addr = module.modBaseAddr;
+	CloseHandle(snap);
+	throw std::runtime_error("Could not find lol base");
 }
 
 
@@ -113,14 +115,16 @@ size_t Engine::get_process_id() const {
 	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
 	PROCESSENTRY32 pe32;
 	pe32.dwSize = sizeof(pe32);
-	Process32First(snapshot, &pe32);
-	while (strcmp(pe32.szExeFile, M_PROCESS_NAME)) {
-		if (!Process32Next(snapshot, &pe32)) {
-			throw std::runtime_error("Could not find the process");
+	BOOL ret = Process32First(snapshot, &pe32);
+	while (ret == TRUE) {
+		if (strcmp(pe32.szExeFile, M_PROCESS_NAME) == 0) {
+			CloseHandle(snapshot);
+			return pe32.th32ProcessID;
 		}
+		ret = Process32Next(snapshot, &pe32);
 	}
 	CloseHandle(snapshot);
-	return pe32.th32ProcessID;
+	throw std::runtime_error("Could not find the process");
 }
 
 void Engine::load_list_addr() {
@@ -129,11 +133,11 @@ void Engine::load_list_addr() {
 
 void Engine::inject() {
 	FARPROC loadlibrary_addr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
-	LPVOID located_memory = VirtualAllocEx(m_process_handle, NULL, 256,
+	LPVOID located_memory = VirtualAllocEx(m_process_handle, NULL, 1024,
 		MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	SIZE_T bytes_written;
-	char this_path[255];
-	DWORD bytes = GetModuleFileName(GetModuleHandle("_objreader.pyd"), this_path, 255);
+	char this_path[1023];
+	DWORD bytes = GetModuleFileName(GetModuleHandle("_objreader.pyd"), this_path, 1023);
 	std::string dll_path(this_path);
 	dll_path = dll_path.substr(0, dll_path.find_last_of("/\\") + 1);
 	dll_path += M_DLL_NAME;

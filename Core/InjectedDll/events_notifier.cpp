@@ -33,10 +33,11 @@ void EventsNotifier::notify_object_event(Events event_id, DWORD param) {
 }
 
 void EventsNotifier::notify_chat_command(const string& command) {
-	char* to_send = new char[2 + command.size()];
+	// 2 bytes header + null terminator
+	char* to_send = new char[2 + command.size() + 1];
 	to_send[0] = Events::chat_command;
 	to_send[1] = command.size();
-	strncpy_s(to_send + 2, to_send[1], command.data(), to_send[1]);
+	strncpy_s(to_send + 2, command.size() + 1, command.data(), command.size());
 	send(to_send, 2 + command.size());
 	delete[] to_send;
 }

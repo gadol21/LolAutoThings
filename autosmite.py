@@ -43,21 +43,24 @@ class AutoSmite(object):
         if self.me.health == 0:
             return
         for obj in self.targets:
-            if (obj.health <= self.get_smite_dmg() and self.smite_available() and self.me.distance_from(obj) < self.SMITE_RANGE):
+            if obj.health <= self.get_smite_dmg() and self.smite_available() and self.me.distance_from(obj) < self.SMITE_RANGE:
                 self.me.cast_target(self.get_smite_spell(), obj)
                 if 'Dragon' in obj.name or 'Baron' in obj.name:
                     if time.time() - self.last_easy > 3:
                         write_to_chat("easy")
                         self.last_easy = time.time()
 
-    def on_object_added(self, obj_addr):
+    def on_object_add(self, obj_addr):
         obj = get_obj(obj_addr)
         if obj.name in self.TARGETS:
             self.targets.append(obj)
 
-    def on_object_removed(self, obj_addr):
+    def on_object_remove(self, obj_addr):
         # check if the object is jungle monster
         for i in xrange(len(self.targets)):
             if self.targets[i].addr == obj_addr:
                 self.targets.remove(self.targets[i])
                 return
+
+    def on_chat(self, message):
+        print self.__class__.__name__, 'received a message:', message

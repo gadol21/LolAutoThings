@@ -1,12 +1,20 @@
-from league import Champion, Minion
+from league.units import *
 from objreader import Engine
-from league_object import LeagueObject
+import event_listener
 
 LIST_SIZE = 10 ** 4
-engine = Engine()
+engine = None
 
 TYPE_CLASSES = {"AIHeroClient": Champion, "obj_AI_Minion": Minion}
-DEFAULT_TYPE = LeagueObject
+
+
+def init():
+    """
+    initializes the engine. must be called first.
+    """
+    global engine
+    engine = Engine()
+    event_listener.init()
 
 
 def get_obj(addr):

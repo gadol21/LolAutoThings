@@ -1,4 +1,4 @@
-from field_types import Int, Short, Byte, Float, NullTerminatedString, LengthedString
+from field_types import *
 
 
 class MemoryReader(object):
