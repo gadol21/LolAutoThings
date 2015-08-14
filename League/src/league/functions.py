@@ -6,6 +6,7 @@ _FLOATING_TEXT = 1
 _SEND_CHAT = 2
 _CAST_SPELL = 3
 _MOVE_ATTACK = 4
+_PRINT_USER = 5
 
 
 def _send_command(msg_type, args_str):
@@ -18,9 +19,17 @@ def _send_command(msg_type, args_str):
 def write_to_chat(msg):
     """
     writes the given message to chat.
-    :param msg: the message to write. should be no longer than 255 chars.
+    :param msg: the message to write. should be no longer than 127 chars.
     """
     _send_command(_SEND_CHAT, pack('b{0}s'.format(len(msg)), len(msg), msg))
+
+
+def print_to_user(msg):
+    """
+    print the given message to chat, so that only the user sees it (doesn't send it, only print)
+    :param msg: the message to print. should be no longer than 127 chars
+    """
+    _send_command(_PRINT_USER, pack('b{0}s'.format(len(msg)), len(msg), msg))
 
 
 def floating_text(unit_addr, msg_type, msg):

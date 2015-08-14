@@ -74,6 +74,9 @@
     <ClCompile Include="events_notifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="commands\print_to_user.cpp">
+      <Filter>commands\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
@@ -126,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="events_notifier.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="commands\print_to_user.h">
+      <Filter>commands\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

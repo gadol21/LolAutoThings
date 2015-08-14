@@ -15,6 +15,7 @@ const uint32_t league_object_name_len = 0x30;				// 5.15
 const uint32_t send_chat_message = 0xa8ec00;				// 5.15
 const uint32_t send_chat_message_this = 0x2d54738;			// 5.15
 const uint32_t send_chat_message_this_message_offset = 0xe8;// 5.15
+const uint32_t print_to_user = 0x84d290;					// 5.15
 
 const uint32_t floating_text = 0x7fe970;					// 5.15
 const uint32_t floating_text_magic = 0x10d5840;				// 5.15

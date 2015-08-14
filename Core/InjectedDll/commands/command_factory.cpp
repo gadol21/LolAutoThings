@@ -1,9 +1,10 @@
-#include "command_factory.h"
-#include "command_types.h"
-#include "send_chat_command.h"
-#include "floating_text_command.h"
-#include "cast_spell_command.h"
-#include "attackmove_command.h"
+#include "commands/command_factory.h"
+#include "commands/command_types.h"
+#include "commands/send_chat_command.h"
+#include "commands/floating_text_command.h"
+#include "commands/cast_spell_command.h"
+#include "commands/attackmove_command.h"
+#include "commands/print_to_user.h"
 #include <string>
 #include <cstdint>
 
@@ -17,16 +18,14 @@ CommandPtr CommandFactory::Create(const char* command, size_t command_len) {
 	switch (*reinterpret_cast<const uint32_t*>(command)) {
 	case command_type::SEND_CHAT:
 		return CommandPtr(new SendChatCommand(command_without_id, command_without_id_len));
-		break;
 	case command_type::FLOATING_TEXT:
 		return CommandPtr(new FloatingTextCommand(command_without_id, command_without_id_len));
-		break;
 	case command_type::CAST_SPELL:
 		return CommandPtr(new CastSpellCommand(command_without_id, command_without_id_len));
-		break;
 	case command_type::MOVEATTACK:
 		return CommandPtr(new AttackMoveCommand(command_without_id, command_without_id_len));
-		break;
+	case command_type::PRINT_USER:
+		return CommandPtr(new PrintToUserCommand(command_without_id, command_without_id_len));
 	default:
 		throw std::invalid_argument("unknown command");
 	}

@@ -8,7 +8,7 @@
 using std::string;
 
 ///note: this is __thiscall. send ecx explicitly before calling
-typedef void(__cdecl *send_chat_func)();
+typedef void(__thiscall *send_chat_func)(uint32_t this_ptr);
 
 /**
  * Represents a send chat command. protocol (what is expected to be in the buffer):
