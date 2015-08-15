@@ -26,7 +26,10 @@ def on_global_chat(message):
     handles a chat command that is not related to a specific cheat
     :param message: the global message
     """
-    print 'received a message:', message
+    message = message.split(' ', 1)
+    if message[0] == 'modules':
+        for shortname, classtype in CHEAT_NAMES.items():
+            print_to_user(shortname + ' - ' + classtype.__name__)
 
 
 def on_chat(event):
