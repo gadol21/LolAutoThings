@@ -70,3 +70,5 @@ class AutoSmite(object):
         elif message == 'on':
             print_to_user('turning auto smite on')
             self.active = True
+        else:
+            print_to_user('unknown command')

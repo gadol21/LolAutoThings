@@ -1,5 +1,6 @@
 from league.units import *
 from objreader import Engine
+from functions import print_to_user
 import event_listener
 
 LIST_SIZE = 10 ** 4
@@ -15,6 +16,7 @@ def init():
     global engine
     engine = Engine()
     event_listener.init()
+    print_to_user('LolAutoThings: initialized')
 
 
 def get_obj(addr):

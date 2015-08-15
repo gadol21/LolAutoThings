@@ -47,3 +47,5 @@ class WardDetector(object):
         elif message == 'on':
             print_to_user('turning ward detector on')
             self.active = True
+        else:
+            print_to_user('unknown command')

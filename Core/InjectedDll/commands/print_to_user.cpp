@@ -17,5 +17,5 @@ void PrintToUserCommand::operator()() {
 	print_to_user_func PrintToUser = reinterpret_cast<print_to_user_func>(LolHelper::get_lol_base() + offsets::print_to_user);
 
 	uint32_t send_chat_this = LolHelper::get_lol_base() + offsets::send_chat_message_this;
-	PrintToUser(send_chat_this, m_message.c_str(), 0);
+	PrintToUser(send_chat_this, m_message.c_str(), 4);
 }

@@ -20,7 +20,10 @@ public:
 	 */
 	bool start();
 
-	/// Read template type, for example char, short, int and float.
+	/**
+	 * Read template type, for example char, short, int and float.
+	 * @throws std::runtime_error if failed to read from the given address
+	 */
 	template <typename T>
 	T read(size_t offset) const;
 
