@@ -34,7 +34,7 @@ def get_me():
     """
     :return: the main Champion
     """
-    me_offset = 0x10cad0c
+    me_offset = 0x1194778
     me = engine.read_int(engine.get_module_addr() + me_offset)
     champions = get(Champion)
     for champ in champions:

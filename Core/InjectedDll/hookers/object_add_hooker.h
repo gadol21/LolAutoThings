@@ -5,6 +5,8 @@
 
 /**
  * Hooks the function that adds objects to the list
+ * @note: in this patch the function is not hotpatchable (no mov edi, edi), so we run over the first instruction
+ *		  and call this instruction ourself in the hook
  */
 class ObjectAddHooker {
 public:

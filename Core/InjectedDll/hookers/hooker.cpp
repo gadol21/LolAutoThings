@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include <algorithm>
 
-const char* Hooker::MOV_EDI_EDI = "\x8b\xff";
-
 Hooker::Hooker(DWORD callback, DWORD patch_addr) 
 	: m_is_hooked(false), m_hook_addr(patch_addr), m_callback(callback) { }
 
@@ -14,7 +12,7 @@ Hooker::~Hooker() {
 	if (m_is_hooked) {
 		// 2 bytes is the size of near jmp
 		DWORD old = change_protection(m_hook_addr, PAGE_EXECUTE_READWRITE, 2);
-		memcpy(reinterpret_cast<void*>(m_hook_addr), MOV_EDI_EDI, 2);
+		memcpy(reinterpret_cast<void*>(m_hook_addr), m_original_bytes, 2);
 		change_protection(m_hook_addr, old, 2);
 	}
 }
@@ -34,6 +32,8 @@ void Hooker::hotpatch(DWORD address, DWORD callback) {
 	// E9 is the opcode for relative far jump
 	*reinterpret_cast<uint8_t*>(long_jump_addr) = '\xE9';
 	*reinterpret_cast<DWORD*>(long_jump_addr + 1) = get_relative_address(long_jump_addr, callback);
+	// back up the first two bytes we overwrite so we can restore it upon destruction
+	memcpy(m_original_bytes, reinterpret_cast<void*>(address), 2);
 	// now write the short jmp, and finish the hook
 	// jump 7 bytes back, where the far jump is
 	int8_t short_jump = -7;

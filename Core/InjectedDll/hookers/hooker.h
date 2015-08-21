@@ -9,10 +9,8 @@
 using std::list;
 
 /**
- * singleton class that is responsible for hooking functions.
- * it is currently hooking the main_loop function in league.
+ * class that is responsible for hooking functions.
  *
- * @note: currently can only hook main_loop
  * @note: we take advantage of the fact that league supports hotpatching (idk why)
  */
 class Hooker{
@@ -57,7 +55,7 @@ private:
 	 */
 	DWORD get_relative_address(DWORD from, DWORD to, size_t instruction_size=5);
 
-	static const char* MOV_EDI_EDI;
+	char m_original_bytes[2];
 	bool m_is_hooked;
 	DWORD m_hook_addr;
 	DWORD m_callback;
