@@ -1,5 +1,4 @@
-#ifndef __COMMAND_FACTORY_H
-#define __COMMAND_FACTORY_H
+#pragma once
 
 #include <list>
 #include <vector>
@@ -23,5 +22,3 @@ public:
 	 */
 	static CommandPtr Create(const char* command, size_t command_len);
 };
-
-#endif //ndef __COMMAND_H

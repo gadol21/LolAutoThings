@@ -1,5 +1,4 @@
-#ifndef __COMMAND_H
-#define __COMMAND_H
+#pragma once
 
 class Command {
 public:
@@ -8,5 +7,3 @@ public:
 	 */
 	virtual void operator()() = 0;
 };
-
-#endif // ndef __COMMAND_H

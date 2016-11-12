@@ -57,4 +57,6 @@ class MemoryReader(object):
         """
         allows tab-completion for remote fields
         """
-        return sorted(set(self.__dict__.keys() + self.get_fields().keys()))
+        return sorted(set(dir(type(self)) +
+                          self.__dict__.keys() +
+                          self.get_fields().keys()))

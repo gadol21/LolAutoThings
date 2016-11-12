@@ -55,7 +55,7 @@ def cast_spell(main_champ, spell, target_pos, source_pos, target_unit):
     :param spell: the SpellInformation representing the spell.
     :param target_pos: a tuple (x, z, y)
     :param source_pos: a tuple (x, z, y)
-    :param target_unit: the target unit, or 0 if skillshot
+    :param target_unit: the netid of the target unit, or 0 if skillshot
     """
     command = pack('IIbffffffI', main_champ,
                                  spell.addr,

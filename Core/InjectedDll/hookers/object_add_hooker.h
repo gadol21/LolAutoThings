@@ -1,5 +1,4 @@
-#ifndef __OBJECT_ADD_HOOKER
-#define __OBJECT_ADD_HOOKER
+#pragma once
 
 #include "hooker.h"
 
@@ -35,5 +34,3 @@ void __stdcall on_callback_object_add(DWORD object_to_add);
 *		  that cleans its own stack
 */
 void callback_object_add();
-
-#endif // ndef __OBJECT_ADD_HOOKER

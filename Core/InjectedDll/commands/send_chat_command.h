@@ -1,5 +1,4 @@
-#ifndef __SEND_CHAT_COMMAND_H
-#define __SEND_CHAT_COMMAND_H
+#pragma once
 
 #include "command.h"
 #include <string>
@@ -25,5 +24,3 @@ public:
 private:
 	string m_message;
 };
-
-#endif // ndef __SEND_CHAT_COMMAND_H

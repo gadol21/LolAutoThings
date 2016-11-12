@@ -9,7 +9,8 @@ DWORD callback_ret_addr_chat_send;
 
 ChatHooker::ChatHooker() : m_hooker(reinterpret_cast<DWORD>(callback_chat_send),
 									LolHelper::get_lol_base() + offsets::send_chat_message) {
-	callback_ret_addr_chat_send = m_hooker.get_hook_addr() + 2;
+    // Skip the "push ebp; mov ebp, esp"
+	callback_ret_addr_chat_send = m_hooker.get_hook_addr() + 3;
 	// Intentionally left empty
 }
 
@@ -44,6 +45,10 @@ _declspec(naked) void callback_chat_send() {
 		cmp al, 1
 		je already_handled_message
 		popad
+
+        // Call the overwritten instructions
+        push ebp
+        mov ebp, esp
 		jmp callback_ret_addr_chat_send
 
 	already_handled_message:

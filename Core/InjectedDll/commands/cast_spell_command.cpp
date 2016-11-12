@@ -19,11 +19,6 @@ CastSpellCommand::CastSpellCommand(const char* buffer, size_t buffer_len) {
 void CastSpellCommand::operator()() {
 	cast_spell_func CastSpell = reinterpret_cast<cast_spell_func>(LolHelper::get_lol_base() + offsets::cast_spell);
 
-	DWORD target = 0;
-	if (m_target_unit != 0) {
-		target = *reinterpret_cast<DWORD*>((m_target_unit + offsets::cast_spell_target_unit_offset));
-	}
-
 	DWORD cast_spell_this = m_main_champion + offsets::cast_spell_this;
 
 	CastSpell(cast_spell_this,
@@ -31,5 +26,5 @@ void CastSpellCommand::operator()() {
 			  m_spell_index,						// spell index
 			  m_target_pos,							// target pos
 			  m_source_pos,							// source pos
-			  target);								// target unit
+			  m_target_unit);						// target unit
 }

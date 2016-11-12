@@ -1,5 +1,6 @@
 from field_types import *
 from memory_reader import MemoryReader
+from offsets import Offsets
 
 
 class SpellInformation(MemoryReader):
@@ -29,9 +30,8 @@ class SpellInformation(MemoryReader):
         if the skill is already up, 0 is returned
         """
         cd_offset = 0x14
-        game_time_offset = 0x10CC3E4
         spell_online_time = self.read(Float, self.addr + cd_offset)
-        game_time = self.read(Float, self._engine.get_module_addr() + game_time_offset)
+        game_time = self.read(Float, self._engine.get_module_addr() + Offsets.GAME_CLOCK_OFFSET)
         time_till_online = spell_online_time - game_time
         return time_till_online if time_till_online > 0 else 0
 
@@ -40,10 +40,9 @@ class SpellInformation(MemoryReader):
         """
         returns the spell's name
         """
-        spelldata_offset = 0xd4
         unknown_offset = 0xc
         name_offset = 0x8
-        spelldata = self.read(Int, self.addr + spelldata_offset)
+        spelldata = self.read(Int, self.addr + Offsets.SPELL_DATA_OFFSET)
         unknown = self.read(Int, spelldata + unknown_offset)
         return self.read(NullTerminatedString, unknown + name_offset)
 

@@ -1,5 +1,4 @@
-#ifndef __LOL_HELPER_H
-#define __LOL_HELPER_H
+#pragma once
 
 #include <Windows.h>
 
@@ -23,5 +22,3 @@ public:
 private:
 	static DWORD ms_lol_base;
 };
-
-#endif //ndef __LOL_HELPER_H

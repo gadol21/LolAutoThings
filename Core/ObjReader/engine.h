@@ -91,7 +91,7 @@ private:
 	static const char* M_PROCESS_NAME;
 	static const size_t M_DUMP_MEMORY_SIZE = 4096;
 	static const size_t M_LIST_SIZE = 10000;
-	static const size_t M_OFFSET_LIST = 0x2e0f078;
+	static const size_t M_OFFSET_LIST = 0x31ee9f8; // 6.22
 	static const char* M_DLL_NAME;
 };
 

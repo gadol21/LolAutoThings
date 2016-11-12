@@ -1,5 +1,4 @@
-#ifndef __FLOATING_TEXT_COMMAND
-#define __FLOATING_TEXT_COMMAND
+#pragma once
 
 #include "command.h"
 #include <string>
@@ -39,5 +38,3 @@ private:
 	uint32_t m_type;
 	string m_message;
 };
-
-#endif // ndef __FLOATING_TEXT_COMMAND

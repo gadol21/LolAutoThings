@@ -1,6 +1,7 @@
 from league.units import *
 from objreader import Engine
 from functions import print_to_user
+from offsets import Offsets
 import event_listener
 
 LIST_SIZE = 10 ** 4
@@ -34,8 +35,7 @@ def get_me():
     """
     :return: the main Champion
     """
-    me_offset = 0x1194778
-    me = engine.read_int(engine.get_module_addr() + me_offset)
+    me = engine.read_int(engine.get_module_addr() + Offsets.MAIN_CHAMPION)
     champions = get(Champion)
     for champ in champions:
         if champ.addr == me:
@@ -53,7 +53,7 @@ def get(obj_type):
         if engine.object_exist(i):
             try:
                 obj = _get_obj_by_index(i)
-                if type(obj) == obj_type:
+                if isinstance(obj, obj_type):
                     objects.append(obj)
             except IndexError:
                 pass

@@ -1,5 +1,4 @@
-#ifndef __OBJECT_REMOVE_HOOKER
-#define __OBJECT_REMOVE_HOOKER
+#pragma once
 
 #include "hooker.h"
 
@@ -36,5 +35,3 @@ void __stdcall on_callback_object_remove(DWORD object_to_remove);
 *		  that cleans its own stack
 */
 void callback_object_remove();
-
-#endif // ndef __OBJECT_REMOVE_HOOKER

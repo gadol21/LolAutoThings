@@ -7,6 +7,7 @@ void Patcher::install_patches() {
 	patch_floating_text();
 }
 
+// FIXME: patch the vtable instead
 void Patcher::patch_floating_text() {
 	DWORD old_protection;
 	DWORD new_protection;

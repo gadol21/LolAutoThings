@@ -1,5 +1,4 @@
-#ifndef __LIST_EVENTS_NOTIFIER
-#define __LIST_EVENTS_NOTIFIER
+#pragma once
 
 #include <Windows.h>
 #include <cstdint>
@@ -55,5 +54,3 @@ private:
 	SOCKET m_socket;
 	sockaddr_in m_dest;
 };
-
-#endif // ndef __LIST_EVENTS_NOTIFIER

@@ -1,5 +1,4 @@
-#ifndef __CHAT_HOOKER_H
-#define __CHAT_HOOKER_H
+#pragma once
 
 #include "hookers/hooker.h"
 #include <string>
@@ -44,5 +43,3 @@ bool __stdcall on_callback_chat_send(void* this_ptr);
 *		 that cleans its own stack
 */
 void callback_chat_send();
-
-#endif Source// ndef __CHAT_HOOKER_H

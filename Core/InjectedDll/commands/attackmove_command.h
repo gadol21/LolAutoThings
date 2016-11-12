@@ -1,5 +1,4 @@
-#ifndef __ATTACKMOVE_COMMAND
-#define __ATTACKMOVE_COMMAND
+#pragma once
 
 #include <cstdint>
 #include "command.h"
@@ -50,5 +49,3 @@ private:
 	static const uint32_t M_TYPE_ATTACK = 3;
 	static const uint32_t M_TYPE_STOP = 0xb; // not sure
 };
-
-#endif // ndef __ATTACKMOVE_COMMAND

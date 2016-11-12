@@ -1,5 +1,4 @@
-#ifndef __PRINT_TO_USER
-#define __PRINT_TO_USER
+#pragma once
 
 #include "commands/command.h"
 #include <cstdint>
@@ -25,5 +24,3 @@ public:
 private:
 	string m_message;
 };
-
-#endif

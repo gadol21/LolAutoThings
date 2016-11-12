@@ -1,5 +1,4 @@
-#ifndef __CAST_SPELL_COMMAND_H
-#define __CAST_SPELL_COMMAND_H
+#pragma once
 
 #include "command.h"
 #include "lol_helper.h"
@@ -53,5 +52,3 @@ private:
 	position m_source_pos;
 	uint32_t m_target_unit;
 };
-
-#endif // ndef __CAST_SPELL_COMMAND_H

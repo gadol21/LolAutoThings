@@ -15,6 +15,10 @@ CastSpell (check calling convention)
 2. search for "ALE-229C053F"
 * note: you can find main_champion and offset for cast_spell_this in main champion by looking who called CastSpell
 
+SpellManager
+1. Find references to CastSpell. some one down the road converts spell index to spellInfo by looking at main_object + x + spellIndex*4.
+   Find x. it should be near the string "ALE-C00960B2"
+
 AttackMove
 1.  	(not working ?) the cursor xzy is stored in memory. after it there is the xzy of the last click.
 	hardware bp there and see who changes it. should be close to AttackMove (no need to go up the stack, should be in the same function
@@ -23,5 +27,6 @@ AttackMove
 
 List of Objects:
 1. find "Starting GameWorld". this string is moved into ecx before call to a function. the function after this function is
-   initialize_object_list. the list of objects is initialized with the return value of another function
-   (mov my_object_list, eax)
+   initialize_object_list. in this function, there is and instruction "mov edi, 4". after this there is a "mov my_object_count, 0".
+   find references for my_object_count, and go to the increase one.
+   before the increase, there is a "mov [eax + ecx*4], esi". eax is my_object_list - there should be a "mov eax, my_object_list"  somewhere near

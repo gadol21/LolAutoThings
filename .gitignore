@@ -43,6 +43,8 @@ Leage/src/league.egg-info/
 *.tlog
 *.log
 *.opensdf
+*.VC.db
+*.VC.opendb
 bin/
 Release/
 Debug/

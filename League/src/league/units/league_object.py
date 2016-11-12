@@ -1,5 +1,6 @@
 from league.field_types import *
 from league.memory_reader import MemoryReader
+from league.offsets import Offsets
 import league.functions
 
 
@@ -69,10 +70,11 @@ class LeagueObject(MemoryReader):
         The unique one is: {'name': (20, LengthedString, (5))} when 5 is the
         length of the string.
         """
-        return {'team': (0x14, Int),
-                'name_length': (0x30, Int),
-                'x': (0x5c, Float), 'z': (0x60, Float), 'y': (0x64, Float),
-                'health': (0x154, Float), 'max_health': (0x164, Int)}
+        return {'team': (Offsets.TEAM_OFFSET, Int),
+                'name_length': (Offsets.NAME_LENGTH_OFFSET, Int),
+                'x': (Offsets.X_OFFSET, Float), 'z': (Offsets.Z_OFFSET, Float), 'y': (Offsets.Y_OFFSET, Float),
+                'health': (Offsets.HEALTH_OFFSET, Float), 'max_health': (Offsets.MAX_HEALTH_OFFSET, Float),
+                'netid': (Offsets.NETID_OFFSET, Int)}
 
     def dump_memory(self):
         """
@@ -100,6 +102,3 @@ class LeagueObject(MemoryReader):
 
     def __repr__(self):
         return '<{0} "{1}" at {2}>'.format(self.__class__.__name__, self.name, hex(int(self.addr)))
-
-    def __dir__(self):
-        return sorted(set(self.__dict__.keys() + self.get_fields().keys()))

@@ -1,5 +1,4 @@
-#ifndef __SERVER_H
-#define __SERVER_H
+#pragma once
 
 #include <cstdint>
 #include <Windows.h>
@@ -35,5 +34,3 @@ private:
 	SOCKET m_server;
 	static const char* LOOPBACK;
 };
-
-#endif // ndef __SERVER_H

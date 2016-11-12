@@ -1,5 +1,4 @@
-#ifndef __COMMAND_TYPES_H
-#define __COMMAND_TYPES_H
+#pragma once
 
 #include <cstdint>
 
@@ -12,5 +11,3 @@ const uint32_t MOVEATTACK = 4;
 const uint32_t PRINT_USER = 5;
 
 } // namespace command_type
-
-#endif // ndef __COMMAND_TYPES_H

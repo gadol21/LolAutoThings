@@ -1,5 +1,4 @@
-#ifndef __PATCHER_H
-#define __PATCHER_H
+#pragma once
 
 /**
  * this class is responsible for patching required functions
@@ -18,5 +17,3 @@ private:
 	 */
 	static void patch_floating_text();
 };
-
-#endif // ndef __PATCHER_H

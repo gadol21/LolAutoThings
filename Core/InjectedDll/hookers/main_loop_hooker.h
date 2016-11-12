@@ -1,5 +1,4 @@
-#ifndef __MAIN_LOOP_HOOKER_H
-#define __MAIN_LOOP_HOOKER_H
+#pragma once
 
 #include "commands/command_factory.h"
 #include "hooker.h"
@@ -45,5 +44,3 @@ void __stdcall on_callback_main_loop();
  *		  that cleans its own stack
  */
 void callback_main_loop();
-
-#endif // ndef __MAIN_LOOP_HOOKER_H

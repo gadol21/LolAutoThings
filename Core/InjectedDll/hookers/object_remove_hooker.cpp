@@ -11,7 +11,8 @@ DWORD callback_ret_addr_obj_remove;
 ObjectRemoveHooker::ObjectRemoveHooker() 
 	: m_hooker(reinterpret_cast<DWORD>(callback_object_remove),
 			   LolHelper::get_lol_base() + offsets::list_remove) {
-	callback_ret_addr_obj_remove = m_hooker.get_hook_addr() + 2;
+    // Skip the "push ebp; mov ebp, esp" that we overrun
+	callback_ret_addr_obj_remove = m_hooker.get_hook_addr() + 3;
 }
 
 ObjectRemoveHooker& ObjectRemoveHooker::get_instance() {
@@ -45,6 +46,10 @@ __declspec(naked) void callback_object_remove() {
 		push [esp + 0x24]
 		call on_callback_object_remove
 		popad
+
+        // The instructions we overrun
+        push ebp
+        mov ebp, esp
 		jmp callback_ret_addr_obj_remove
 	}
 }

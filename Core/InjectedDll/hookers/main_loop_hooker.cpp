@@ -8,7 +8,8 @@ DWORD callback_ret_addr_main_loop;
 MainLoopHooker::MainLoopHooker()
 	: m_hooker(reinterpret_cast<DWORD>(callback_main_loop), 
 			   LolHelper::get_lol_base() + offsets::main_loop) {
-	callback_ret_addr_main_loop = m_hooker.get_hook_addr() + 2;
+    // Skip the "push ebp; mov ebp, esp" that we overrun
+	callback_ret_addr_main_loop = m_hooker.get_hook_addr() + 3;
 }
 
 MainLoopHooker& MainLoopHooker::get_instance() {
@@ -32,11 +33,12 @@ void MainLoopHooker::register_callback(CommandPtr callback, bool persistent) {
 void __stdcall on_callback_main_loop() {
 	MainLoopHooker& hooker = MainLoopHooker::get_instance();
 
-	for (list<CommandPtr>::iterator it = hooker.m_persistent_callbacks.begin(); it != hooker.m_persistent_callbacks.end(); ++it) {
+	for (auto it = hooker.m_persistent_callbacks.begin(); it != hooker.m_persistent_callbacks.end(); ++it) {
 		(**it)();
 	}
+
 	// note the difference from the previous loop - this one erases each element from the list after it calls it.
-	for (list<CommandPtr>::iterator it = hooker.m_onetime_callbacks.begin(); it != hooker.m_onetime_callbacks.end(); it = hooker.m_onetime_callbacks.erase(it)) {
+	for (auto it = hooker.m_onetime_callbacks.begin(); it != hooker.m_onetime_callbacks.end(); it = hooker.m_onetime_callbacks.erase(it)) {
 		(**it)();
 	}
 }
@@ -46,6 +48,10 @@ __declspec(naked) void callback_main_loop() {
 		pushad
 		call on_callback_main_loop
 		popad
+
+        // The instructions that we overrun
+        push ebp
+        mov ebp, esp
 		jmp callback_ret_addr_main_loop
 	}
 }
