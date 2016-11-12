@@ -1,5 +1,13 @@
 from league import *
 import time
+import threading
+
+def add_ward_deffered(ward_detector, ward):
+    if ward.ward_time == 0:
+        time.sleep(1)
+        ward_detector.wards.append((ward, ward.ward_time, time.time()))
+    else:
+        ward_detector.wards.append((ward, ward.ward_time, time.time()))
 
 
 class WardDetector(object):
@@ -31,7 +39,9 @@ class WardDetector(object):
         # check if obj is ward
         obj_name = obj.name
         if obj_name == 'SightWard' or obj_name == 'VisionWard':
-            self.wards.append((obj, obj.ward_time, time.time()))
+            add_deffered = threading.Thread(target=add_ward_deffered, args=(self, obj))
+            add_deffered.daemon = True
+            add_deffered.start()
         
     def on_object_remove(self, obj_addr):
         # check if anyward in the list got this addr.
