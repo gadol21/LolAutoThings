@@ -53,6 +53,13 @@ class MemoryReader(object):
         """
         return {}
 
+    def dump_memory(self):
+        """
+        dumps the first X bytes from the object's base address.
+        X is defined in ObjReader
+        """
+        return self._engine.dump_memory(self.addr)
+
     def __dir__(self):
         """
         allows tab-completion for remote fields

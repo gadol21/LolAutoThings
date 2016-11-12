@@ -13,9 +13,12 @@ def add_cheat(cheat):
     cheats.append(cheat)
 
 
-def run():
+def init_cheats():
     for cheat in cheats:
         cheat.init()
+
+
+def run():
     while True:
         for cheat in cheats:
             cheat.step()
@@ -56,6 +59,7 @@ if __name__ == '__main__':
     init()
     add_cheat(AutoSmite())
     add_cheat(WardDetector())
+    init_cheats()
     register_callback(events.ChatCommand, on_chat)
     register_callback(events.ObjectAdd, on_object_add)
     register_callback(events.ObjectRemove, on_object_remove)

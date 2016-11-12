@@ -76,13 +76,6 @@ class LeagueObject(MemoryReader):
                 'health': (Offsets.HEALTH_OFFSET, Float), 'max_health': (Offsets.MAX_HEALTH_OFFSET, Float),
                 'netid': (Offsets.NETID_OFFSET, Int)}
 
-    def dump_memory(self):
-        """
-        dumps the first X bytes from the object's base address.
-        X is defined in ObjReader
-        """
-        return self._engine.dump_memory(self.addr)
-
     def distance_from(self, another_obj):
         """
         returns the object's distance from another_obj.

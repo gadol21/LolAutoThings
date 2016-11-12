@@ -18,8 +18,8 @@ class SpellInformation(MemoryReader):
         self._index = index
 
     def get_fields(self):
-        properties = {'level': (0x10, Int),
-                      'stacks': (0x18, Int)}
+        properties = {'level': (Offsets.SPELL_LEVEL_OFFSET, Int),
+                      'stacks': (Offsets.SPELL_STACKS_OFFSET, Int)}
         properties.update(super(SpellInformation, self).get_fields())
         return properties
 

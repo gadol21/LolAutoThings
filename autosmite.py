@@ -3,8 +3,10 @@ import time
 
 
 class AutoSmite(object):
-    TARGETS = ["SRU_Dragon6.1.1", "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1",
+    TARGETS = ["SRU_Dragon_Air6.3.1", "SRU_Dragon_Fire6.3.1", "SRU_Dragon_Water6.3.1", "SRU_Dragon_Earth6.3.1", "SRU_Dragon_Elder6.3.1",
+               "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1",
                "SRU_Baron12.1.1"]
+    SMITE_NAMES = ['S5_SummonerSmitePlayerGanker', 'SummonerSmite', 'S5_SummonerSmiteDuel']
     SMITE_RANGE = 500
 
     def __init__(self):
@@ -28,14 +30,14 @@ class AutoSmite(object):
         return dmgs[self.me.level - 1]
 
     def get_smite_spell(self):
-        if "summonersmite" in self.me.spell_manager.d.name:
+        if self.me.spell_manager.d.name in self.SMITE_NAMES:
             return self.me.spell_manager.d
         return self.me.spell_manager.f
 
     def smite_available(self):
-        if "summonersmite" in self.me.spell_manager.d.name:
+        if self.me.spell_manager.d.name in self.SMITE_NAMES:
             return self.me.spell_manager.d.cd == 0 and self.me.spell_manager.d.stacks > 0
-        if "summonersmite" in self.me.spell_manager.f.name:
+        elif self.me.spell_manager.f.name in self.SMITE_NAMES:
             return self.me.spell_manager.f.cd == 0 and self.me.spell_manager.f.stacks > 0
         return False
 
