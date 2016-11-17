@@ -15,14 +15,14 @@ class Offsets(object):
     X_OFFSET = 0x88  # 6.22
     Z_OFFSET = 0x8c  # 6.22
     Y_OFFSET = 0x90  # 6.22
-    HEALTH_OFFSET = 0x2fc  # 6.22
-    MAX_HEALTH_OFFSET = 0x30c  # 6.22
+    HEALTH_OFFSET = 0x2fc  # 6.22 mHp
+    MAX_HEALTH_OFFSET = 0x30c  # 6.22 mMaxHp
     NETID_OFFSET = 0xf0  # 6.22
 
     # Minion fields
     WARD_TIME_OFFSET = 0x21c  # 6.22
 
     # Champion fields
-    LEVEL_OFFSET = 0x3a44  # 6.22
+    LEVEL_OFFSET = 0x3a44  # 6.22 mLevelRef
     MANA_OFFSET = 0x21c  # 6.22
     MAX_MANA_OFFSET = 0x22c  # 6.22
