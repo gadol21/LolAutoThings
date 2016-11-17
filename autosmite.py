@@ -3,9 +3,9 @@ import time
 
 
 class AutoSmite(object):
-    TARGETS = ["SRU_Dragon_Air6.3.1", "SRU_Dragon_Fire6.3.1", "SRU_Dragon_Water6.3.1", "SRU_Dragon_Earth6.3.1", "SRU_Dragon_Elder6.3.1",
+    TARGETS = ["SRU_Dragon_Air6.1.1", "SRU_Dragon_Fire6.3.1", "SRU_Dragon_Water6.3.1", "SRU_Dragon_Earth6.3.1", "SRU_Dragon_Elder6.3.1",
                "SRU_Red4.1.1", "SRU_Red10.1.1", "SRU_Blue1.1.1", "SRU_Blue7.1.1",
-               "SRU_Baron12.1.1"]
+               "SRU_RiftHerald17.1.1", "SRU_Baron12.1.1"]
     SMITE_NAMES = ['S5_SummonerSmitePlayerGanker', 'SummonerSmite', 'S5_SummonerSmiteDuel']
     SMITE_RANGE = 500
 
