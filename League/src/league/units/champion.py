@@ -1,19 +1,28 @@
 from league.field_types import *
-from league_object import LeagueObject
+from attackable_unit import AttackableUnit
 from league.spell_manager import SpellManager
 from league.offsets import Offsets
 import league.functions
 
 
-class Champion(LeagueObject):
+class Champion(AttackableUnit):
     def __init__(self, engine, addr):
         super(Champion, self).__init__(engine, addr)
 
     def get_fields(self):
-        properties = {'level': (Offsets.LEVEL_OFFSET, Int),
-                      'mana': (Offsets.MANA_OFFSET, Float),
+        properties = {'mana': (Offsets.MANA_OFFSET, Float),
                       'max_mana': (Offsets.MAX_MANA_OFFSET, Float)}
         properties.update(super(Champion, self).get_fields())
+        return properties
+
+    def get_dynamic_fields(self):
+        properties = {'gold': ('mGold', Float),
+                      'total_gold': ('mGoldTotal', Float),
+                      'cdr': ('mPercentCooldownMod', Float),
+                      'attack_range': ('mAttackRange', Float),
+                      'crit_chance': ('mCrit', Float),
+                      'level': ('mLevelRef', Int)}
+        properties.update(super(Champion, self).get_dynamic_fields())
         return properties
 
     @property

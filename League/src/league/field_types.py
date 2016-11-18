@@ -1,3 +1,7 @@
+class Bool(object):
+    pass
+
+
 class Byte(object):
     pass
 

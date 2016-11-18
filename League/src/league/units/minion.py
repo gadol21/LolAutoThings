@@ -1,9 +1,9 @@
 from league.field_types import Float
-from league_object import LeagueObject
+from attackable_unit import AttackableUnit
 from league.offsets import Offsets
 
 
-class Minion(LeagueObject):
+class Minion(AttackableUnit):
     def __init__(self, engine, addr):
         super(Minion, self).__init__(engine, addr)
 

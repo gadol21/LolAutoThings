@@ -30,3 +30,8 @@ List of Objects:
    initialize_object_list. in this function, there is and instruction "mov edi, 4". after this there is a "mov my_object_count, 0".
    find references for my_object_count, and go to the increase one.
    before the increase, there is a "mov [eax + ecx*4], esi". eax is my_object_list - there should be a "mov eax, my_object_list"  somewhere near
+
+GetObjectVarsManager:
+    This function is in the vtable of AttackableUnit.
+    Find "ALE-1173CB8D". just before it there is a vtable call. this call is to GetObjectVarManager.
+    inspect the function dynamically to find out what is the offset of ObjectVarManager

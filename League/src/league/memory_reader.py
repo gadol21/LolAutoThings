@@ -9,15 +9,34 @@ class MemoryReader(object):
 
     def __init__(self, engine):
         self._engine = engine
-        self._readers = {Byte: engine.read_byte, Short: engine.read_short,
+        self._readers = {Bool: MemoryReader.read_bool(engine),
+                         Byte: engine.read_byte, Short: engine.read_short,
                          Int: engine.read_int, Float: engine.read_float,
                          NullTerminatedString: engine.read_string,
                          LengthedString: engine.read_string}
         self._fields = self.get_fields()
+        # To be initialized by inheriting classes
+        self._dynamic_fields = {}
+
+    @staticmethod
+    def read_bool(engine):
+        def inner(addr):
+            return engine.read_byte(addr) != '\x00'
+        return inner
 
     def __getattr__(self, item):
-        if item not in self._fields:
+        dynamic_fields = self.get_dynamic_fields()
+        if item not in self._fields and \
+           item not in dynamic_fields:
             raise KeyError("Could not find the specific attr")
+
+        # Read dynamic field
+        if item in dynamic_fields:
+            riot_name, field_type = dynamic_fields[item]
+            offset = self._dynamic_fields[riot_name]
+            return self.read(field_type, self.addr + offset)
+
+        # Read regular field
         field = self._fields[item]
         if len(field) == 2:
             offset, field_type = field
@@ -53,6 +72,15 @@ class MemoryReader(object):
         """
         return {}
 
+    def get_dynamic_fields(self):
+        """
+        You should override it
+        :returns: dictionary - for each property name it contains a tuple for
+                               Riot's name for that property, and its type.
+                               example: {'hp': ('mHp', Float)}
+        """
+        return {}
+
     def dump_memory(self):
         """
         dumps the first X bytes from the object's base address.
@@ -66,4 +94,5 @@ class MemoryReader(object):
         """
         return sorted(set(dir(type(self)) +
                           self.__dict__.keys() +
-                          self.get_fields().keys()))
+                          self.get_fields().keys() +
+                          self.get_dynamic_fields().keys()))

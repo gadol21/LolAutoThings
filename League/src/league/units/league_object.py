@@ -9,7 +9,6 @@ class LeagueObject(MemoryReader):
     Describe abstract class for league object, provide the ability to read
     data of the object.
     """
-
     def __init__(self, engine, addr):
         super(LeagueObject, self).__init__(engine)
         self.addr = addr
@@ -73,7 +72,6 @@ class LeagueObject(MemoryReader):
         return {'team': (Offsets.TEAM_OFFSET, Int),
                 'name_length': (Offsets.NAME_LENGTH_OFFSET, Int),
                 'x': (Offsets.X_OFFSET, Float), 'z': (Offsets.Z_OFFSET, Float), 'y': (Offsets.Y_OFFSET, Float),
-                'health': (Offsets.HEALTH_OFFSET, Float), 'max_health': (Offsets.MAX_HEALTH_OFFSET, Float),
                 'netid': (Offsets.NETID_OFFSET, Int)}
 
     def distance_from(self, another_obj):
