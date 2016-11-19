@@ -1,12 +1,15 @@
 from league import *
 from autosmite import AutoSmite
+from clonedetector import CloneDetector
 from warddetector import WardDetector
 
 PORT = 24766
 
 cheats = []
 
-CHEAT_NAMES = {'as': AutoSmite, 'wd': WardDetector}
+CHEAT_NAMES = {'as': AutoSmite,
+               'wd': WardDetector,
+               'cd': CloneDetector}
 
 
 def add_cheat(cheat):
@@ -58,6 +61,7 @@ def on_object_remove(event):
 if __name__ == '__main__':
     init()
     add_cheat(AutoSmite())
+    add_cheat(CloneDetector())
     add_cheat(WardDetector())
     init_cheats()
     register_callback(events.ChatCommand, on_chat)
